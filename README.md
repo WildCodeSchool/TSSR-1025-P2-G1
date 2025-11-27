@@ -14,7 +14,7 @@
 # 2. Présentation du projet
 
 
-# 3.👥 Membres du groupe par sprint
+# 3. Membres du groupe par sprint
 
 **Sprint 1**
 
