@@ -1,12 +1,12 @@
 ## Sommaire 
 
-1. [📜 Introduction](#-introduction)
-2. [🎯 Présentation du projet](#-présentation-du-projet)
-3. [👥 Membres du groupe par sprint](#-membres-du-groupe-par-sprint)
-4. [⚙️ Choix techniques](#️-choix-techniques)
-5. [🧗 Difficultés rencontrées](#-difficultés-rencontrées)
-6. [💡 Solutions trouvées](#-solutions-trouvées)
-7. [🚀 Améliorations possibles](#-améliorations-possibles)
+1. [📜 Introduction](#1-introduction)
+2. [🎯 Présentation du projet](#2-présentation-du-projet)
+3. [👥 Membres du groupe par sprint](#3-membres-du-groupe-par-sprint)
+4. [⚙️ Choix techniques](#️4-choix-techniques)
+5. [🧗 Difficultés rencontrées](#5-difficultés-rencontrées)
+6. [💡 Solutions trouvées](#6-solutions-trouvées)
+7. [🚀 Améliorations possibles](#7-améliorations-possibles)
 
 # 1.📜 Introduction
 
