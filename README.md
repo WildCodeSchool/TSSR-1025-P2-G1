@@ -37,8 +37,6 @@
 # 4.⚙️ Choix techniques
 <span id="choix-techniques"></span>
 
-**Matériel**
-
 
 # 5.🧗 Difficultés rencontrées 
 <span id="difficultes-rencontrees"></span>
