@@ -25,3 +25,4 @@ else
     echo "ATTENTION : La commande 'sensors' est introuvable."
     echo "Utiliser 'sudo apt install lm-sensors' pour l'installer"
 fi
+return 0
