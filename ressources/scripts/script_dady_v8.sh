@@ -13,8 +13,12 @@
 
 # For menu titles: Underlined and yellow
 TITLE='\033[4;33m'
-# Used for labels: green
-LABEL='\033[0;32m'
+# Used for labels: purple
+LABEL='\033[0;35m'
+# Used for FALSE: red
+RED='\033[0;31m'
+# Used for TRUE: green
+GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
 
@@ -38,11 +42,12 @@ countdown=5
 menu()
     {
     while true; do
+        clear
         echo -e "${TITLE}Menu :${NC}"
         echo -e "1) Utilisateur"
         echo -e "2) Ordinateur"
         echo -e "3) Sortie"
-    read -p "Votre choix :" choice
+        read -p "Votre choix :" choice
 
         case $choice in
             1)  menu_user;; 
@@ -182,7 +187,8 @@ menu_computer_action()
             read -p "Votre choix :" choice3
 
             case $choice3 in
-                1)  lock;;
+                1)  clear
+                    source ~/Documents/scripts/computer/actions/script_lock.sh;;
                 2)  clear
                     source ~/Documents/scripts/computer/actions/;;
                 3)  clear
@@ -274,34 +280,48 @@ menu_computer_information()
 #########################################################################
 
 # Ask for the desired computer
-#    clear
-#    echo -e "${TITLE}Sur quel ordinateurs voulez-vous vous connecter ?${NC}"
-#    echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
-#    echo ""
-#    read -p "L'ordinateur voulu :" target_computer
-#
-#    # Check if the requested computer exists in the SSH connection software
-#    clear
-#    echo "Créer le code pour vérifier si l'ordinateur demandé existe sur le logiciel SSH"
-#    sleep 1
-#
-#    # Clean and display the computer being connected to
-#    clear
-#    echo -e "${TITLE}Voici l'ordinateur ciblé${NC}"
-#    echo ""
-#    echo "$target_computer"
-#    # Pause for 3 seconds
-#    sleep 3
-#    clear
-#
-#    # Connection to the requested computer
-#    clear
-#    echo -e "Créer le code de connexion à l'ordinateur ciblé"
-#    sleep 1
-#    clear
+    
+    while true; do
+        echo -e "${TITLE}Menu TEST SSH :${NC}"
+        echo -e "1) Connexion SSH"
+        echo -e "2) Déjà connecté !"
+        echo -e "3) Sortie"
+        read -p "Votre choix :" choice4
 
-# Call menu function
-    clear
-    menu
+        case $choice4 in
+            1)  clear
+                echo -e "${TITLE}Sur quel ordinateurs voulez-vous vous connecter ?${NC}"
+                echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
+                echo ""
+                # ask target and save un variable
+                read -p "L'ordinateur voulu :" target_computer
+
+                # Check if the requested computer exists in the SSH connection software
+                clear
+                # show hosts et 
+                if ! cat /etc/hosts | grep "$target_computer"
+                then
+                    echo "L'odinateur demandé n'existe pas veuillez nous mentionné un ordinateur existant dans le réseau."
+                    exit 1
+                else
+                    echo -e "${LABEL}Connexion à $target_computer${NC}"
+                    read -p "L'utilisateur voulu :" target_user
+                    # Copier TOUT le dossier scripts vers ~/Documents/ sur la machine distante
+                    scp -r ~/Documents/scripts "$target_user@$target_computer:~/Documents/"
+                    # Lancer PapaScript à distance depuis ce dossier
+                    ssh -t "$target_user@$target_computer" "bash ~/Documents/scripts/script_dady_v8.sh"
+                        if [[ ! $? -eq 0 ]]
+                        then
+                            echo -e "${RED}WARNING !!! L'utilisatuer $target_user n'existe pas !!!${NC}"
+                            exit 1
+                        fi
+                fi;; 
+            2)  clear
+                menu;;
+            3)  echo -e "Exit - FIN DE SCRIPT"
+                exit 0;;
+            *)  echo -e "Erreur";;
+        esac
+    done
 
 #########################################################################
