@@ -60,7 +60,7 @@ apt-cache policy openssh-server
 
 Voici la Capture d'écran :
 
- ![image](Ressources/Serveur_Debian/debian_statut_openssh.png)
+ ![image](ressources/images/SRVLX01/debian_statut_openssh.png)
  
   
 Nous pouvons constater que la **OpenSHH** est bien installé et que nous avons la version 10.0.
@@ -79,7 +79,7 @@ systemctl status sshd
 ```
 
 
-![image](Ressources/Serveur_Debian/Statut_fonctionnement-openssh_debian.png)
+![image](ressources/images/SRVLX01/statut_fonctionnement-openssh_debian.png)
 
 Nous voyons que le statut est bien en mode *active*.
 
@@ -128,7 +128,7 @@ ssh-copy-id wilder@CLILIN01
 ```
 Nous devrions avoir cette affichage :
 
-![screenshot](Ressources/Serveur_Debian/Add_copy_keysPub_CLILIN01.png)
+![screenshot](ressources/images/SRVLX01/add_copy_keyspub_clilin01.png)
 
 ##### 2.5 Installation de keychain
 
@@ -141,7 +141,7 @@ Dans la barre de recherche en bas de l'écran il nous faut inscrire
 
 	optional features
 
-![Screenshots](Ressources/Serveur_Windows/Optional_features.png)
+![Screenshots](ressources/images/SRVWIN01/optional_features.png)
 
 Si **OpenSSH Client** n'est pas installer cliquer sur **Add a feature** pour procéder à l'installation.
 
@@ -152,7 +152,7 @@ Pour générer la paire de clés voici la commande :
 ```bash
 ssh-keygen -t ed25519 -C "wilder@srvwin_lab"
 ```
-![Screenshots](Ressources/Serveur_Windows/creation_keys_srvwin01.png)
+![Screenshots](ressources/images/SRVWIN01/creation_keys_srvwin01.png)
 Remplir impérativement la **passphrase** ,cela seras le seul mot de passe à retenir pour toutes vos connexions sur vos serveurs possédant cette clé.
 
 ##### 3.3 Copie de la clé Publique sur *CLIWIN01*
@@ -250,7 +250,7 @@ sudo systemctl status ssh
 ```
 Nous devrions avoir l'affichage suivant : 
 
-![screnshoot](Ressources/Client_Linux/Statut_ssh_clilin01.png)
+![screnshoot](ressources/images/CLILIN01/statut_ssh_clilin01.png)
 
 ##### 5.2 Configuration du fichier de configuration SSH.
 
@@ -283,7 +283,7 @@ ssh wilder@CLILIN01
 ```
 Nous devrions avoir cette affichage :
 
-![Screnshoot](Ressources/Serveur_Debian/Connexion_SSH_Keys_CLILIN01.png)
+![Screnshoot](ressources/images/SRVLX01/connexion_ssh_keys_clilin01.png)
 
 Maintenant nous allons exécuter ses deux commandes pour sécurisés l’accès a notre clé *Publique* :
 
@@ -298,7 +298,7 @@ ls -la ~/.ssh
 ```
 Nous devrions avoir cette affichage :
 
-![Screenshots](Ressources/Client_Linux/Permissions_files_SSH_CLILIN01.png)
+![Screenshots](ressources/images/SRVLIN01/permissions_files_ssh_clilin01.png)
 
 
 ## 6. FAQ
