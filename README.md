@@ -28,6 +28,11 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 **Sprint 2**
 
+| Membre      | Rôle       | Missions                                                                                                          |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| Matthias        | PO         | Scripting PowerShell / Scripting Shell / Mise en place et ajustement de l'ergonomie du script / Mise à jour USER_GUID.md GitHub|
+| Franck     | SM         | Scripting PowerShell / Scripting Shell / Configuration et connexion SSH / Mise à jour INSTALL.md GitHub   |
+| Nicolas     | Technicien | Scripting PowerShell / Scripting Shell / Mise en place du logging / Mise à jour README.md Github Github|
 
 **Sprint 3**
 
