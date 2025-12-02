@@ -96,8 +96,13 @@ Pour générer la paire de clés voici la commande :
 ```bash
 ssh-keygen -t ed25519 -C "wilder@debian-lab"
 ```
+![Screenshots](ressources/images/SRVLX01/generate_keys_SRVLX01.png)
+A cette première interrogation, cela nous demande ou on veux stocker la clé. Si on veux la laisser par défaut il faut juste appuyer sur la touche "**ENTREE**" de votre clavier.
 
 Remplir impérativement la **passphrase** ,cela seras le seul mot de passe à retenir pour toutes vos connexions sur vos serveurs possédant cette clé.
+
+![Screenshots](ressources/images/SRVLX01/keys_SRVLX01.png)
+
 
 ##### 2.3 Copie de la clé Publique sur *CLIWIN01*.
 
@@ -131,6 +136,37 @@ Nous devrions avoir cette affichage :
 ![screenshot](ressources/images/SRVLX01/add_copy_keyspub_clilin01.png)
 
 ##### 2.5 Installation de keychain
+
+Pour évité d'avoir a taper notre *Passphrase* à chaque connexion **SSH** installons **Keychain** avec ces commandes :
+
+On va commencer par vérifier que notre clé SSH est bien présente sur SRVLX01 :
+
+```bash
+ls -al ~/.ssh
+```
+
+![Screenshots](ressources/images/SRVLX01/ssh_key_present_SVRLX01.png)
+
+Tapons cette commande pour l'installation de Keychain :
+
+```bash
+sudo apt install -y keychain
+```
+
+Une fois installé il nous reste plus qu'a modifier le fichier de configuration de **keychain**.
+
+Ouvrons le fichier de configuration à l'aide de cette commande :
+
+```bash
+sudo nano ~/.bashrc
+```
+Ajoutons cette ligne à la fin du fichier :
+
+		eval $(keychain --eval --quiet id_ed25519)
+
+
+![Screenshots](ressources/images/SRVLX01/configuration_keychain.png)
+
 
 
 ## 3. Installation sur le serveur Windows ( Windows serveur 2022 )
@@ -185,6 +221,13 @@ Start-Service sshd
 ```bash
 Set-Service -Name sshd -StartupType "Automatic"
 ```
+Pour contrôler si le service sshd est activé , tapons cette commande :
+
+```bash
+Get-Service sshd
+```
+
+![Screenshots](ressources/images/CLIWIN01/status_sshd_CLIWIN01.png)
 
 ##### 4.2 Modification du fichier de configuration *SSH*
 
@@ -289,7 +332,7 @@ Maintenant nous allons exécuter ses deux commandes pour sécurisés l’accès 
 
 ```bash
 chmod 700 ~/.ssh
-chmod 600 ~/.ssh/autorized_keys
+chmod 600 ~/.ssh/authorized_keys
 ```
 Nous pouvons vérifié les droits avec cette commande :
 
