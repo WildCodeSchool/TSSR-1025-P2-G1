@@ -14,3 +14,4 @@ CPU_USAGE=$(echo "100 - $PERCENT" | bc -l)
 
     # Displaying the result
         echo "Utilisation du CPU : **$CPU_USAGE %**"
+return 0
