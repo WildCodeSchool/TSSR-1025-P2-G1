@@ -4,7 +4,7 @@
 # 2025/12/01
 ##############################
 
-echo "=== Mes disques et partitions ==="
+echo -e "${TITLE}Mes disques et partitions${NC}"
 echo ""
 
 # Affichage des disques et partition

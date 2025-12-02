@@ -4,7 +4,10 @@
 # 2025/12/01
 ##############################
 
-# Afficher le status du pare-feu
+echo -e "${TITLE}Statut du pare-feu${NC}"
+echo ""
+
+# Display status of the firewall
 ufw status | grep -q "Status: active"
 if [ $? -eq 0 ]
 then

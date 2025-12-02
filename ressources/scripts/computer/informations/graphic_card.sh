@@ -4,7 +4,8 @@
 # 2025/11/29
 ##############################
 
-echo "Détails de la carte graphique"
+echo -e "${TITLE}Détails de la carte graphique${NC}"
+echo ""
 
 # Checked if 'lshw' is installed
 if command -v lshw &> /dev/null

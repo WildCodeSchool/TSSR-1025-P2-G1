@@ -4,16 +4,16 @@
 # 2025/12/01
 ##############################
 
-echo "Vérification de la température du CPU"
-echo "---"
+echo -e "${TITLE}Vérification de la température du CPU${NC}"
+echo ""
 
 # Checked if 'sensors' is installed
 if command -v sensors &> /dev/null
 then
-# Exécution de la commande 'sensors' et filtrage
+# Execution of the 'sensors' command and filtering.
     sensors 2>/dev/null | grep -E 'Core |Package id'
     
-# Vérifie si le filtre a trouvé des données
+# Check if the filter found any data. 
         if [ $? -eq 0 ];
         then
             echo "Capteurs détectés : Affichage des températures :"
@@ -21,7 +21,7 @@ then
             echo "Aucun capteur CPU fonctionnel n'a été trouvé."
         fi    
 else
-    # Si la commande n'est pas installée : affiche le message d'erreur
+# If the command is not installed: display the error message
     echo "ATTENTION : La commande 'sensors' est introuvable."
     echo "Utiliser 'sudo apt install lm-sensors' pour l'installer"
 fi
