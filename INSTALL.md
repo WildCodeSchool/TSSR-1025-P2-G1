@@ -298,7 +298,7 @@ ls -la ~/.ssh
 ```
 Nous devrions avoir cette affichage :
 
-![Screenshots](ressources/images/SRVLIN01/permissions_files_ssh_clilin01.png)
+![Screenshots](ressources/images/CLILIN01/permissions_files_ssh_clilin01.png)
 
 
 ## 6. FAQ
