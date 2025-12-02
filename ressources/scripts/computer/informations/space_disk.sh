@@ -9,3 +9,4 @@ echo ""
 
 # Affichage des disques et partition
 lsblk -f
+return 0
