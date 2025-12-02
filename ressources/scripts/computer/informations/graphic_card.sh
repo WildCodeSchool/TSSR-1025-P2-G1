@@ -16,3 +16,4 @@ else
 # Command isn't installed : error message
     echo "ATTENTION : La commande 'lshw' n'est pas installée."
 fi
+return 0
