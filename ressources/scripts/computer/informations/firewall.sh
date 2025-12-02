@@ -26,3 +26,4 @@ else
         echo "Le pare-feu est toujours désactivé."
     fi
 fi
+return 0 
