@@ -30,6 +30,7 @@ NC='\033[0m'
 
 # Variable Script lock_computer
 countdown=5
+target_user=wilder
 
 #########################################################################
 
@@ -282,7 +283,7 @@ menu_computer_information()
 # Ask for the desired computer
     
     while true; do
-        echo -e "${TITLE}Menu TEST SSH :${NC}"
+        echo -e "${TITLE}Menu :${NC}"
         echo -e "1) Connexion SSH"
         echo -e "2) Déjà connecté !"
         echo -e "3) Sortie"
@@ -298,24 +299,15 @@ menu_computer_information()
 
                 # Check if the requested computer exists in the SSH connection software
                 clear
-                # show hosts et 
+                # show hosts et check if user is on
                 if ! cat /etc/hosts | grep "$target_computer"
                 then
                     echo "L'odinateur demandé n'existe pas veuillez nous mentionné un ordinateur existant dans le réseau."
                     exit 1
                 else
-                    echo -e "${LABEL}Connexion à $target_computer${NC}"
-                    read -p "L'utilisateur voulu :" target_user
-                    # Copier TOUT le dossier scripts vers ~/Documents/ sur la machine distante
-                    scp -r ~/Documents/scripts "$target_user@$target_computer:~/Documents/"
-                    # Lancer PapaScript à distance depuis ce dossier
-                    ssh -t "$target_user@$target_computer" "bash ~/Documents/scripts/script_dady_v8.sh"
-                        if [[ ! $? -eq 0 ]]
-                        then
-                            echo -e "${RED}WARNING !!! L'utilisatuer $target_user n'existe pas !!!${NC}"
-                            exit 1
-                        fi
-                fi;; 
+                   menu
+                fi
+                ;; 
             2)  clear
                 menu;;
             3)  echo -e "Exit - FIN DE SCRIPT"
