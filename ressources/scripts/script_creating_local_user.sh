@@ -1,17 +1,12 @@
 #!/bin/bash
-#############################
-# Script firewall
-# Jouveaux Nicolas
+
+#########################################################################
+# Script creating local user
+# Paisant Franck
 # Execution SUDO
-# 2025/12/01
-##############################
-#########################################################################
-# Variable
+# 01/12/2025
 #########################################################################
 
-countdown=5
-
-#########################################################################
 #########################################################################
 #                     Define colors with variables                      #
 #########################################################################
@@ -33,33 +28,34 @@ NC='\033[0m'
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Activation du Pare-Feu${NC}"
+    echo -e "${TITLE}Création d'utilisateur local${NC}"
     echo ""
 
-# Afficher le status du pare-feu
-ufw status | grep -q "Status: active"
+#boucle
+while true
+do
+	#username request created
+	read -p " quel est le nom du compte utilisateur a créé ? : " name
+
+	#verification and creation of the user account if it exists
+	if id "$name" &>/dev/null
+	then
+		echo -e "${RED}WARNING !${NC} le compte utilisateur existe déjà "
+		echo ""
+	
+	else
+		useradd "$name"
+		break
+	fi
+done
+# verification creation user
 if [ $? -eq 0 ]
 then
-    echo "Le pare-feu est activé."
-    read -p "Voulez-vous le désactiver ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été désactivé."
-        echo ""
-    else
-        echo "Le pare-feu est toujours activé."
-        echo ""
-    fi
+	echo "le compte utilisateur $name est bien créé!"
+	echo ""
 else
-    echo "Le pare-feu est désactivé."
-    read -p "Voulez-vous l'activer ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été activé."
-        echo ""
-    else
-        echo "Le pare-feu est toujours désactivé."
-        echo ""
-    fi
+	echo -e "${RED}WARNING ! ${NC}le compte utilisateur $name n'a pas été créé !!!"
+	echo ""
 fi
-exit 0 
+exit 0
+############################################################################
