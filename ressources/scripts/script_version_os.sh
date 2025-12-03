@@ -1,11 +1,11 @@
 #!/bin/bash
-#############################
-# Script graphic_card
-# Jouveaux Nicolas
-# 2025/11/29
-##############################
 
 #########################################################################
+# Script version os
+# Paisant Franck
+# 30/11/2025
+#########################################################################
+
 #########################################################################
 #                     Define colors with variables                      #
 #########################################################################
@@ -22,26 +22,17 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 #########################################################################
 
-#########################################################################
 # Script
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Carte graphique${NC}"
+    echo -e "${TITLE}Version de l'OS${NC}"
     echo ""
 
-echo "Détails de la carte graphique"
-echo ""
-
-# Checked if 'lshw' is installed
-if command -v lshw &> /dev/null
-then
-    echo "Recherche de la carte graphique"
-# Command execution
-    lshw -C display    
-else
-# Command isn't installed : error message
-    echo "ATTENTION : La commande 'lshw' n'est pas installée."
+#command to display the OS version
+version=$(lsb_release -ds 2>/dev/null)
+    echo -e "${TITLE}$version${NC}"
     echo ""
-fi
 exit 0
+
+#########################################################################
