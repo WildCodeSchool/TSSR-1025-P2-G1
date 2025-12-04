@@ -43,7 +43,7 @@ execution_script()
     {
      local script_name="$1"   
      echo "Connexion à $target_computer et éxécution du $script_name"
-                    scp ~/Projet_2/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
+                    scp ~/Documents/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh "$target_user"@"$target_computer" "bash /tmp/"$script_name""
@@ -76,7 +76,7 @@ execution_script_sudo()
     {
      local script_name="$1"   
      echo "Connexion à $target_computer et éxécution du $script_name"
-                    scp ~/Projet_2/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
+                    scp ~/Documents/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
@@ -260,6 +260,7 @@ menu_computer_action()
                         execution_script "script_lock.sh"
                     ;;
                 2)  clear
+                        execution_script_sudo "script_restart.sh"
                     ;;
                 3)  clear
                         execution_script_sudo "script_firewall.sh"
