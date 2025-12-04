@@ -63,7 +63,7 @@ Voici la Capture d'écran :
  ![image](ressources/images/SRVLX01/debian_statut_openssh.png)
  
   
-Nous pouvons constater que la **OpenSHH** est bien installé et que nous avons la version 10.0.
+Nous pouvons constater que **OpenSHH** est bien installé et que nous avons la version 10.0.
 
 Si **OpenSSH** n'est pas installé voici la commande :
 

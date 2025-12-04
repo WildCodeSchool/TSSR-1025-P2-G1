@@ -1,32 +1,25 @@
 #!/bin/bash
 #############################
 # Script firewall
+# Nicolas Jouveaux
 # 2025/12/01
 ##############################
 
 echo -e "${TITLE}Statut du pare-feu${NC}"
 echo ""
 
-# Display status of the firewall
-ufw status | grep -q "Status: active"
-if [ $? -eq 0 ]
-then
-    echo "Le pare-feu est activé."
-    read -p "Voulez-vous le désactiver ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été désactivé."
-    else
-        echo "Le pare-feu est toujours activé."
-    fi
+echo "1) Activer le pare-feu"
+echo "2) Désactiver le pare-feu"
+echo ""
+read -p "➤ Choisis 1 ou 2 : " rep
+
+if [ "$rep" = "1" ]; then
+    echo "Activation du pare-feu"
+    sudo ufw --force enable >/dev/null 2>&1
+    echo "Pare-feu activé"
 else
-    echo "Le pare-feu est désactivé."
-    read -p "Voulez-vous l'activer ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été activé."
-    else
-        echo "Le pare-feu est toujours désactivé."
-    fi
+    echo "Désactivation du pare-feu"
+    sudo ufw disable >/dev/null 2>&1
+    echo "Pare-feu désactivé => OPEN-BAR"
 fi
-return 0 
+return 0

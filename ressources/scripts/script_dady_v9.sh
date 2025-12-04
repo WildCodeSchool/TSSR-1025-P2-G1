@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #########################################################################
-# Script Dady V.8
+# Script Dady V.9
 # script must be executed with "sudo"
-# Chicaud Matthias
+# Chicaud Matthias/Paisant Franck
 # 02/12/2025
 #########################################################################
 
@@ -28,8 +28,7 @@ NC='\033[0m'
 #                              Variable                                 #
 #########################################################################
 
-# Variable Script lock_computer
-countdown=5
+# Variable user
 target_user=wilder
 
 #########################################################################
@@ -38,6 +37,73 @@ target_user=wilder
 #                           Bash Function                               #
 #########################################################################
 
+#-------------------- Execution script ----------------------------------
+#function to run a script with file call
+execution_script()
+    {
+     local script_name="$1"   
+     echo "Connexion à $target_computer et éxécution du $script_name"
+                    scp ~/Projet_2/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
+                        if [ $? -eq 0 ]
+                        then
+                            ssh "$target_user"@"$target_computer" "bash /tmp/"$script_name""
+                            if [ $? -eq 0 ]
+                            then
+                                echo "Le $script_name a été exécuter avec succès"
+                                echo ""
+                            else
+                                echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuter !!!"
+                                echo ""
+                                exit 1
+                            fi
+                            ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
+                                if [ $? -eq 0 ]
+                                then
+                                    echo "Le fichier $script_name a bien été effacer de $target_computer"
+                                    echo ""
+                                else
+                                    echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimer de $target_computer"
+                                    echo ""
+                                    exit 1
+                                fi
+                        else
+                            echo -e "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionner"
+                            exit 1
+                        fi  
+    }
+#Function to run a script in sudo mode with file call
+execution_script_sudo()
+    {
+     local script_name="$1"   
+     echo "Connexion à $target_computer et éxécution du $script_name"
+                    scp ~/Projet_2/TSSR-1025-P2-G1/ressources/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
+                        if [ $? -eq 0 ]
+                        then
+                            ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
+                            if [ $? -eq 0 ]
+                            then
+                                echo "Le $script_name a été exécuter avec succès"
+                                echo ""
+                            else
+                                echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuter !!!"
+                                echo ""
+                                exit 1
+                            fi
+                            ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
+                                if [ $? -eq 0 ]
+                                then
+                                    echo "Le fichier $script_name a bien été effacer de $target_computer"
+                                    echo ""
+                                else
+                                    echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimer de $target_computer"
+                                    echo ""
+                                    exit 1
+                                fi
+                        else
+                            echo -e "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionner"
+                            exit 1
+                        fi  
+    }
 # ---------------------- Menu function -----------------------------
 # Main menu, which calls the main User and Computer menus
 menu()
@@ -45,8 +111,8 @@ menu()
     while true; do
         clear
         echo -e "${TITLE}Menu :${NC}"
-        echo -e "1) Utilisateur"
-        echo -e "2) Ordinateur"
+        echo -e "1) Utilisateur (Action/Information)"
+        echo -e "2) Ordinateur  (Action/Information)"
         echo -e "3) Sortie"
         read -p "Votre choix :" choice
 
@@ -102,15 +168,17 @@ menu_user_action()
 
             case $choice3 in
                 1)  clear
-                    source ~/Documents/scripts/user/actions/script_creating_local_user.sh;;
+                        execution_script_sudo "script_creating_local_user.sh"
+                    ;;
                 2)  clear
-                    source ~/Documents/scripts/user/actions/;;
+                    ;;
                 3)  clear
-                    source ~/Documents/scripts/user/actions/;;
+                    ;;
                 4)  clear
-                    source ~/Documents/scripts/user/actions/;;
+                        execution_script_sudo "script_add_group_administration.sh"
+                    ;;
                 5)  clear
-                    source ~/Documents/scripts/user/actions/;;
+                    ;;
                 6)  clear
                     break;;
                 7)  echo -e "Exit - FIN DE SCRIPT"
@@ -135,9 +203,9 @@ menu_user_information()
 
             case $choice3 in
                 1)  clear
-                    source ~/Documents/scripts/user/informations/;;
+                    ;;
                 2)  clear
-                    source ~/Documents/scripts/user/informations/;;
+                    ;;
                 3)  clear
                     break;;
                 4)  echo -e "Exit - FIN DE SCRIPT"
@@ -189,17 +257,19 @@ menu_computer_action()
 
             case $choice3 in
                 1)  clear
-                    source ~/Documents/scripts/computer/actions/script_lock.sh;;
+                        execution_script "script_lock.sh"
+                    ;;
                 2)  clear
-                    source ~/Documents/scripts/computer/actions/;;
+                    ;;
                 3)  clear
-                    source ~/Documents/scripts/computer/actions/;;
+                        execution_script_sudo "script_firewall.sh"
+                    ;;
                 4)  clear
-                    source ~/Documents/scripts/computer/actions/;;
+                    ;;
                 5)  clear
-                    source ~/Documents/scripts/computer/actions/;;
+                    ;;
                 6)  clear
-                    source ~/Documents/scripts/computer/actions/;;
+                    ;;
                 7)  clear
                     break;;
                 8)  echo -e "Exit - FIN DE SCRIPT"
@@ -234,31 +304,36 @@ menu_computer_information()
 
             case $choice3 in
                 1)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 2)  clear
-                    source ~/Documents/scripts/computer/informations/script_os_version.sh;;
+                        execution_script "script_version_os.sh"
+                    ;;
                 3)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                        execution_script_sudo "script_graphic_card.sh"
+                    ;;
                 4)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                        execution_script "script_percent_cpu.sh"
+                    ;;
                 5)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 6)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                        execution_script "script_temp_cpu.sh"
+                    ;;
                 7)  clear
-                    source ~/Documents/scripts/computer/informations/script_number_disk.sh;;
+                    ;;
                 8)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 9)  clear
-                    source ~/Documents/scripts/computer/informations/;;
+                        execution_script "script_space_disk.sh"
+                    ;;
                 10) clear 
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 11) clear 
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 12) clear 
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 13) clear 
-                    source ~/Documents/scripts/computer/informations/;;
+                    ;;
                 14) clear
                     break;;
                 15) echo -e "Exit - FIN DE SCRIPT"
@@ -281,39 +356,29 @@ menu_computer_information()
 #########################################################################
 
 # Ask for the desired computer
-    
-    while true; do
-        echo -e "${TITLE}Menu :${NC}"
-        echo -e "1) Connexion SSH"
-        echo -e "2) Déjà connecté !"
-        echo -e "3) Sortie"
-        read -p "Votre choix :" choice4
+while true
+do
+    clear
+    echo -e "${TITLE}Sur quel Poste Client voulez-vous vous connecter ?${NC}"
+    echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
+    echo ""
+    # ask target and save un variable
+    read -p "Le Poste Client demander :" target_computer
 
-        case $choice4 in
-            1)  clear
-                echo -e "${TITLE}Sur quel ordinateurs voulez-vous vous connecter ?${NC}"
-                echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
-                echo ""
-                # ask target and save un variable
-                read -p "L'ordinateur voulu :" target_computer
+    # Check if the requested computer exists in the SSH connection software
+    clear
+    # show hosts et check if user is on
+    if ! cat /etc/hosts | grep "$target_computer"
+    then
+        echo -e "${RED}Le Poste client demandé n'existe pas sur notre réseaux ${NC} veuillez mentionner un PC existant dans notre réseau."
+        echo ""
+        read -p " Appuyer sur Entréé pour réessayer..."
+    else
+        break 
+    fi
+done
 
-                # Check if the requested computer exists in the SSH connection software
-                clear
-                # show hosts et check if user is on
-                if ! cat /etc/hosts | grep "$target_computer"
-                then
-                    echo "L'odinateur demandé n'existe pas veuillez nous mentionné un ordinateur existant dans le réseau."
-                    exit 1
-                else
-                   menu
-                fi
-                ;; 
-            2)  clear
-                menu;;
-            3)  echo -e "Exit - FIN DE SCRIPT"
-                exit 0;;
-            *)  echo -e "Erreur";;
-        esac
-    done
+menu
+            
 
 #########################################################################

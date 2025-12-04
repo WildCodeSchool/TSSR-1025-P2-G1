@@ -41,6 +41,28 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 
 # 4. Choix techniques
+    
+   ## Matériels :
+
+ Plateforme d'hébergement : PROXMOX
+   - 4 VM ( 2 serveurs + 2 clients )   
+
+| Machine      | IP      | OS                                                                                                          |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| CLIWIN01        | 172.16.10.20         | Windows 10/11|
+| CLILIN01   | 172.16.10.30         | Ubuntu 24 LTS|
+| SRVWIN01    | 172.16.10.5 | Windows Server 2022/2025 GUI|
+| SRVLX01   | 172.16.10.10         | Debian 12/13 CLI|
+
+Passerelle par défaut : 172.16.10.254
+Masque de sous-réseau : 255.255.255.0
+DNS : 8.8.8.8
+
+## Logiciels :  
+
+   - OpenSSH  
+   - L'outil keychain
+
 
 
 # 5. Difficultés rencontrées 
