@@ -33,10 +33,6 @@ NC='\033[0m'
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Activation du Pare-Feu${NC}"
-    echo ""
-
-# menu name display
     echo -e "${TITLE}Activation du pare-feu${NC}"
     echo ""
 
