@@ -33,33 +33,22 @@ NC='\033[0m'
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Activation du Pare-Feu${NC}"
+    echo -e "${TITLE}Activation du pare-feu${NC}"
     echo ""
 
-# Afficher le status du pare-feu
-ufw status | grep -q "Status: active"
-if [ $? -eq 0 ]
-then
-    echo "Le pare-feu est activé."
-    read -p "Voulez-vous le désactiver ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été désactivé."
-        echo ""
-    else
-        echo "Le pare-feu est toujours activé."
-        echo ""
-    fi
+# Display options to enable or disable the firewall 
+echo "1) Activer le pare-feu"
+echo "2) Désactiver le pare-feu"
+echo ""
+read -p "➤ Choisis 1 ou 2 : " reply
+
+if [ "$reply" = "1" ]; then
+    echo "Activation du pare-feu"
+    sudo ufw --force enable >/dev/null 2>&1
+    echo "Pare-feu activé"
 else
-    echo "Le pare-feu est désactivé."
-    read -p "Voulez-vous l'activer ? (o/n) : " reply
-    if [ "$reply" = "o" ]
-    then
-        echo "Le pare-feu a été activé."
-        echo ""
-    else
-        echo "Le pare-feu est toujours désactivé."
-        echo ""
-    fi
+    echo "Désactivation du pare-feu"
+    sudo ufw disable >/dev/null 2>&1
+    echo "Pare-feu désactivé => WARNING OPEN-BAR"
 fi
-exit 0 
+exit 0
