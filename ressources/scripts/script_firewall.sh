@@ -46,9 +46,11 @@ if [ "$reply" = "1" ]; then
     echo "Activation du pare-feu"
     sudo ufw --force enable >/dev/null 2>&1
     echo "Pare-feu activé"
+    sudo ufw status verbose
 else
     echo "Désactivation du pare-feu"
     sudo ufw disable >/dev/null 2>&1
     echo "Pare-feu désactivé => WARNING OPEN-BAR"
+    sudo ufw status verbose
 fi
 exit 0
