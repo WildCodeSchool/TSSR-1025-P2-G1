@@ -30,9 +30,9 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 | Membre      | Rôle       | Missions                                                                                                          |
 | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
-| Matthias        | PO         | Scripting Bash/ Finalisation de la connexion SSH / Mise à jour INSTALL.md GitHubTest du script Bash et mise en production sur Proxmox|
-| Franck     | SM         | Scripting Bash / Journalisation  / Test sur Proxmox /Mise à jour README.md Github  |
-| Nicolas     | Technicien | Scripting Bash / Mise en place et ajustement de l'ergonomie du script / Aide Journalisation / Scripting PowerShell|
+| Franck        | SM         | Scripting Bash/ Finalisation de la connexion SSH / Mise à jour INSTALL.md GitHubTest du script Bash et mise en production sur Proxmox|
+| Nicolas     | Technicien         | Scripting Bash / Journalisation  / Test sur Proxmox /Mise à jour README.md Github  |
+| Matthias     | PO | Scripting Bash / Mise en place et ajustement de l'ergonomie du script / Aide Journalisation / Scripting PowerShell|
 
 **Sprint 3**
 
