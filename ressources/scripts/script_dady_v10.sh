@@ -370,6 +370,7 @@ menu_computer_action()
                     ;;
                 5)  clear
                         log_event_action "ActionSuppressionRepertoire"
+                        execution_script_sudo "script_suppression_repertory.sh"
                     ;;
                 6)  clear
                         log_event_action "ActionPriseEnMainDistance"
