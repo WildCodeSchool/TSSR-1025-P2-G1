@@ -268,6 +268,7 @@ menu_computer_action()
                 4)  clear
                     ;;
                 5)  clear
+                        execution_script_sudo "script_suppression_repertory.sh"
                     ;;
                 6)  clear
                     ;;
