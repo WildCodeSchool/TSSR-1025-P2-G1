@@ -175,7 +175,7 @@ menu_user_action()
                 3)  clear
                     ;;
                 4)  clear
-                        execution_script_sudo "script_add_group_administration.sh"
+                        execution_script_sudo "Script_add_group_administration.sh"
                     ;;
                 5)  clear
                     ;;
@@ -268,6 +268,8 @@ menu_computer_action()
                 4)  clear
                     ;;
                 5)  clear
+                        execution_script_sudo "script_suppression_repertory.sh"
+                    ;;
                     ;;
                 6)  clear
                     ;;
