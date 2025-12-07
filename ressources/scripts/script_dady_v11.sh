@@ -44,9 +44,9 @@ log_file=/var/log/log_evt.log
 # Function loggin for navigation in script_dady
 log_event_navigation()
 {
-    local date=$(date +%Y%m%d)
-    local hour=$(date +%H%M%S)
-    local user=$(whoami)
+    local date="$(date +"%Y%m%d")"
+    local hour="$(date +"%H%M%S")"
+    local user="$(whoami)"
     local event="$1"
     echo -e ""$date"_"$hour"_"$user"_"$event"" >> "$log_file"
 }
@@ -54,30 +54,30 @@ log_event_navigation()
 # Function loggin for informations
 log_event_information()
 {
-    local date=$(date +%Y%m%d)
-    local hour=$(date +%H%M%S)
-    local user=$(whoami)
-    local event=$1
+    local date="$(date +"%Y%m%d")"
+    local hour="$(date +"%H%M%S")"
+    local user="$(whoami)"
+    local event="$1"
     echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
 # Function loggin for actions
 log_event_action()
 {
-    local date=$(date +%Y%m%d)
-    local hour=$(date +%H%M%S)
-    local user=$(whoami)
-    local event=$1
+    local date="$(date +"%Y%m%d")"
+    local hour="$(date +"%H%M%S")"
+    local user="$(whoami)"
+    local event="$1"
     echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
 # Function loggin for connexion ssh
 log_event_connexion()
 {
-    local date=$(date +%Y%m%d)
-    local hour=$(date +%H%M%S)
-    local user=$(whoami)
-    local event=$1
+    local date="$(date +"%Y%m%d")"
+    local hour="$(date +"%H%M%S")"
+    local user="$(whoami)"
+    local event="$1"
     echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
