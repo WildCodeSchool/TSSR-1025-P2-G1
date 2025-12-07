@@ -44,7 +44,7 @@ log_file=/var/log/log_evt.log
 # Function loggin for navigation in script_dady
 log_event_navigation()
 {
-    local date=$(date +%Ym%d)
+    local date=$(date +%Y%m%d)
     local hour=$(date +%H%M%S)
     local user=$(whoami)
     local event="$1"
