@@ -58,7 +58,7 @@ log_event_information()
     local hour=$(date +%H%M%S)
     local user=$(whoami)
     local event=$1
-    echo "$(date +%Y%m%d_%H%M%S)_$(whoami)_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
+    echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
 # Function loggin for actions
@@ -68,7 +68,7 @@ log_event_action()
     local hour=$(date +%H%M%S)
     local user=$(whoami)
     local event=$1
-    echo "$(date +%Y%m%d_%H%M%S)_$(whoami)_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
+    echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
 # Function loggin for connexion ssh
@@ -78,7 +78,7 @@ log_event_connexion()
     local hour=$(date +%H%M%S)
     local user=$(whoami)
     local event=$1
-    echo "$(date +%Y%m%d_%H%M%S)_$(whoami)_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
+    echo ""$date"_"$hour"_"$user"_"$event"_"$target_user"_"$target_computer"" >> "$log_file"
 }
 
 #-------------------- Execution script ----------------------------------
