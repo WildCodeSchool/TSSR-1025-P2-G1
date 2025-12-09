@@ -29,7 +29,7 @@ NC='\033[0m'
 # Variable for save_info function
 info_target="$(hostname)"
 info_date="$(date +%Y%m%d)"
-info_dir="/tmp/info"
+info_dir="~/$(whaomi)/Documents/info"
 info_file="$info_dir/info_${info_target}_${info_date}.txt"
 
 #########################################################################
@@ -42,7 +42,7 @@ save_info()
     local label="$1"
     local value="$2"
     local time_save_info="$(date +%H:%M:%S)"
-    mkdir -p $info_dir
+    mkdir -p "$info_dir"
     echo "[$time_save_info] $label : $value" >> $info_file
 }
 
