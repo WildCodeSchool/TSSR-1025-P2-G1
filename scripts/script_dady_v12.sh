@@ -106,7 +106,7 @@ execution_script_information()
                                 # Create the local /info directory if it does not exist
                                 mkdir -p "$local_info_dir"
                                 # Check if the retrieval was successful
-                                scp "$target_user"@"$target_computer":~/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
                                         echo "Les fichiers info ont été importés dans $local_info_dir"
@@ -171,7 +171,7 @@ execution_script_sudo_information()
                                 # Create the local /info directory if it does not exist
                                 mkdir -p "$local_info_dir"
                                 # Check if the retrieval was successful
-                                scp "$target_user"@"$target_computer":~/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
                                         echo "Les fichiers info ont été importés dans $local_info_dir"
@@ -603,7 +603,7 @@ menu_computer_information()
             echo -e "2) Version de l'OS"
             echo -e "3) Carte graphique"
             echo -e "4) CPU %"
-            echo -e "5) uptime"
+            echo -e "5) Uptime"
             echo -e "6) Température CPU"
             echo -e "7) Nombre de disque"
             echo -e "8) Partition (nombre, nom, FS, taille) par disque"
@@ -657,9 +657,9 @@ menu_computer_information()
                         log_event_information "InformationTempsUtilisationOrdinateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_uptime.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_uptime.ps1"
                         fi
                     ;;
                 6)  clear
