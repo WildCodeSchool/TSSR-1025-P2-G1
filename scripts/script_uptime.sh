@@ -3,7 +3,7 @@
 #########################################################################
 # Script version os
 # Paisant Franck
-# 30/11/2025
+# 09/12/2025
 #########################################################################
 
 #########################################################################
@@ -22,17 +22,44 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 #########################################################################
 
+#########################################################################
+# Variable
+#########################################################################
+
+# Variable for save_info function
+info_target="$(hostname)"
+info_date="$(date +%Y%m%d)"
+info_dir="/home/$(whoami)/Documents/info"
+info_file="$info_dir/info_${info_target}_${info_date}.txt"
+
+#########################################################################
+# Function
+#########################################################################
+
+# function for save information in file
+save_info()
+{
+    local label="$1"
+    local value="$2"
+    local time_save_info="$(date +%H:%M:%S)"
+    mkdir -p "$info_dir"
+    echo "[$time_save_info] $label : $value" >> $info_file
+}
+
+#########################################################################
 # Script
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Version de l'OS${NC}"
+    echo -e "${TITLE}Uptime${NC}"
     echo ""
 
 #command to display the OS version
-version=$(lsb_release -ds 2>/dev/null)
-    echo -e "${TITLE}$version${NC}"
+value="$(uptime -p 2> /dev/null)"
+    echo -e "$value"
     echo ""
+
+    save_info "Uptime" "$value"
 exit 0
 
 #########################################################################
