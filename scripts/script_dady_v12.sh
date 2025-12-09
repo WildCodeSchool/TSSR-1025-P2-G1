@@ -389,7 +389,7 @@ menu_user_action()
                         log_event_action "ActionChangementMDP"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_.sh"
+                            execution_script_sudo_action "script_change_password.sh"
                         else
                             execution_script_windows_action "script_.ps1"
                         fi
@@ -416,7 +416,7 @@ menu_user_action()
                         log_event_action "ActionAjoutGroupe"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_.sh"
+                            execution_script_sudo_action "scripts/script_add_usergroup.sh"
                         else
                             execution_script_windows_action "script_.ps1"
                         fi
