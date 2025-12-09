@@ -38,7 +38,7 @@ target_user="$2"
 execution_script_sudo()
     {
      local script_name="$1"   
-     echo "${TITLE}Connexion à $target_user sur la machine $target_computer et éxécution du $script_name${NC}"
+     echo -e "${TITLE}Connexion à $target_user sur la machine $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
