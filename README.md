@@ -106,9 +106,21 @@ Le script principal utilise :
 - `scp` à nouveau, pour récupérer le fichier d'information
 - Puis un nettoyage automatique du fichier distant
 
+Pour les postes Windows, le fonctionnement est légèrement différent. 
+Les scripts enfants PowerShell sont envoyés dans le dossier :
+`C:/Users/$target_user/Documents/info/*`
+Une fois copiés, ils sont exécutés via PowerShell avec :
+`powershell.exe -ExecutionPolicy Bypass -File C:\Users\<target_user>\Documents\<script>.ps1`
+Puis ils sont supprimés automatiquement après l'exécution, comme pour Linux.
+
 Ce choix permet :
 - La compatibilité multi-OS
 - Un code centralisé exclusivement côté serveur
+
+Le script principal détecte automatiquement si le poste distant est Linux ou Windows.
+La détection se fait via :
+`ssh user@machine "[ -d /etc ]"` 
+Ce choix évite les erreurs de sélection et permet d’adapter automatiquement la commande d’exécution.
 
 ## Journalisation
 Une fonctionnalité de **journalisation centralisée** a été intégrée :
@@ -126,9 +138,9 @@ Ce choix permet une supervision claire et un audit complet du script.
 ## Récupération des informations
 Chaque script enfant suit un **modèle standardisé** :
 - Définition d’un `info_target` (hostname ou utilisateur)
-- Création d’un dossier sur la machine distante
-	- Pour linux : `/tmp/info`
-	- Pour Windows :
+- Les scripts enfants enregistrent désormais les informations dans un dossier persistant :
+	- Linux : ~/Documents/info/
+	- Windows : C:/Users/<target_user>/Documents/info/
 - Mise en forme de la donnée (value)
 - Écriture homogène dans un fichier `info_<cible>_<date>.txt`
 
@@ -139,15 +151,19 @@ Cette approche garantit que :
 ## Rapatriement automatique des fichiers d’informations
 À chaque exécution réussie d’un script enfant, le script principal :
 Pour Debian :
-	Vers Linux :
-	- Télécharge les fichiers `/tmp/info/*`
-	- Les place dans un dossier local dédié :  
-		  `~/Documents/TSSR-1025-P2-G1/ressources/scripts/info/`
-	Vers Windows :	
+Depuis un poste Linux, les fichiers d’informations sont rapatriés depuis :
+~/Documents/info/
+
+Depuis un poste Windows :
+C:/Users/<target_user>/Documents/info/
+
+Ces fichiers sont ensuite copiés automatiquement dans le dossier local du projet :
+~/Documents/TSSR-1025-P2-G1/ressources/scripts/info
 
 Pour Windows server :
-	Vers Linux :
-	Vers Windows :	
+Depuis un poste Linux, les fichiers d’informations sont rapatriés depuis :
+Depuis un poste Windows :
+Ces fichiers sont ensuite copiés automatiquement dans le dossier local du projet :
 
 Ce choix permet d’avoir **toutes les informations regroupées côté serveur** et consultables hors connexion.
 
