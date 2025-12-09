@@ -398,9 +398,9 @@ menu_user_action()
                         log_event_action "ActionSuppressionCompteUtilisateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_suppression_directory.sh"
+                            execution_script_sudo_action "script_delete_local_user.sh"
                         else
-                            execution_script_windows_action "script_suppression_directory.ps1"
+                            execution_script_windows_action "script_delete_local_user.ps1"
                         fi
                     ;;
                 4)  clear
@@ -456,6 +456,12 @@ menu_user_information()
                     ;;
                 2)  clear
                         log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_event_search_by_user.sh"
+                        else
+                            execution_script_windows_action "script_event_search_by_user.ps1"
+                        fi
                     ;;
                 3)  clear
                         log_event_navigation "RetourMenuUtilisateur"
@@ -520,8 +526,9 @@ menu_computer_action()
             echo -e "4) Création de répertoire"
             echo -e "5) Suppression de répertoire"
             echo -e "6) Prise de main à distance (CLI)"
-            echo -e "7) Retour"
-            echo -e "8) Exit"
+            echo -e "7) Exécution de script sur la machine distante"
+            echo -e "8) Retour"
+            echo -e "9) Exit"
             read -p "Votre choix :" choice3
 
             case $choice3 in
@@ -580,9 +587,18 @@ menu_computer_action()
                         fi
                     ;;
                 7)  clear
+                        log_event_action "Exécution de script sur la machine distante"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_action "script_remote_script_execution.sh"
+                        else
+                            execution_script_windows_action "script_remote_script_execution.ps1"
+                        fi
+                    ;;
+                8)  clear
                         log_event_navigation "RetourMenuOrdinateur"
                         break;;
-                8)  clear
+                9)  clear
                         log_event_navigation "EndScript"
                         echo -e "Exit - FIN DE SCRIPT"
                         exit 0;;
@@ -675,9 +691,9 @@ menu_computer_information()
                         log_event_information "InformationNombreDisque"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_number_disk.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_number_disk.ps1"
                         fi
                     ;;
                 8)  clear
@@ -702,9 +718,9 @@ menu_computer_information()
                         log_event_information "InformationListeUtilisateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_local_user_list.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_local_user_list.ps1"
                         fi
                     ;;
                 11) clear 
