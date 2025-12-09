@@ -30,11 +30,17 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 | Membre      | Rôle       | Missions                                                                                                          |
 | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
-| Franck        | SM         | Scripting Bash/ Finalisation de la connexion SSH / Mise à jour INSTALL.md GitHubTest du script Bash et mise en production sur Proxmox|
-| Nicolas     | Technicien         | Scripting Bash / Journalisation  / Test sur Proxmox /Mise à jour README.md Github  |
-| Matthias     | PO | Scripting Bash / Mise en place et ajustement de l'ergonomie du script / Aide Journalisation / Scripting PowerShell|
+| Matthias        | PO        | Scripting Bash / Mise en place et ajustement de l'ergonomie du script / Aide Journalisation / Scripting PowerShell|
+| Franck     | SM         | Scripting Bash/ Finalisation de la connexion SSH / Mise à jour INSTALL.md GitHub Test du script Bash et mise en production sur Proxmox |
+| Nicolas     | Technicien | Scripting Bash / Journalisation  / Test sur Proxmox /Mise à jour README.md Github |
 
 **Sprint 3**
+
+| Membre      | Rôle       | Missions                                                                                                          |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| Nicolas        | PO        | |
+| Mathias     | SM         |  |
+| Franck     | Technicien |  |
 
 | Membre      | Rôle       | Missions                                                                                                          |
 | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -51,6 +57,28 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 | Matthias     |  |  |
 
 # 4. Choix techniques
+    
+   ## Matériels :
+
+ Plateforme d'hébergement : PROXMOX
+   - 4 VM ( 2 serveurs + 2 clients )   
+
+| Machine      | IP      | OS                                                                                                          |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| CLIWIN01        | 172.16.10.20         | Windows 10/11|
+| CLILIN01   | 172.16.10.30         | Ubuntu 24 LTS|
+| SRVWIN01    | 172.16.10.5 | Windows Server 2022/2025 GUI|
+| SRVLX01   | 172.16.10.10         | Debian 12/13 CLI|
+
+Passerelle par défaut : 172.16.10.254
+Masque de sous-réseau : 255.255.255.0
+DNS : 8.8.8.8
+
+## Logiciels :  
+
+   - OpenSSH  
+   - L'outil keychain
+
 
 Afin de garantir la modularité, la maintenabilité et la portabilité de l’outil, plusieurs choix techniques ont été faits au cours du développement :
 ## Architecture globale : un script principal + scripts enfants
