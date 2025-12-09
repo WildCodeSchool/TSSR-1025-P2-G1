@@ -25,6 +25,7 @@
 
 ## 1. Prérequis technique
 
+### 1.1 Prérequis Proxmox
 Nous devons avoir 4 machines Virtuelle sous **PROXMOX** :
 
 - Serveur Debian : 
@@ -47,6 +48,15 @@ Il faut un compte **ROOT** et **Administrator** sur les 2 serveurs
 Il faut un compte utilisateur **wilder** sur les 4 VM
 Adresse de **BROADCAST** : **172.16.10.254**
 DNS : **8.8.8.8**
+
+### 1.2 Prérequis pour le script principal bash
+- Le serveur doit avoir accès SSH aux machines clientes.
+- Le fichier /var/log/log_evt.log doit exister et être accessible en écriture.
+- Les scripts enfants doivent se trouver dans :
+`~/Documents/TSSR-1025-P2-G1/ressources/scripts/`
+- Le fichier /var/log/log_evt.log doit être créé et accessible en écriture :
+  - sudo touch /var/log/log_evt.log
+  - sudo chmod 666 /var/log/log_evt.log
 
 ## 2. Installation sur le serveur Debian ( Debian 12.9 )
 
@@ -167,6 +177,12 @@ Ajoutons cette ligne à la fin du fichier :
 
 ![Screenshots](ressources/images/SRVLX01/configuration_keychain.png)
 
+### 2.6 Préparation du serveur Debian pour le script principal
+
+Créer le dossier qui recevra les fichiers d’informations rapatriés :
+~/Documents/TSSR-1025-P2-G1/ressources/scripts/info
+
+Ce dossier doit exister pour permettre au script_dady de stocker correctement les données collectées sur les machines clientes.
 
 
 ## 3. Installation sur le serveur Windows ( Windows serveur 2022 )
@@ -274,6 +290,14 @@ ssh wilder@CLIWIN01
 
 il me reste la sécurité des fichiers .ssh dans windows en graphique
 
+### 4.3 Dossier d’informations pour les scripts enfants
+
+Les scripts enfants stockent leurs informations dans le dossier :
+`C:\Users\<user>\Documents\info`
+
+Ce dossier est créé automatiquement lors de l’exécution des scripts enfants envoyés par le script principal.
+
+
 ## 5. Installation sur le client Linux ( Ubuntu 24.04 LTS )
 
 ##### 5.1 Installation de OpenSSH-server.
@@ -343,6 +367,40 @@ Nous devrions avoir cette affichage :
 
 ![Screenshots](ressources/images/CLILIN01/permissions_files_ssh_clilin01.png)
 
+### 5.3 Dossier d’informations pour les scripts enfants
+
+Les scripts enfants stockent leurs informations dans le dossier :
+`~/Documents/info`
+
+Ce dossier est créé automatiquement lors de l’exécution des scripts enfants envoyés par le script principal.
+
+### 5.4 Rapatriement automatique des fichiers d'informations
+
+Après l’exécution d’un script enfant, le script principal rapatrie automatiquement 
+les fichiers d’informations stockés sur la machine cliente.
+
+Pour un client Linux :
+`scp <user>@<hostname>:~/Documents/info/* ~/Documents/TSSR-1025-P2-G1/ressources/scripts/info/`
+
+Pour un client Windows :
+`scp <user>@<hostname>:C:/Users/$target_user/Documents/info/* ~/Documents/TSSR-1025-P2-G1/ressources/scripts/info/`
+
+Toutes les informations collectées sont donc centralisées sur le serveur Debian,
+dans le dossier :
+`~/Documents/TSSR-1025-P2-G1/ressources/scripts/info/`
 
 ## 6. FAQ
+
+Q : Aucun fichier n’a été rapatrié par le script principal, que faire ?<br>
+R : Vérifier que le dossier ~/Documents/info (Linux) ou C:\Users\<user>\Documents\info (Windows)
+    existe bien sur la machine cliente et qu’il contient des fichiers.
+
+Q : SSH me renvoie "Permission denied".<br>
+R : Vérifier que la clé publique est bien installée et que l’utilisateur est autorisé
+    dans la configuration sshd.
+
+Q : Le script ne veut pas lancer une commande sur Windows.<br>
+R : Vérifier que PowerShell autorise l’exécution de scripts via :
+    Set-ExecutionPolicy RemoteSigned
+
 
