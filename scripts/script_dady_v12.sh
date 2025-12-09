@@ -106,7 +106,7 @@ execution_script_information()
                                 # Create the local /info directory if it does not exist
                                 mkdir -p "$local_info_dir"
                                 # Check if the retrieval was successful
-                                scp "$target_user"@"$target_computer":~/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
                                         echo "Les fichiers info ont été importés dans $local_info_dir"
@@ -171,7 +171,7 @@ execution_script_sudo_information()
                                 # Create the local /info directory if it does not exist
                                 mkdir -p "$local_info_dir"
                                 # Check if the retrieval was successful
-                                scp "$target_user"@"$target_computer":~/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
                                         echo "Les fichiers info ont été importés dans $local_info_dir"
@@ -398,9 +398,9 @@ menu_user_action()
                         log_event_action "ActionSuppressionCompteUtilisateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_suppression_directory.sh"
+                            execution_script_sudo_action "script_delete_local_user.sh"
                         else
-                            execution_script_windows_action "script_suppression_directory.ps1"
+                            execution_script_windows_action "script_delete_local_user.ps1"
                         fi
                     ;;
                 4)  clear
@@ -456,6 +456,12 @@ menu_user_information()
                     ;;
                 2)  clear
                         log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_event_search_by_user.sh"
+                        else
+                            execution_script_windows_action "script_event_search_by_user.ps1"
+                        fi
                     ;;
                 3)  clear
                         log_event_navigation "RetourMenuUtilisateur"
@@ -520,8 +526,9 @@ menu_computer_action()
             echo -e "4) Création de répertoire"
             echo -e "5) Suppression de répertoire"
             echo -e "6) Prise de main à distance (CLI)"
-            echo -e "7) Retour"
-            echo -e "8) Exit"
+            echo -e "7) Exécution de script sur la machine distante"
+            echo -e "8) Retour"
+            echo -e "9) Exit"
             read -p "Votre choix :" choice3
 
             case $choice3 in
@@ -580,9 +587,18 @@ menu_computer_action()
                         fi
                     ;;
                 7)  clear
+                        log_event_action "Exécution de script sur la machine distante"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_action "script_remote_script_execution.sh"
+                        else
+                            execution_script_windows_action "script_remote_script_execution.ps1"
+                        fi
+                    ;;
+                8)  clear
                         log_event_navigation "RetourMenuOrdinateur"
                         break;;
-                8)  clear
+                9)  clear
                         log_event_navigation "EndScript"
                         echo -e "Exit - FIN DE SCRIPT"
                         exit 0;;
@@ -603,7 +619,7 @@ menu_computer_information()
             echo -e "2) Version de l'OS"
             echo -e "3) Carte graphique"
             echo -e "4) CPU %"
-            echo -e "5) uptime"
+            echo -e "5) Uptime"
             echo -e "6) Température CPU"
             echo -e "7) Nombre de disque"
             echo -e "8) Partition (nombre, nom, FS, taille) par disque"
@@ -657,9 +673,9 @@ menu_computer_information()
                         log_event_information "InformationTempsUtilisationOrdinateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_uptime.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_uptime.ps1"
                         fi
                     ;;
                 6)  clear
@@ -675,9 +691,9 @@ menu_computer_information()
                         log_event_information "InformationNombreDisque"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_number_disk.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_number_disk.ps1"
                         fi
                     ;;
                 8)  clear
@@ -702,9 +718,9 @@ menu_computer_information()
                         log_event_information "InformationListeUtilisateur"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_local_user_list.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_local_user_list.ps1"
                         fi
                     ;;
                 11) clear 
