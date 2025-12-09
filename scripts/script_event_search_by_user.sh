@@ -1,9 +1,10 @@
 #!/bin/bash
 
 #########################################################################
-# Script version os
-# Paisant Franck
-# 30/11/2025
+# Script event search by user
+# Chicaud Matthias
+# Execution SUDO
+# 07/12/2025
 #########################################################################
 
 #########################################################################
@@ -20,46 +21,58 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+
 #########################################################################
 
 #########################################################################
 # Variable
 #########################################################################
 
-# Variable for save_info function
-info_target="$(hostname)"
+info_target="wilder" # Uncomment for user script
 info_date="$(date +%Y%m%d)"
-info_dir="~/$(whaomi)/Documents/info"
+info_dir="/tmp/info"
 info_file="$info_dir/info_${info_target}_${info_date}.txt"
 
 #########################################################################
 # Function
 #########################################################################
 
-# function for save information in file
+# Function for save information in file
 save_info()
 {
     local label="$1"
     local value="$2"
     local time_save_info="$(date +%H:%M:%S)"
     mkdir -p "$info_dir"
-    echo "[$time_save_info] $label : $value" >> $info_file
+    echo "[$time_save_info] $label : $value" >> "$info_file"
 }
 
 #########################################################################
 # Script
 #########################################################################
 
+# Title
+echo -e "${TITLE}Recherche d'événement par utilisateur${NC}"
+echo ""
+
 # menu name display
-    echo -e "${TITLE}Version de l'OS${NC}"
-    echo ""
+# Recherche par utilisateur (3ᵉ champ)
+read -p "Nom de l'utilisateur : " user
+if ( ! id "$user" ) &> /dev/null
+then
+    echo -e "${RED}WARNING !${NC} L'utilisateur n'existe pas sur cette machine."
+else
+    echo -e "Recherche dans le fichier log_evt.log pour l'utilisateur : $user"
+    sleep 1
+    value=$(cat /var/log/log_evt.log | grep "$user")
+    if [[ $? -eq 1 ]]; then
+        echo -e "${RED}WARNING !${NC} Aucun événement trouvé pour l'utilisateur : $user"
+    else
+        echo -e "${GREEN}Événements trouvés !${NC}"
+        echo "Les événements ont été sauvegardés dans /tmp/info_evenements_user.log"
+    fi
+fi
 
-#command to display the OS version
-value="$(lsb_release -ds 2>/dev/null)"
-    echo -e "$value"
-    echo ""
-
-    save_info "Version de l'OS" "$value"
-exit 0
+save_info "Recherche d'événement par utilisateur" "$value"
 
 #########################################################################
