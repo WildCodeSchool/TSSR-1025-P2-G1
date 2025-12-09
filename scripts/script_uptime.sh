@@ -3,7 +3,7 @@
 #########################################################################
 # Script version os
 # Paisant Franck
-# 30/11/2025
+# 09/12/2025
 #########################################################################
 
 #########################################################################
@@ -51,15 +51,15 @@ save_info()
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Version de l'OS${NC}"
+    echo -e "${TITLE}Uptime${NC}"
     echo ""
 
 #command to display the OS version
-value="$(lsb_release -ds 2>/dev/null)"
+value="$(uptime -p 2> /dev/null)"
     echo -e "$value"
     echo ""
 
-    save_info "Version de l'OS" "$value"
+    save_info "Uptime" "$value"
 exit 0
 
 #########################################################################
