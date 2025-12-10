@@ -22,6 +22,31 @@ NC='\033[0m'
 #########################################################################
 
 #########################################################################
+# Variable
+#########################################################################
+
+# Variable for save_info function
+
+info_target="$(hostname)"
+info_date="$(date +%Y%m%d)"
+info_dir="/home/$(whoami)/Documents/info"
+info_file="$info_dir/info_${info_target}_${info_date}.txt"
+
+#########################################################################
+# Function
+#########################################################################
+
+# Function for save information in file
+save_info()
+{
+    local label="$1"
+    local value="$2"
+    local time_save_info="$(date +%H:%M:%S)"
+    mkdir -p "$info_dir"
+    echo "[$time_save_info] $label : $value" >> "$info_file"
+}
+
+#########################################################################
 # Script
 #########################################################################
 
@@ -41,4 +66,7 @@ CPU_USAGE=$(echo "100 - $PERCENT" | bc -l)
     # Displaying the result
         echo "Utilisation du CPU : **$CPU_USAGE %**"
         echo ""
+
+value="$CPU_USAGE"
+save_info "CPU %" "$value"
 exit 0
