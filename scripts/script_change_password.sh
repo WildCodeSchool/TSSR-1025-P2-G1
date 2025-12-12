@@ -76,3 +76,5 @@ else
     echo -e "${RED}ÉCHEC : Une erreur est survenue lors du changement de mot de passe.${NC}"
     exit 1
 fi
+exit 0
+############################################################################
