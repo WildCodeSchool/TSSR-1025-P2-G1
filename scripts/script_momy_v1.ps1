@@ -3,14 +3,24 @@
 # Jouveaux Nicolas                                                      #
 # 10/12/2025                                                            #
 #########################################################################
+
+#########################################################################
+#                              Variable                                 #
+#########################################################################
+
+
+# Display the main menu
 function menu {
+    Clear-Host
     while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu :" -ForegroundColor Yellow
         Write-Host "1) Utilisateur"
         Write-Host "2) Ordinateur"
         Write-Host "3) Sortie"
         $choice = Read-Host "Votre choix"
     
+# User choice for main menu        
         switch ($choice) {
             1 { menu_user }
             2 { menu_desktop }
@@ -21,10 +31,11 @@ function menu {
         }
     }
 }
-
+# Display the user menu
 function menu_user {
     Clear-Host
     while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu utilisateur :" -ForegroundColor Yellow
         Write-Host "1) Action"
         Write-Host "2) Information"
@@ -32,6 +43,8 @@ function menu_user {
         Write-Host "4) Exit"
         $choice2 = Read-Host "Votre choix"
 
+
+# User choice for user menu
         switch ($choice2) { 
             1 { menu_user_action }
             2 { menu_user_information }
@@ -47,9 +60,11 @@ function menu_user {
     }
 }
 
+# Display the desktop menu
 function menu_desktop {
     Clear-Host
     while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu ordinateur :" -ForegroundColor Yellow
         Write-Host "1) Action"
         Write-Host "2) Information"
@@ -57,6 +72,7 @@ function menu_desktop {
         Write-Host "4) Exit"
         $choice2 = Read-Host "Votre choix"
 
+# User choice for desktop menu
         switch ($choice2) {
             1 { menu_desktop_action }
             2 { menu_desktop_information }
@@ -72,9 +88,11 @@ function menu_desktop {
     }
 }
 
+# Display the user action menu
 function menu_user_action {
     Clear-Host
     while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu action utilisateur :" -ForegroundColor Yellow
         Write-Host "1) Creation de compte utilisateur local"
         Write-Host "2) Changement de mot de passe"
@@ -84,6 +102,8 @@ function menu_user_action {
         Write-Host "6) Retour"
         Write-Host "7) Exit"
         $choice3 = Read-Host "Votre choix"
+
+# User choice for user action menu
 
         switch ($choice3) {
             1 { Clear-Host
@@ -104,9 +124,11 @@ function menu_user_action {
     } 
 }
 
+# Display the user information menu
 function menu_user_information {
     Clear-Host
     while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
         Write-Host "2) Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
@@ -114,6 +136,8 @@ function menu_user_information {
         Write-Host "4) Exit"
         $choice3 = Read-Host "Votre choix"
 
+
+# User choice for user information menu
         switch ($choice3) {
             1 { Clear-Host
                 Write-Host "1" }
@@ -130,9 +154,11 @@ function menu_user_information {
     }
 }
 
+# Display the desktop action menu
 function menu_desktop_action {
     Clear-Host
         while ($true) {
+        Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
         Write-Host "Menu action ordinateur :" -ForegroundColor Yellow
         Write-Host "1) Verrouillage"
         Write-Host "2) Redemarrage"
@@ -144,6 +170,7 @@ function menu_desktop_action {
         Write-Host "8) Exit"
         $choice3 = Read-Host "Votre choix"
 
+# User choice for desktop action menu
         switch ($choice3) {
             1 { Clear-Host
                 Write-Host "1" }
@@ -164,9 +191,11 @@ function menu_desktop_action {
     }
 }
 
+# Display the desktop information menu
 function menu_desktop_information {
     Clear-Host
         while ($true) {
+            Write-Host "Machine : $env:COMPUTERNAME" -ForegroundColor Green
             Write-Host "Menu information ordinateur :" -ForegroundColor Yellow
             Write-Host "1) Adresse IP, masque de sous-reseau et passerelle"
             Write-Host "2) Version de l'OS"
@@ -185,6 +214,7 @@ function menu_desktop_information {
             Write-Host "15) Exit"
             $choice3 = Read-Host "Votre choix :"
 
+# User choice for desktop information menu
             switch ($choice3) {
                 1 { Clear-Host
                     Write-Host "1" }

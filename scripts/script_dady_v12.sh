@@ -453,6 +453,12 @@ menu_user_information()
             case $choice3 in
                 1)  clear
                         log_event_information "InformationDroitPermissionDossier"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_add_permissions.sh"
+                        else
+                            execution_script_windows_action "script_.ps1"
+                        fi
                     ;;
                 2)  clear
                         log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"

@@ -31,7 +31,7 @@ NC='\033[0m'
 
 info_target="$(hostname)"
 info_date="$(date +%Y%m%d)"
-info_dir="/tmp/info"
+info_dir="/home/$(whoami)/Documents/info"
 info_file="$info_dir/info_${info_target}_${info_date}.txt"
 
 #########################################################################
