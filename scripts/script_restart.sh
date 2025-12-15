@@ -1,16 +1,16 @@
 #!/bin/bash
 
 #########################################################################
-# Script show ip adress, masque and gateway
-# Chicaud Matthias
-# 07/12/2025
+# Script for restart computer
+# Paisant Franck
+# 04/12/2025
 #########################################################################
 
 #########################################################################
 #                     Define colors with variables                      #
 #########################################################################
 
-# For menu titles: Underlined and yellow
+#For menu titles: Underlined and yellow
 TITLE='\033[4;33m'
 # Used for labels: purple
 LABEL='\033[0;35m'
@@ -21,50 +21,36 @@ GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
 
+
 #########################################################################
 
 #########################################################################
 # Variable
 #########################################################################
 
-# Variable for save_info function
-
-info_target="$(hostname)"
-info_date="$(date +%Y%m%d)"
-info_dir="/home/$(whoami)/Documents/info"
-info_file="$info_dir/info_${info_target}_${info_date}.txt"
+countdown=5
+machine=$(hostname)
 
 #########################################################################
-# Function
-#########################################################################
-
-# Function for save information in file
-save_info()
-{
-    local label="$1"
-    local value="$2"
-    local time_save_info="$(date +%H:%M:%S)"
-    mkdir -p "$info_dir"
-    echo "[$time_save_info] $label : $value" >> "$info_file"
-}
 
 #########################################################################
 # Script
 #########################################################################
 
-# Title
-echo -e "${TITLE}Adresse IP, masque et passerelle${NC}"
+echo -e "${TITLE}Compte à rebours avant redémarrage de $machine:${NC}"
 echo ""
+while [ ! $countdown -eq 0 ];
+do
+    echo "$countdown"
+    let countdown=$countdown-1
+    sleep 1
+done
 
-# Retrieve IP / mask
-ip_mask="$(ip -o -f inet addr | awk '{print  $4}' | head -n 1)"
+echo -e "${GREEN}Redémarrage de la $machine en cours  !!${NC}"
+sleep 1
 
-# Retrieve gateway
-gateway="$(ip route | grep default | awk '{print $3}')"
+reboot
 
-# Save information
-value="IP / Mask : $ip_mask | Passerelle : $gateway"
-echo "$value"
-save_info "Adresse IP, masque et passerelle" "$value"
+exit 0
 
 #########################################################################

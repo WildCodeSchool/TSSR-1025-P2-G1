@@ -37,37 +37,33 @@ NC='\033[0m'
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Suppression d'un répertoire${NC}"
+    clear
+    echo -e "${TITLE}Création d'un répertoire${NC}"
     echo ""
 while true
 do
     # request for the name of the directory to be deleted.
     echo -e "${LABEL}Exemple: /tmp/monrepertoire ou /home/user/repertoire${NC}"
     echo ""
-    read -p "Quel est le chemin et le nom du répertoire à supprimer ?: " repertory
+    read -p "Quel est le chemin et le nom du répertoire à créer ?: " directory
 
     # verification of the directory to be deleted.
-    if [ -d "$repertory" ]
+    if [ ! -d "$directory" ]
     then
-        echo " le $repertory existe bien !"
-        read -p "Confirmer vous la suppression o/n ?" choix
-            if [ "$choix" = "o" ]
-            then
-                rm -r "$repertory"
-                echo -e " le $repertory a été ${RED}supprimé avec succès!!${NC}"
-                break
-            elif [ "$choix" = "n" ]
-            then
-                echo-e " WARNING le $repertory ${RED}n'a pas été supprimé !!!${NC}"
-                break
-            else
-                echo "Choix invalide"
-                continue
-            fi    
+        mkdir "$directory"
+        if [ $? -eq 0 ]
+        then
+            echo -e "${GREEN}le dossier $directory à été créé${NC}"
+            break
+        else
+            echo -e "${RED}WARNING :${NC} le dossier "$directory" n'a pas été créé !!!"
+            break
+        fi
     else 
-    echo -e "${RED}WARNING !!!${NC} le $repertory n'existe pas !!!!"
+    echo -e "${RED}WARNING :${NC} le dossier $directory existe déjà, veuillez proposez un autre chemin avec un nom valide :"
     continue
     fi
 done     
 exit 0
+
 ############################################################################

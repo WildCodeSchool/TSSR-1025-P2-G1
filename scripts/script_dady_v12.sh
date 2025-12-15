@@ -391,7 +391,7 @@ menu_user_action()
                         then
                             execution_script_sudo_action "script_change_password.sh"
                         else
-                            execution_script_windows_action "script_.ps1"
+                            execution_script_windows_action "script_change_password.ps1"
                         fi
                     ;;
                 3)  clear
@@ -416,9 +416,9 @@ menu_user_action()
                         log_event_action "ActionAjoutGroupe"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "scripts/script_add_usergroup.sh"
+                            execution_script_sudo_action "script_add_usergroup.sh"
                         else
-                            execution_script_windows_action "script_.ps1"
+                            execution_script_windows_action "script_add_usergroup.ps1"
                         fi
                     ;;
                 6)  clear
@@ -453,6 +453,12 @@ menu_user_information()
             case $choice3 in
                 1)  clear
                         log_event_information "InformationDroitPermissionDossier"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_add_permissions.sh"
+                        else
+                            execution_script_windows_action "script_add_permissions.ps1"
+                        fi
                     ;;
                 2)  clear
                         log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
@@ -587,7 +593,7 @@ menu_computer_action()
                         fi
                     ;;
                 7)  clear
-                        log_event_action "Exécution de script sur la machine distante"
+                        log_event_action "ActionExécutionScriptSurMachineDistante"
                         if [ "$os_type" = "linux" ]
                         then
                             execution_script_action "script_remote_script_execution.sh"
