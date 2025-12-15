@@ -1078,7 +1078,7 @@ while ($true)
     else
     {
         $os_type="windows"
-        Write-Host"Système détecté : Windows"
+        Write-Host "Système détecté : Windows"
     }
     Write-Host ""
     Start-Sleep -Seconds 2
