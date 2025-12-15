@@ -70,3 +70,4 @@ CPU_USAGE=$(echo "100 - $PERCENT" | bc -l)
 value="$CPU_USAGE"
 save_info "CPU %" "$value"
 exit 0
+############################################################################

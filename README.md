@@ -38,12 +38,6 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 | Membre      | Rôle       | Missions                                                                                                          |
 | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
-| Nicolas        | PO        | |
-| Mathias     | SM         |  |
-| Franck     | Technicien |  |
-
-| Membre      | Rôle       | Missions                                                                                                          |
-| ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
 | Franck        | Technicien   | Scripting Bash / Mise au propre script bash / Test du script Bash et mise en production sur Proxmox |
 | Nicolas     | PO      | Scripting Bash / Mise en place et ajustement de l'ergonomie du script Powershell |
 | Matthias     | SM | Scripting Bash / Mise en place de la récupération d'information / Scripting PowerShell / Documentation du script bash / Mise à jour README.md Github |
