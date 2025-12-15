@@ -775,18 +775,6 @@ function menu_desktop_information {
                 }
                 5 {
                     Clear-Host
-                        log_event_information "InformationTempsUtilisateurOrdinateur"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_information "script_uptime.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_information "script_uptime.ps1"
-                        }
-                 }
-                6 { 
-                    Clear-Host
                         log_event_information "InformationTempsCpu"
                         if ($os_type -eq "linux")
                         {
@@ -795,6 +783,18 @@ function menu_desktop_information {
                         else
                         {
                             execution_script_windows_information "script_temp_cpu.ps1"
+                        }
+                 }
+                6 { 
+                    Clear-Host
+                        log_event_information "InformationUptime"
+                        if ($os_type -eq "linux")
+                        {
+                            execution_script_information "script_uptime.sh"
+                        }    
+                        else
+                        {
+                            execution_script_windows_information "script_uptime.ps1"
                         }
                  }
                 7 { 
