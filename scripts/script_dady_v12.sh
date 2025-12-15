@@ -43,6 +43,21 @@ os_type=""
 #                           Bash Function                               #
 #########################################################################
 
+#fonction title
+display_machine() {
+    local machine="$1"
+    
+    clear
+    echo -e "${GREEN}"
+    echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+    echo "║                                                                              ║"
+    echo -ne "║                         "
+    echo -ne "${TITLE}M A C H I N E ${NC} : ${GREEN} ${machine}                       "
+    echo "    ║"
+    echo "║                                                                              ║"
+    echo "╚══════════════════════════════════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+}
 #-------------------- Execution script ----------------------------------
 # Function loggin for navigation in script_dady
 log_event_navigation()
@@ -159,7 +174,7 @@ execution_script_sudo_information()
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
-                            if [ $? -eq 0 ]
+                            if [ $? -eq 0${GREEN} ]
                             then
                                 echo "Le $script_name a été exécuté avec succès"
                                 echo ""
@@ -294,12 +309,14 @@ menu()
     {
     while true; do
         clear
-        echo -e "${GREEN}Machine : $target_computer${NC}"
+        display_machine "$target_computer"
         echo -e "${TITLE}Menu :${NC}"
-        echo -e "1) Utilisateur (Action/Information)"
-        echo -e "2) Ordinateur  (Action/Information)"
-        echo -e "3) Changer de machine"
-        echo -e "4) Sortie"
+        echo ""
+        echo -e "${GREEN}1)${NC} Utilisateur (Action/Information)"
+        echo -e "${GREEN}2)${NC} Ordinateur  (Action/Information)"
+        echo -e "${GREEN}3)${NC} Changer de machine"
+        echo -e "${GREEN}4)${NC} Sortie"
+        echo ""
         read -p "Votre choix :" choice
 
         case $choice in
@@ -328,18 +345,18 @@ menu_user()
     {
         clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
             echo -e "${TITLE}Menu utilisateur:${NC}"
-            echo -e "1) Action"
-            echo -e "2) Information"
-            echo -e "3) Retour"
-            echo -e "4) Exit"
+            echo -e "${GREEN}1)${NC} Action"
+            echo -e "${GREEN}2)${NC} Information"
+            echo -e "${GREEN}3)${NC} Retour"
+            echo -e "${GREEN}4)${NC} Exit"
             read -p "Votre choix :" choice2
 
             case $choice2 in
                 1)  log_event_navigation "MenuActionUtilisateur"
                         menu_user_action
-                    ;;
+                    ;;${GREEN}
                 2)  log_event_navigation "MenuInformationUtilisateur"
                         menu_user_information
                     ;;
@@ -364,15 +381,17 @@ menu_user_action()
     {
     clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
             echo -e "${TITLE}Menu action utilisateur:${NC}"
-            echo -e "1) Création de compte utilisateur local"
-            echo -e "2) Changement de mot de passe"
-            echo -e "3) Suppression de compte utilisateur local"
-            echo -e "4) Ajout à un groupe d'administration"
-            echo -e "5) Ajout à un groupe"
-            echo -e "6) Retour"
-            echo -e "7) Exit"
+            echo ""
+            echo -e "${GREEN}1)${NC} Création de compte utilisateur local"
+            echo -e "${GREEN}2)${NC} Changement de mot de passe"
+            echo -e "${GREEN}3)${NC} Suppression de compte utilisateur local"
+            echo -e "${GREEN}4)${NC} Ajout à un groupe d'administration"
+            echo -e "${GREEN}5)${NC} Ajout à un groupe"
+            echo -e "${GREEN}6)${NC} Retour"
+            echo -e "${GREEN}7)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice3
 
             case $choice3 in
@@ -442,12 +461,14 @@ menu_user_information()
     {
         clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
             echo -e "${TITLE}Menu information utilisateur:${NC}"
-            echo -e "1) Droits/permissions de l’utilisateur sur un dossier"
-            echo -e "2) Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
-            echo -e "3) Retour"
-            echo -e "4) Exit"
+            echo ""
+            echo -e "${GREEN}1)${NC} Droits/permissions de l’utilisateur sur un dossier"
+            echo -e "${GREEN}2)${NC} Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
+            echo -e "${GREEN}3)${NC} Retour"
+            echo -e "${GREEN}4)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice3
 
             case $choice3 in
@@ -489,12 +510,14 @@ menu_computer()
     {
         clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
             echo -e "${TITLE}Menu ordinateur:${NC}"
-            echo -e "1) Action"
-            echo -e "2) Information"
-            echo -e "3) Retour"
-            echo -e "4) Exit"
+            echo ""
+            echo -e "${GREEN}1)${NC} Action"
+            echo -e "${GREEN}2)${NC} Information"
+            echo -e "${GREEN}3)${NC} Retour"
+            echo -e "${GREEN}4)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice2
 
             case $choice2 in
@@ -524,17 +547,19 @@ menu_computer_action()
     {
         clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
+            echo ""
             echo -e "${TITLE}Menu action ordinateur:${NC}"
-            echo -e "1) Verrouillage"
-            echo -e "2) Redémarrage"
-            echo -e "3) Activation du pare-feu"
-            echo -e "4) Création de répertoire"
-            echo -e "5) Suppression de répertoire"
-            echo -e "6) Prise de main à distance (CLI)"
-            echo -e "7) Exécution de script sur la machine distante"
-            echo -e "8) Retour"
-            echo -e "9) Exit"
+            echo -e "${GREEN}1)${NC} Verrouillage"
+            echo -e "${GREEN}2)${NC} Redémarrage"
+            echo -e "${GREEN}3)${NC} Activation du pare-feu"
+            echo -e "${GREEN}4)${NC} Création de répertoire"
+            echo -e "${GREEN}5)${NC} Suppression de répertoire"
+            echo -e "${GREEN}6)${NC} Prise de main à distance (CLI)"
+            echo -e "${GREEN}7)${NC} Exécution de script sur la machine distante"
+            echo -e "${GREEN}8)${NC} Retour"
+            echo -e "${GREEN}9)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice3
 
             case $choice3 in
@@ -619,23 +644,25 @@ menu_computer_information()
     {
         clear
         while true; do
-            echo -e "${GREEN}Machine : $target_computer${NC}"
+            display_machine "$target_computer"
+            echo ""
             echo -e "${TITLE}Menu action ordinateur:${NC}"
-            echo -e "1) Adresse IP, masque, passerelle"
-            echo -e "2) Version de l'OS"
-            echo -e "3) Carte graphique"
-            echo -e "4) CPU %"
-            echo -e "5) Uptime"
-            echo -e "6) Température CPU"
-            echo -e "7) Nombre de disque"
-            echo -e "8) Partition (nombre, nom, FS, taille) par disque"
-            echo -e "9) Espace disque restant par partition/volume"
-            echo -e "10) Liste des utilisateurs locaux"
-            echo -e "11) 5 derniers logins"
-            echo -e "12) 10 derniers événements critiques"
-            echo -e "13) Recherche des evenements dans le fichier log_evt.log pour un ordinateur"
-            echo -e "14) Retour"
-            echo -e "15) Exit"
+            echo -e "${GREEN}1)${NC} Adresse IP, masque, passerelle"
+            echo -e "${GREEN}2)${NC} Version de l'OS"
+            echo -e "${GREEN}3)${NC} Carte graphique"
+            echo -e "${GREEN}4)${NC} CPU %"
+            echo -e "${GREEN}5)${NC} Uptime"
+            echo -e "${GREEN}6)${NC} Température CPU"
+            echo -e "${GREEN}7)${NC} Nombre de disque"
+            echo -e "8${GREEN})${NC} Partition (nombre, nom, FS, taille) par disque"
+            echo -e "${GREEN}9)${NC} Espace disque restant par partition/volume"
+            echo -e "${GREEN}10)${NC} Liste des utilisateurs locaux"
+            echo -e "${GREEN}11)${NC} 5 derniers logins"
+            echo -e "${GREEN}12)${NC} 10 derniers événements critiques"
+            echo -e "${GREEN}13)${NC} Recherche des evenements dans le fichier log_evt.log pour un ordinateur"
+            echo -e "${GREEN}14)${NC} Retour"
+            echo -e "${GREEN}15)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice3
 
             case $choice3 in
