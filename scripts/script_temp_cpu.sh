@@ -53,5 +53,8 @@ else
     echo "Utiliser 'sudo apt install lm-sensors' pour l'installer"
     echo ""
 fi
+
+# Save information
+save_info "Température CPU" "$value"
 exit 0
 ############################################################################

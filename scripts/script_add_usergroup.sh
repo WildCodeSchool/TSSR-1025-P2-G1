@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #########################################################################
-# Script addusergroup
+# Script add usergroup
 # Jouveaux Nicolas
 # Execution SUDO
 # 09/12/2025

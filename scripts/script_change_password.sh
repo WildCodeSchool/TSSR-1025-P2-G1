@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #########################################################################
-# Script change_password
+# Script change password
 # Jouveaux Nicolas
 # Execution SUDO
 # 09/12/2025
