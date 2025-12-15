@@ -47,7 +47,7 @@ os_type=""
 display_machine() {
     local machine="$1"
     
-    clear
+    
     echo -e "${GREEN}"
     echo "╔══════════════════════════════════════════════════════════════════════════════╗"
     echo "║                                                                              ║"
@@ -347,10 +347,12 @@ menu_user()
         while true; do
             display_machine "$target_computer"
             echo -e "${TITLE}Menu utilisateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Action"
             echo -e "${GREEN}2)${NC} Information"
             echo -e "${GREEN}3)${NC} Retour"
             echo -e "${GREEN}4)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice2
 
             case $choice2 in
@@ -547,9 +549,9 @@ menu_computer_action()
     {
         clear
         while true; do
-            display_machine "$target_computer"
-            echo ""
+            display_machine "$target_computer"       
             echo -e "${TITLE}Menu action ordinateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Verrouillage"
             echo -e "${GREEN}2)${NC} Redémarrage"
             echo -e "${GREEN}3)${NC} Activation du pare-feu"
@@ -645,8 +647,8 @@ menu_computer_information()
         clear
         while true; do
             display_machine "$target_computer"
-            echo ""
             echo -e "${TITLE}Menu action ordinateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Adresse IP, masque, passerelle"
             echo -e "${GREEN}2)${NC} Version de l'OS"
             echo -e "${GREEN}3)${NC} Carte graphique"
@@ -654,7 +656,7 @@ menu_computer_information()
             echo -e "${GREEN}5)${NC} Uptime"
             echo -e "${GREEN}6)${NC} Température CPU"
             echo -e "${GREEN}7)${NC} Nombre de disque"
-            echo -e "8${GREEN})${NC} Partition (nombre, nom, FS, taille) par disque"
+            echo -e "${GREEN}8)${NC} Partition (nombre, nom, FS, taille) par disque"
             echo -e "${GREEN}9)${NC} Espace disque restant par partition/volume"
             echo -e "${GREEN}10)${NC} Liste des utilisateurs locaux"
             echo -e "${GREEN}11)${NC} 5 derniers logins"
@@ -934,6 +936,7 @@ do
     do
         clear
         echo -e "${TITLE}Sur quel Poste Client voulez-vous vous connecter ?${NC}"
+        echo ""
         echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
         echo ""
         # ask target and save un variable
@@ -954,7 +957,7 @@ do
     done
     #detection version pc
     clear
-    echo "Détection du système d'exploitation en cours..."
+    echo -e "${RED}Détection du système d'exploitation en cours...${NC}"
     echo ""
 
     if ssh "$target_user"@"$target_computer" "[ -d /etc ]" &> /dev/null

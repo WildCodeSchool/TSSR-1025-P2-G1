@@ -38,7 +38,7 @@ NC='\033[0m'
 
 # menu name display
 echo -e "${TITLE}Changement du mot de passe d'un utilisateur${NC}"
-echo
+echo ""
 
 while true
 do
@@ -48,7 +48,7 @@ do
     if id "$user" &>/dev/null
     then
         echo -e "Utilisateur trouvé : ${GREEN}$user${NC}"
-        echo
+        echo ""
         break
     else
         echo -e "${RED}Erreur : l'utilisateur $user n'existe pas.${NC}"
@@ -60,7 +60,7 @@ echo -e "Voulez-vous vraiment changer le mot de passe de ${GREEN}$user${NC}"
 read -r -p "Confirmez-vous cette action ? (o/N) : " confirm
 if [[ ! "$confirm" =~ ^[oO]$ ]]
 then
-    echo "Opération annulée."
+    echo -e "${RED}Opération annulée.${NC}"
     exit 0
 fi
 
@@ -68,11 +68,11 @@ echo ""
 
 # Change password
 if passwd "$user"; then
-    echo
+    echo ""
     echo -e "${GREEN}Le mot de passe de $user a été modifié avec succès !${NC}"
     exit 0
 else
-    echo
+    echo ""
     echo -e "${RED}ÉCHEC : Une erreur est survenue lors du changement de mot de passe.${NC}"
     exit 1
 fi

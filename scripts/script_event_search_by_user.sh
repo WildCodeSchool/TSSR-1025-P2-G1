@@ -62,14 +62,16 @@ if ( ! id "$user" ) &> /dev/null
 then
     echo -e "${RED}WARNING !${NC} L'utilisateur n'existe pas sur cette machine."
 else
-    echo -e "Recherche dans le fichier log_evt.log pour l'utilisateur : $user"
+    echo -e "${TITLE}Recherche dans le fichier log_evt.log pour l'utilisateur : $user${NC}"
     sleep 1
     value=$(cat /var/log/log_evt.log | grep "$user")
     if [[ $? -eq 1 ]]; then
         echo -e "${RED}WARNING !${NC} Aucun événement trouvé pour l'utilisateur : $user"
+        echo ""
     else
         echo -e "${GREEN}Événements trouvés !${NC}"
-        echo "Les événements ont été sauvegardés dans /tmp/info_evenements_user.log"
+        echo -e "${GREEN}Les événements ont été sauvegardés dans /tmp/info_evenements_user.log${NC}"
+        echo ""
     fi
 fi
 

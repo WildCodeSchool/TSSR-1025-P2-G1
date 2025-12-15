@@ -29,7 +29,7 @@ NC='\033[0m'
     echo -e "${TITLE}Température CPU${NC}"
     echo ""
 
-echo "Vérification de la température du CPU"
+echo -e "${GREEN}Vérification de la température du CPU${NC}"
 echo "---"
 
 # Checked if 'sensors' is installed
@@ -41,16 +41,16 @@ then
 # Vérifie si le filtre a trouvé des données
         if [ $? -eq 0 ];
         then
-            echo "Capteurs détectés : Affichage des températures :"
+            echo -e "${GREEN}Capteurs détectés : Affichage des températures :${NC}"
             echo ""
         else
-            echo "Aucun capteur CPU fonctionnel n'a été trouvé."
+            echo "${RED}Aucun capteur CPU fonctionnel n'a été trouvé.${NC}"
             echo ""
         fi    
 else
     # Si la commande n'est pas installée : affiche le message d'erreur
-    echo "ATTENTION : La commande 'sensors' est introuvable."
-    echo "Utiliser 'sudo apt install lm-sensors' pour l'installer"
+    echo -e "${TITLE}ATTENTION : La commande 'sensors' est introuvable.${NC}"
+    echo -e "${TITLE}Utiliser 'sudo apt install lm-sensors' pour l'installer${NC}"
     echo ""
 fi
 exit 0

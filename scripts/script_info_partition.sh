@@ -57,7 +57,9 @@ echo -e "${TITLE}Information des partitions par disques${NC}"
 echo ""
 # Number partition
 info_partition="$(lsblk -o NAME,SIZE,TYPE | grep -v loop)"
-echo -e "Voici les informations des partitions sur $info_target : $info_partition"
+echo -e "${GREEN}Voici les informations des partitions sur $info_target :${NC}"
+echo -e "${GREEN} $info_partition${NC}"
+echo ""
 
 # Save information
 value="$info_partition"
