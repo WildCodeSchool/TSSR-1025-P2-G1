@@ -126,7 +126,7 @@ function execution_script_information{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -191,7 +191,7 @@ function execution_script_sudo_information{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -237,7 +237,7 @@ function execution_script_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -283,7 +283,7 @@ function execution_script_sudo_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -960,7 +960,7 @@ function execution_script_windows_information{
                                 }
                                 else 
                                 {
-                                    Write-Host" WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host " WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -1005,7 +1005,7 @@ function execution_script_windows_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -1027,7 +1027,7 @@ function execution_script_windows_action{
 if (-Not (Test-Path "C:\logs\log_evt.log"))
 {
     Clear-Host
-    Write-Host"Création du fichier de journalisation"
+    Write-Host "Création du fichier de journalisation"
     New-Item -Path "C:\logs" -ItemType Directory -Force | Out-Null
     New-Item -Path "C:\logs\log_evt.log" -ItemType File -Force | Out-Null
 }
@@ -1042,7 +1042,7 @@ while ($true)
     {
         Clear-Host
         Write-Host "Sur quel Poste Client voulez-vous vous connecter ?"
-        Write-Host"Format accepté : Nom complet ou adresse IP"
+        Write-Host "Format accepté : Nom complet ou adresse IP"
         Write-Host ""
         # ask target and save un variable
         $target_computer = Read-Host "Le Poste Client demander"
