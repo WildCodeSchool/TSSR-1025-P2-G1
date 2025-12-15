@@ -668,7 +668,7 @@ function menu_desktop_action {
                         log_event_information "ActionExécutionScriptSurMachineDistante"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_action "script_.remote_script_executionsh"
+                            execution_script_action "script_remote_script_execution.sh"
                         }    
                         else
                         {
