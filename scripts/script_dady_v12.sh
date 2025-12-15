@@ -356,7 +356,7 @@ menu_user()
             case $choice2 in
                 1)  log_event_navigation "MenuActionUtilisateur"
                         menu_user_action
-                    ;;${GREEN}
+                    ;;
                 2)  log_event_navigation "MenuInformationUtilisateur"
                         menu_user_information
                     ;;
