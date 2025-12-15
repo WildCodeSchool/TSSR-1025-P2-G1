@@ -1,6 +1,6 @@
 #########################################################################
 # Script Momy V.2                                                       #
-# Jouveaux Nicolas/Paisant Franck                                       #
+# Jouveaux Nicolas/Paisant Franck/Chicaud Matthias                      #
 # 10/12/2025                                                            #
 #########################################################################
 
@@ -16,6 +16,11 @@ $target_user = "wilder"
 
 # Variable for Logging
 $log_file = "C:\logs\log_evt.log"
+
+# Variable for scripts directory
+$local_doc = [environment]::GetFolderPath('MyDocuments')
+$project_root = Join-Path $local_doc 'TSSR-1025-P2-G1'
+$script_root = Join-Path $project_root 'scripts'
 
 #########################################################################
 #                         BASH FUNCTION                                 #
@@ -77,7 +82,7 @@ function execution_script_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "bash /tmp/$script_name"
@@ -89,11 +94,11 @@ function execution_script_information{
                                 # Retrieve directory 
 
                                 # Define local directory for storing downloaded info files
-                                $local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/scripts/info"
+                                $local_info_dir = Join-Path $script_root 'info'
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "$target_user@$target_computer:~/Documents/info/*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir"/  *>$null
                                     if ($? -eq $true) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
@@ -121,7 +126,7 @@ function execution_script_information{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -142,7 +147,7 @@ function execution_script_sudo_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "sudo bash /tmp/$script_name"
@@ -154,11 +159,11 @@ function execution_script_sudo_information{
                                 # Retrieve directory 
 
                                 # Define local directory for storing downloaded info files
-                                $local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/scripts/info"
+                                $local_info_dir = Join-Path $script_root 'info'
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "$target_user@$target_computer:~/Documents/info/*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir"/  *>$null
                                     if ($? -eq $true) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
@@ -186,7 +191,7 @@ function execution_script_sudo_information{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -207,7 +212,7 @@ function execution_script_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "bash /tmp/$script_name"
@@ -232,7 +237,7 @@ function execution_script_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -253,7 +258,7 @@ function execution_script_sudo_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:/tmp/" *>$null
+                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "sudo bash /tmp/$script_name"
@@ -278,7 +283,7 @@ function execution_script_sudo_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -358,7 +363,7 @@ function menu_user {
             3 { 
                 Clear-Host
                         log_event_navigation "RetourMenuPrincipal"
-                        break
+                        return
             }
             4 { 
                  Write-Host "Exit - FIN DE SCRIPT"
@@ -399,7 +404,7 @@ function menu_desktop {
             3 { 
                 Clear-Host
                         log_event_navigation "RetourMenuPrincipal"
-                        break
+                        return
             }
             4 { 
                 Write-Host "Exit - FIN DE SCRIPT"
@@ -496,7 +501,7 @@ function menu_user_action {
             6 { 
                 Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
-                    break
+                    return
             }
             7 { 
                 Clear-Host
@@ -555,7 +560,7 @@ function menu_user_information {
             3 { 
                 Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
-                    break
+                    return
             }
             4 { 
                 Clear-Host
@@ -678,7 +683,7 @@ function menu_desktop_action {
             8 { 
                  Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
-                    break
+                    return
             }
             9 { 
                 Clear-Host
@@ -716,7 +721,7 @@ function menu_desktop_information {
             Write-Host "13) Recherche des évenements dans le fichier log_evt.log pour un ordinateur"
             Write-Host "14) Retour"
             Write-Host "15) Exit"
-            $choice3 = Read-Host "Votre choix :"
+            $choice3 = Read-Host "Votre choix"
 
 # User choice for desktop information menu
             switch ($choice3) {
@@ -879,7 +884,7 @@ function menu_desktop_information {
                 14 { 
                     Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
-                    break
+                    return
                 }
                 15 { 
                     Clear-Host
@@ -911,7 +916,7 @@ function execution_script_windows_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
@@ -923,11 +928,11 @@ function execution_script_windows_information{
                                 # Retrieve directory 
 
                                 # Define local directory for storing downloaded info files
-                                $local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/scripts/info"
+                                $local_info_dir = Join-Path $script_root 'info'
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "$target_user@$target_computer:C:/Users/$target_user/Documents/info/*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:C:/Users/$target_user/Documents/info/*" "$local_info_dir"/  *>$null
                                     if ($? -eq $true) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
@@ -955,7 +960,7 @@ function execution_script_windows_information{
                                 }
                                 else 
                                 {
-                                    Write-Host" WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host " WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -976,7 +981,7 @@ function execution_script_windows_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp "$HOME/Documents/TSSR-1025-P2-G1/scripts/$script_name" "$target_user@$target_computer:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
@@ -1000,7 +1005,7 @@ function execution_script_windows_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host "WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -1022,7 +1027,7 @@ function execution_script_windows_action{
 if (-Not (Test-Path "C:\logs\log_evt.log"))
 {
     Clear-Host
-    Write-Host"Création du fichier de journalisation"
+    Write-Host "Création du fichier de journalisation"
     New-Item -Path "C:\logs" -ItemType Directory -Force | Out-Null
     New-Item -Path "C:\logs\log_evt.log" -ItemType File -Force | Out-Null
 }
@@ -1037,10 +1042,10 @@ while ($true)
     {
         Clear-Host
         Write-Host "Sur quel Poste Client voulez-vous vous connecter ?"
-        Write-Host"Format accepté : Nom complet ou adresse IP"
+        Write-Host "Format accepté : Nom complet ou adresse IP"
         Write-Host ""
         # ask target and save un variable
-        $target_computer = Read-Host "Le Poste Client demander :"
+        $target_computer = Read-Host "Le Poste Client demander"
 
         # Check if the requested computer exists in the SSH connection software
         Clear-Host
@@ -1073,7 +1078,7 @@ while ($true)
     else
     {
         $os_type="windows"
-        Write-Host"Système détecté : Windows"
+        Write-Host "Système détecté : Windows"
     }
     Write-Host ""
     Start-Sleep -Seconds 2
