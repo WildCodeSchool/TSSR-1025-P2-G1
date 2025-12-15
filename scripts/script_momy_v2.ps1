@@ -108,7 +108,7 @@ function execution_script_information{
                                 }
                             else 
                             {
-                                Write-Host " WARNING !!!  Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!!  Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -121,7 +121,7 @@ function execution_script_information{
                                 }
                                 else 
                                 {
-                                    Write-Host" WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host"WARNING !!!  Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -129,7 +129,7 @@ function execution_script_information{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }
@@ -166,14 +166,14 @@ function execution_script_sudo_information{
                                     }    
                                     else 
                                     {
-                                        Write-Host "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
+                                        Write-Host "WARNING !!! Aucun fichier info récupéré ou dossier vide."
                                         Write-Host ""
                                     }
                                 ###########################################################################
                                 }
                             else 
                             {
-                                Write-Host "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!! Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -186,7 +186,7 @@ function execution_script_sudo_information{
                                 }
                                 else 
                                 {
-                                    Write-Host"${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -194,7 +194,7 @@ function execution_script_sudo_information{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }
@@ -219,7 +219,7 @@ function execution_script_action{
                                 }
                             else 
                             {
-                                Write-Host "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!! Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -232,7 +232,7 @@ function execution_script_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -240,7 +240,7 @@ function execution_script_action{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }
@@ -265,7 +265,7 @@ function execution_script_sudo_action{
                                 }
                             else 
                             {
-                                Write-Host "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!! Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -278,7 +278,7 @@ function execution_script_sudo_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -286,7 +286,7 @@ function execution_script_sudo_action{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }
@@ -668,7 +668,7 @@ function menu_desktop_action {
                         log_event_information "ActionExécutionScriptSurMachineDistante"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_action "script_.remote_script_executionsh"
+                            execution_script_action "script_remote_script_execution.sh"
                         }    
                         else
                         {
@@ -935,14 +935,14 @@ function execution_script_windows_information{
                                     }    
                                     else 
                                     {
-                                        Write-Host "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
+                                        Write-Host "WARNING !!!Aucun fichier info récupéré ou dossier vide."
                                         Write-Host ""
                                     }
                                 ###########################################################################
                                 }
                             else 
                             {
-                                Write-Host "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!! Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -963,7 +963,7 @@ function execution_script_windows_information{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }
@@ -987,7 +987,7 @@ function execution_script_windows_action{
                                 }
                             else 
                             {
-                                Write-Host "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
+                                Write-Host "WARNING !!! Le $script_name ne s'est pas éxécuté !!!"
                                 Write-Host ""
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
@@ -1000,7 +1000,7 @@ function execution_script_windows_action{
                                 }
                                 else 
                                 {
-                                    Write-Host"${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    Write-Host"WARNING !!! Le fichier $script_name n'a pas été supprimé de $target_computer"
                                     Write-Host ""
                                     log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
                                     return 1
@@ -1008,7 +1008,7 @@ function execution_script_windows_action{
                             }    
                         else 
                         {
-                            Write-Host "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
+                            Write-Host "WARNING !!! La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                             log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
                         }

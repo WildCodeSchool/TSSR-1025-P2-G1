@@ -1,5 +1,5 @@
 #########################################################################
-# Template show ip adress, masque and gateway
+# Template local user list
 # Chicaud Matthias
 # 10/12/2025
 #########################################################################
@@ -42,24 +42,15 @@ function save_info {
 #########################################################################
 
 # Title
-Write-Host "Adresse IP, masque et passerelle" -ForegroundColor Yellow
+Write-Host "Liste utilisateurs locaux" -ForegroundColor Yellow
 Write-Host ""
 
-# Récupérer les infos IPv4 (hors loopback)
-$net = Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.IPAddress -ne '127.0.0.1'}
-
-$ipaddress = $net.IPAddress
-$masque = $net.PrefixLength
-
-# Récupérer la passerelle par défaut
-$gateway = (Get-NetRoute -DestinationPrefix '0.0.0.0/0').NextHop
-
-Write-Host "IP      :$ipaddress"
-Write-Host "Masque  : $masque"
-Write-Host "Passerelle : $gateway"
-$value= "IP : $ipaddress / Mask : $masque | Passerelle : $gateway"
+# Récupérer les utilisateurs locaux
+$localuser = Get-LocalUser 
+$localuser | Where-Object {$_.Enabled -eq "False"} | Select-Object Name
+$value = $localuser | Where-Object {$_.Enabled -eq "False"} | Select-Object Name
 
 # save info 
-save_info -label "Adresse IP, masque et passerelle" -value $value
+save_info -label "Liste utilisateurs locaux" -value $value
 
 #########################################################################
