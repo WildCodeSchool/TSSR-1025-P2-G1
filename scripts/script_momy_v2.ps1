@@ -82,7 +82,7 @@ function execution_script_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "bash /tmp/$script_name"
@@ -147,7 +147,7 @@ function execution_script_sudo_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "sudo bash /tmp/$script_name"
@@ -212,7 +212,7 @@ function execution_script_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "bash /tmp/$script_name"
@@ -916,7 +916,7 @@ function execution_script_windows_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
@@ -981,7 +981,7 @@ function execution_script_windows_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
                             ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
