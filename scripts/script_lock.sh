@@ -36,7 +36,7 @@ do
     sleep 1
 done
 
-echo -e "Vérrouillage de l'ordinateur !!"
+echo -e "${RED}Vérrouillage de l'ordinateur !!${NC}"
 sleep 1
 
 xdg-screensaver lock

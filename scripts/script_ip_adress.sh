@@ -64,7 +64,8 @@ gateway="$(ip route | grep default | awk '{print $3}')"
 
 # Save information
 value="IP / Mask : $ip_mask | Passerelle : $gateway"
-echo "$value"
+echo -e "${GREEN}$value${NC}"
+echo ""
 save_info "Adresse IP, masque et passerelle" "$value"
 
 #########################################################################

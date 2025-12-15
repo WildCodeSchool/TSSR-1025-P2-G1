@@ -57,8 +57,9 @@ echo -e "${TITLE}Liste des utilisateurs locaux${NC}"
 echo ""
 # Nombre de disque
 user_list="$(awk -F: '$3 >=1000 {print $1}' /etc/passwd)"
-echo -e "La liste des utilisateur :"
-echo -e "$user_list"
+echo -e "${TITLE}La liste des utilisateur :${NC}"
+echo -e "${GREEN}$user_list${NC}"
+echo ""
 
 
 # Save information

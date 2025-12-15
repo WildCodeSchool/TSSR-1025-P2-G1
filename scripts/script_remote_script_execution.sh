@@ -45,7 +45,7 @@ execution_script_sudo()
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuter avec succès"
+                                echo -e "${GREEN}Le $script_name a été exécuter avec succès${NC}"
                                 echo ""
                                 ###########################################################################
                                 # Retrieve directory 
@@ -96,7 +96,7 @@ execution_script_sudo()
     clear
     echo -e "${TITLE}Utilisation de script à distance${NC}"
     echo ""
-    echo "Quel script voulez-vous utilisez à distance ?" 
+    echo -e "${TITLE}Quel script voulez-vous utilisez à distance ?${NC}" 
     read -p "Le chemin vers votre script : " script_name
 
     if [ ! -f "$script_name" ]

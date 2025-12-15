@@ -51,7 +51,7 @@ done
 # verification creation user
 if [ $? -eq 0 ]
 then
-	echo "le compte utilisateur $name est bien créé!"
+	echo -e "${GREEN}le compte utilisateur $name est bien créé!${NC}"
 	echo ""
 else
 	echo -e "${RED}WARNING ! ${NC}le compte utilisateur $name n'a pas été créé !!!"

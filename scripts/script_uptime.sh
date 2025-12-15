@@ -56,7 +56,7 @@ save_info()
 
 #command to display the OS version
 value="$(uptime -p 2> /dev/null)"
-    echo -e "$value"
+    echo -e "${GREEN}$value${NC}"
     echo ""
 
     save_info "Uptime" "$value"

@@ -57,7 +57,8 @@ echo -e "${TITLE}Nombre de disque${NC}"
 echo ""
 # Nombre de disque
 number_disk="$(lsblk | wc -l)"
-echo -e "Le nombre de disque sur la machine : $number_disk"
+echo -e "${GREEN}Le nombre de disque sur la machine : $number_disk${NC}"
+echo ""
 
 # Save information
 value="$number_disk"
