@@ -1,6 +1,6 @@
 #!/bin/bash
 #############################
-# Script temp_cpu
+# Script temp cpu
 # Jouveaux Nicolas
 # 01/12/2025
 ##############################
@@ -35,10 +35,10 @@ echo "---"
 # Checked if 'sensors' is installed
 if command -v sensors &> /dev/null
 then
-# Exécution de la commande 'sensors' et filtrage
+# Filtering and executing the 'sensors' command to get CPU temperature
     sensors 2>/dev/null | grep -E 'Core |Package id'
     
-# Vérifie si le filtre a trouvé des données
+# Verification if sensors command returned a value
         if [ $? -eq 0 ];
         then
             echo "Capteurs détectés : Affichage des températures :"
@@ -48,7 +48,7 @@ then
             echo ""
         fi    
 else
-    # Si la commande n'est pas installée : affiche le message d'erreur
+    # If 'sensors' is not installed, display a message
     echo "ATTENTION : La commande 'sensors' est introuvable."
     echo "Utiliser 'sudo apt install lm-sensors' pour l'installer"
     echo ""
