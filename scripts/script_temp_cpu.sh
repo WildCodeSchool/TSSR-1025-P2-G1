@@ -49,8 +49,8 @@ then
         fi    
 else
     # Si la commande n'est pas installée : affiche le message d'erreur
-    echo -e "${TITLE}ATTENTION : La commande 'sensors' est introuvable.${NC}"
-    echo -e "${TITLE}Utiliser 'sudo apt install lm-sensors' pour l'installer${NC}"
+    echo -e "${RED}ATTENTION : La commande 'sensors' est introuvable.${NC}"
+    echo -e "${RED}Utiliser 'sudo apt install lm-sensors' pour l'installer${NC}"
     echo ""
 fi
 exit 0

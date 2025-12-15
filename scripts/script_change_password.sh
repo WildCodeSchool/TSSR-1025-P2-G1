@@ -70,10 +70,12 @@ echo ""
 if passwd "$user"; then
     echo ""
     echo -e "${GREEN}Le mot de passe de $user a été modifié avec succès !${NC}"
+    echo ""
     exit 0
 else
     echo ""
     echo -e "${RED}ÉCHEC : Une erreur est survenue lors du changement de mot de passe.${NC}"
+    echo ""
     exit 1
 fi
 exit 0
