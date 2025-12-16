@@ -1,9 +1,11 @@
 #!/bin/bash
-#############################
-# Script space disk
+
+#########################################################################
+# Script add critical events
 # Jouveaux Nicolas
-# 01/12/2025
-##############################
+# Execution SUDO
+# 11/12/2025
+#########################################################################
 
 #########################################################################
 #                     Define colors with variables                      #
@@ -19,6 +21,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+
 #########################################################################
 
 #########################################################################
@@ -26,6 +29,7 @@ NC='\033[0m'
 #########################################################################
 
 # Variable for save_info function
+
 info_target="$(hostname)"
 info_date="$(date +%Y%m%d)"
 info_dir="/home/$(whoami)/Documents/info"
@@ -35,32 +39,41 @@ info_file="$info_dir/info_${info_target}_${info_date}.txt"
 # Function
 #########################################################################
 
-# function for save information in file
+# Function for save information in file
 save_info()
 {
     local label="$1"
     local value="$2"
     local time_save_info="$(date +%H:%M:%S)"
     mkdir -p "$info_dir"
-    echo "[$time_save_info] $label : $value" >> $info_file
+    echo "[$time_save_info] $label : $value" >> "$info_file"
 }
 
 #########################################################################
 # Script
 #########################################################################
 
-# menu name display
-    echo -e "${TITLE}Espace disque restant par partition/volume${NC}"
-    echo ""
-
-
-echo "Mes disques et partitions"
+# Title
+echo -e "${TITLE}10 derniers événements critiques${NC}"
 echo ""
 
-# Affichage des disques et partition
-lsblk -f
+# Filtering events display
+echo -e "${YELLOW}Filtrage des événements critiques en cours${NC}"
+echo ""
+
+# Use journalctl to display the last 10 critical events (0 = Emergency, 1 = Alert, 2 = Critical)
+journalctl -p 0..2 -n 10 --no-pager
+
+# Result verification
+if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN}Affichage des 10 derniers événements critiques terminé${NC}"
+else
+    echo ""
+    echo -e "${RED}Erreur lors de la récupération des événements critiques${NC}"
+    exit 1
+fi
 
 # Save information
-save_info "Espace disque restant par partition/volume" "$value"
+save_info "10 derniers événements critiques" "$value"
 exit 0
-############################################################################

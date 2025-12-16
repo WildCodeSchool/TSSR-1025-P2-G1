@@ -1,6 +1,6 @@
 #!/bin/bash
 #############################
-# Script graphic_card
+# Script graphic card
 # Jouveaux Nicolas
 # 29/11/2025
 ##############################
@@ -21,6 +21,30 @@ GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
 #########################################################################
+
+#########################################################################
+# Variable
+#########################################################################
+
+# Variable for save_info function
+info_target="$(hostname)"
+info_date="$(date +%Y%m%d)"
+info_dir="/home/$(whoami)/Documents/info"
+info_file="$info_dir/info_${info_target}_${info_date}.txt"
+
+#########################################################################
+# Function
+#########################################################################
+
+# function for save information in file
+save_info()
+{
+    local label="$1"
+    local value="$2"
+    local time_save_info="$(date +%H:%M:%S)"
+    mkdir -p "$info_dir"
+    echo "[$time_save_info] $label : $value" >> $info_file
+}
 
 #########################################################################
 # Script
@@ -45,5 +69,7 @@ else
     echo "ATTENTION : La commande 'lshw' n'est pas installée."
     echo ""
 fi
+# Save information
+save_info "Carte graphique" "$value"
 exit 0
 ############################################################################
