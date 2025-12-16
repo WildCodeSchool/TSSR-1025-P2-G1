@@ -12,15 +12,17 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[4;33m'
+TITLE='\033[1;33m'
 # Used for labels: purple
-LABEL='\033[0;35m'
+LABEL='\033[1;94m'
 # Used for FALSE: red
-RED='\033[0;31m'
+RED='\033[0;91m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+# White
+WHITE='\033[1;97m'
 
 #########################################################################
 
@@ -42,6 +44,31 @@ os_type=""
 #########################################################################
 #                           Bash Function                               #
 #########################################################################
+
+# Fonction title server
+display_serveur() {
+    echo -e "${GREEN}"
+    echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+    echo "║                                                                              ║"
+    echo -ne "║                          "
+    echo -ne    "  ${WHITE}The Scripting Project${GREEN}    "
+    echo "                         ║"
+    echo "║                                                                              ║"
+    echo -ne "║                                    "
+    echo -ne "  ${NC}by${GREEN} "
+    echo "                                     ║"
+    echo "║                                                                              ║"
+    echo -ne "║                        "
+    echo -ne " ${LABEL}Nicolas${NC} / ${WHITE}Matthias${NC} / ${RED}Franck${GREEN} "
+    echo "                         ║"
+    echo "║                                                                              ║"
+    echo -ne "║                             "
+    echo -ne  "${NC}SERVEUR : SVRLX01${GREEN}  "
+    echo "                              ║"
+    echo "║                                                                              ║"
+    echo "╚══════════════════════════════════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+}
 
 #fonction title
 display_machine() {
@@ -104,14 +131,14 @@ log_event_connexion()
 execution_script_information()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh "$target_user"@"$target_computer" "bash /tmp/"$script_name""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                                 ###########################################################################
                                 # Retrieve directory 
@@ -140,7 +167,7 @@ execution_script_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
+                                    echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -169,14 +196,14 @@ execution_script_information()
 execution_script_sudo_information()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
                             if [ $? -eq 0$ ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                                 ###########################################################################
                                 # Retrieve directory 
@@ -205,7 +232,7 @@ execution_script_sudo_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
+                                    echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -235,14 +262,14 @@ execution_script_sudo_information()
  execution_script_action()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh "$target_user"@"$target_computer" "bash /tmp/"$script_name""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
@@ -271,14 +298,14 @@ execution_script_sudo_information()
  execution_script_sudo_action()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
@@ -329,11 +356,11 @@ menu()
             3)  log_event_navigation "ChangementMachine"
                     return;; 
             
-            4)  echo -e "Exit - FIN DE SCRIPT"
+            4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                     log_event_navigation "EndScript"
                     exit 0
                 ;;
-            *)  echo -e "Erreur"
+            *)  echo -e "${RED}Erreur${NC}"
                     log_event_navigation "ErreurNavigation"
                 ;;
         esac
@@ -367,11 +394,11 @@ menu_user()
                         log_event_navigation "RetourMenuPrincipal"
                         break
                     ;;
-                4)  echo -e "Exit - FIN DE SCRIPT"
+                4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
-                *)  echo -e "ERREUR"
+                *)  echo -e "${RED}ERREUR${NC}"
                         log_event_navigation "ErreurNavigation"
                     ;;
             esac
@@ -446,11 +473,11 @@ menu_user_action()
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                7)  echo -e "Exit - FIN DE SCRIPT"
+                7)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
-                *)  echo -e "ERREUR"
+                *)  echo -e "${RED}ERREUR${NC}"
                         log_event_navigation "ErreurNavigation"
                     ;;
             esac
@@ -496,11 +523,11 @@ menu_user_information()
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                4)  echo -e "Exit - FIN DE SCRIPT"
+                4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
-                *)  echo -e "ERREUR"
+                *)  echo -e "${RED}ERREUR${NC}"
                         log_event_navigation "ErreurNavigation"
                     ;;
             esac
@@ -533,11 +560,11 @@ menu_computer()
                         log_event_navigation "RetourMenuPrincipal"
                         break
                     ;;
-                4)  echo -e "Exit - FIN DE SCRIPT"
+                4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
-                *)  echo -e "ERREUR"
+                *)  echo -e "${RED}ERREUR${NC}"
                         log_event_navigation "ErreurNavigation"
                     ;;
             esac
@@ -633,9 +660,9 @@ menu_computer_action()
                         break;;
                 9)  clear
                         log_event_navigation "EndScript"
-                        echo -e "Exit - FIN DE SCRIPT"
+                        echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         exit 0;;
-                *)  echo -e "ERREUR"
+                *)  echo -e "${RED}ERREUR${NC}"
                         log_event_navigation "ErreurNavigation";;
             esac
         done
@@ -788,11 +815,11 @@ menu_computer_information()
                 14) clear
                         log_event_navigation "RetourMenuOrdinateur"
                     break;;
-                15) echo -e "Exit - FIN DE SCRIPT"
+                15) echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
-                *)  echo -e "ERREUR";;
+                *)  echo -e "${RED}ERREUR${NC}";;
             esac
         done
     }
@@ -808,7 +835,7 @@ menu_computer_information()
 execution_script_windows_information()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":C:/Users/$target_user/Documents/ &> /dev/null
                     echo ""
                         if [ $? -eq 0 ]
@@ -817,7 +844,7 @@ execution_script_windows_information()
                             echo ""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                                 ###########################################################################
                                 # Retrieve directory 
@@ -846,7 +873,7 @@ execution_script_windows_information()
                             ssh "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if [ $? -eq 0 ]
                                 then
-                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
+                                    echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -876,7 +903,7 @@ execution_script_windows_information()
 execution_script_windows_action()
     {
      local script_name="$1"   
-     echo "Connexion à $target_computer et éxécution du $script_name"
+     echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
                     scp ~/Documents/TSSR-1025-P2-G1/scripts/"$script_name" "$target_user"@"$target_computer":C:/Users/$target_user/Documents/ &> /dev/null
                     echo ""
                         if [ $? -eq 0 ]
@@ -885,7 +912,7 @@ execution_script_windows_action()
                             echo ""
                             if [ $? -eq 0 ]
                             then
-                                echo "Le $script_name a été exécuté avec succès"
+                                echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
@@ -896,7 +923,7 @@ execution_script_windows_action()
                             ssh "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if [ $? -eq 0 ]
                                 then
-                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
+                                    echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -946,9 +973,10 @@ do
     while true
     do
         clear
+        display_serveur
         echo -e "${TITLE}Sur quel Poste Client voulez-vous vous connecter ?${NC}"
         echo ""
-        echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
+        echo -e "${GREEN}Format accepté : Nom complet ou adresse IP${NC}"
         echo ""
         # ask target and save un variable
         read -p "Le Poste Client demander :" target_computer
@@ -968,7 +996,7 @@ do
     done
     #detection version pc
     clear
-    echo -e "${RED}Détection du système d'exploitation en cours...${NC}"
+    echo -e "${LABEL}Détection du système d'exploitation en cours...${NC}"
     echo ""
 
     if ssh "$target_user"@"$target_computer" "[ -d /etc ]" &> /dev/null
