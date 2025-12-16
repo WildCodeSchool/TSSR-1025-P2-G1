@@ -223,7 +223,7 @@ Remplir impérativement la **passphrase** ,cela seras le seul mot de passe à re
 
 ##### 3.3 Copie de la clé Publique sur *CLIWIN01*
 
-Pour copié la clé Publique sur *CLIWIN01* veuillez tapé cette commande :
+Pour copié la clé Publique sur *CLIWIN01* veuillez taper cette commande :
 
 ```bash
 ssh wilder@CLIWIN01 "echo $(Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub) >> .ssh/authorized_keys"
