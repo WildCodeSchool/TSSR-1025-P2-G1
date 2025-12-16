@@ -36,13 +36,13 @@ NC='\033[0m'
 # Script
 #########################################################################
 
-# menu name display
+# Menu name display
     echo -e "${TITLE}Ajout d'un utilisateur à un groupe${NC}"
     echo ""
 
 while true
 do
-    # Select user
+# Select user
     while true
     do
         read -p "Quel est le nom de l'utilisateur à ajouter ? : " user
@@ -53,24 +53,29 @@ do
             echo -e "${RED}Erreur : l'utilisateur $user n'existe pas sur ce système.${NC}"
         fi
     done
+    echo ""
 
-echo ""
-
-    # Wich group
+# Wich group
     read -p "Dans quel groupe voulez-vous ajouter $user ? : " group
     echo ""
 
-    # Verification and creation of group if not exist
-if ! getent group "$group" &>/dev/null; then
+# Verification and creation of group if not exist
+if ! getent group "$group" &>/dev/null
+then
     echo -e "${RED}Attention : le groupe $group n'existe pas.${NC}"
-    
+    echo ""
     read -r -p "Voulez-vous créer le groupe $group maintenant ? (o/N) : " response
+    echo ""
     
-    # Check user response
-    if [[ "${response,,}" == "o"* ]]; then
-        echo "Création du groupe $group..."
-        if groupadd "$group"; then
-            echo -e "${GREEN}Succès : groupe $group créé.${NC}"
+# Check user response
+    if [[ "${response,,}" == "o"* ]]
+    then
+        echo "Création du groupe $group."
+        echo ""
+        if groupadd "$group"
+        then
+            echo -e "${GREEN}Succès : Le groupe $group a été créé.${NC}"
+            echo ""
         else
             echo -e "${RED}Échec de la création du groupe $group.${NC}"
             exit 1 
@@ -81,19 +86,19 @@ if ! getent group "$group" &>/dev/null; then
     fi
 fi
 
-    # Verification if user is already in group
+# Verification if user is already in group
     if groups $user | grep -qw $group
     then
         echo -e "${RED}Avertissement : $user fait déjà partie du groupe $group.${NC}"
         exit 1
     fi
-
-    # Add user to group
+    
+# Add user to group
     echo "Ajout de l'utilisateur $user au groupe $group"
+    echo ""
     if usermod -aG $group $user
     then
         echo -e "${GREEN}SUCCÈS : $user a bien été ajouté au groupe $group.${NC}"
-        echo
         exit 0
     else
         echo -e "${RED}ÉCHEC CRITIQUE : impossible d'ajouter $user au groupe $group.${NC}"
