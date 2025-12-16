@@ -50,7 +50,7 @@ done
 echo -e "${GREEN}Redémarrage de la $machine en cours  !!${NC}"
 sleep 1
 
-reboot
+reboot &> /dev/null &
 
 exit 0
 

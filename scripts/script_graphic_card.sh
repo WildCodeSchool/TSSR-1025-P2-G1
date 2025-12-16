@@ -33,19 +33,19 @@ WHITE='\033[1;97m'
     echo -e "${TITLE}Carte graphique${NC}"
     echo ""
 
-echo "Détails de la carte graphique"
+echo -e "${TITLE}Détails de la carte graphique${NC}"
 echo ""
 
 # Checked if 'lshw' is installed
 if command -v lshw &> /dev/null
 then
-    echo "${GREEN}Recherche de la carte graphique${NC}"
+    echo -e "${GREEN}Recherche de la carte graphique${NC}"
 # Command execution
     lshw -C display 
     echo ""   
 else
 # Command isn't installed : error message
-    echo "ATTENTION : La commande 'lshw' n'est pas installée."
+    echo -e "${RED}ATTENTION : La commande 'lshw' n'est pas installée.${NC}"
     echo ""
 fi
 exit 0

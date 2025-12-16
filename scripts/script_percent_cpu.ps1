@@ -44,11 +44,11 @@ function save_info {
 # Title
 Write-Host "CPU %" -ForegroundColor Yellow
 Write-Host ""
-$value = (Get-counter '\Processor(_total)\% Processor Time').CounterSamples.CookedValue
-$value = [math]::Round($value, 2)
+$cpu = Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average
+$value = [math]::Round($cpu.Average, 2)
 Write-Host "Utilisation du CPU : $value %"
 
 # save info 
-save_info -label "CPU %" -value $value
+save_info -label "CPU %" -value "$value %"
 
 #########################################################################
