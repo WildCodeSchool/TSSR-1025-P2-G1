@@ -67,10 +67,10 @@ journalctl -p 0..2 -n 10 --no-pager
 # Result verification
 if [ $? -eq 0 ]; then
     echo ""
-    echo -e "${GREEN}✓ Affichage des 10 derniers événements critiques terminé${NC}"
+    echo -e "${GREEN}Affichage des 10 derniers événements critiques terminé${NC}"
 else
     echo ""
-    echo -e "${RED}✗ Erreur lors de la récupération des événements critiques${NC}"
+    echo -e "${RED}Erreur lors de la récupération des événements critiques${NC}"
     exit 1
 fi
 

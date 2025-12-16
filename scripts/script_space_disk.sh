@@ -54,7 +54,7 @@ save_info()
     echo ""
 
 
-echo "=== Mes disques et partitions ==="
+echo "Mes disques et partitions"
 echo ""
 
 # Affichage des disques et partition
