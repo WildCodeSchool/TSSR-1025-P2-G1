@@ -73,7 +73,7 @@ done
 # verification the user has been added to the administration group
 if groups "$user" | grep -w "$group" &> /dev/null
 then
-    echo " $user a bien été ajouté au groupe d'administration $group "
+    echo -e "${GREEN} $user a bien été ajouté au groupe d'administration $group${NC} "
     echo ""
 else
     echo -e " ${RED}WARNING !!!${NC} $user n'a pas été ajouté au groupe d'administration $group "

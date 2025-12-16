@@ -63,7 +63,7 @@ PERCENT=$(echo "$CPU" | awk '{print $15}')
 CPU_USAGE=$(echo "100 - $PERCENT" | bc -l)
 
     # Displaying the result
-        echo "Utilisation du CPU : **$CPU_USAGE %**"
+        echo -e "${GREEN}Utilisation du CPU : **$CPU_USAGE %**${NC}"
         echo ""
 
 value="$CPU_USAGE"

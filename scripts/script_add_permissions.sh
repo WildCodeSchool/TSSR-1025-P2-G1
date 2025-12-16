@@ -87,9 +87,9 @@ done
 while true
 do
         echo -e "${TITLE}Type de permissions à appliquer${NC}"
-        echo -e "1) Lecture seule"
-        echo -e "2) Lecture et écriture"
-        echo -e "3) Lecture, écriture et exécution"
+        echo -e "${GREEN}1)${NC} Lecture seule"
+        echo -e "${GREEN}2)${NC} Lecture et écriture"
+        echo -e "${GREEN}3)${NC} Lecture, écriture et exécution"
         read -p "Votre choix : " choice
         
         echo ""
@@ -113,7 +113,7 @@ read -p "Vouslez-vous vraiment autoriser ces permissions ? (o/n) : " confirm
 
 if [[ "$confirm" != "o" && "$confirm" != "O" ]]
 then
-    echo "Opération annulée."
+    echo -e "${RED}Opération annulée.${NC}"
     exit 0
 fi
 
@@ -127,7 +127,7 @@ then
 # Display current permissions
     echo ""
     
-    echo "Vérification des droits actuels :"
+    echo -e "${TITLE}Vérification des droits actuels :${NC}"
     ls -ld "$folder"
 fi
 

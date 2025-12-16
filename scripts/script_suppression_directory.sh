@@ -40,16 +40,19 @@ do
     # verification of the directory to be deleted.
     if [ -d "$repertory" ]
     then
-        echo " le $repertory existe bien !"
+        echo -e "${GREEN} le $repertory existe bien !${NC}"
         read -p "Confirmer vous la suppression o/n ?" choix
+            echo ""
             if [ "$choix" = "o" ]
             then
                 rm -r "$repertory"
                 echo -e " le $repertory a été ${RED}supprimé avec succès!!${NC}"
+                echo ""
                 break
             elif [ "$choix" = "n" ]
             then
                 echo-e " WARNING le $repertory ${RED}n'a pas été supprimé !!!${NC}"
+                echo""
                 break
             else
                 echo "Choix invalide"

@@ -60,9 +60,10 @@ echo ""
 # Checked if 'lshw' is installed
 if command -v lshw &> /dev/null
 then
-    echo "Recherche de la carte graphique"
+    echo "${GREEN}Recherche de la carte graphique${NC}"
 # Command execution
-    lshw -C display    
+    lshw -C display 
+    echo ""   
 else
 # Command isn't installed : error message
     echo "ATTENTION : La commande 'lshw' n'est pas installée."

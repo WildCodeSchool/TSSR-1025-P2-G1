@@ -1,20 +1,19 @@
 #########################################################################
-# Script percent cpu
-# Chicaud Matthias
-# 10/12/2025
+# Script info partition
+# Paisant Franck
+# 16/12/2025
 #########################################################################
 
 #########################################################################
 # Variable
 #########################################################################
-
 # Variable for save_info function
 
-# $info_target = "wilder" # Uncomment for user script
+# info_target="wilder" # Uncomment for user script
 $info_target = $env:COMPUTERNAME # Uncomment for computer script
 $info_date = Get-Date -Format "yyyyMMdd"
-$info_dir = "C:\Users\$env:USERNAME\Documents\info"
-$info_file = "$info_dir\info_${info_target}_${info_date}.txt"
+$info_dir="C:\Users\$env:USERNAME\Documents\info"
+$info_file="$info_dir\info_${info_target}_${info_date}.txt"
 
 #########################################################################
 # Function
@@ -40,15 +39,19 @@ function save_info {
 #########################################################################
 # Script
 #########################################################################
+# menu name display
+    Write-Host "Information des partitions par disques" -ForegroundColor Yellow
+    Write-Host ""
 
-# Title
-Write-Host "CPU %" -ForegroundColor Yellow
-Write-Host ""
-$value = (Get-counter '\Processor(_total)\% Processor Time').CounterSamples.CookedValue
-$value = [math]::Round($value, 2)
-Write-Host "Utilisation du CPU : $value %"
+# Number partition
+$info_partition = Get-Disk | Get-Partition | Select-Object DiskNumber, PartitionNumber, DriveLetter, Size, Type | Format-Table | Out-String
+    Write-Host "Voici les informations des partitions sur $info_target :" -ForegroundColor Green
+    Write-Host $info_partition -ForegroundColor Green
+    Write-Host ""
 
 # save info 
-save_info -label "CPU %" -value $value
+save_info -label "Information des partitions" -value $info_partition
 
-#########################################################################
+exit 0
+
+#############################################################################

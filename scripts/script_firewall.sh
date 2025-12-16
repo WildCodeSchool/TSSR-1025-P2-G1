@@ -35,20 +35,20 @@ NC='\033[0m'
     echo ""
 
 # Display options to enable or disable the firewall 
-echo "1) Activer le pare-feu"
-echo "2) Désactiver le pare-feu"
+echo -e "${TITLE}1) Activer le pare-feu${NC}"
+echo -e "${TITLE}2) Désactiver le pare-feu${NC}"
 echo ""
 read -p "➤ Choisis 1 ou 2 : " reply
 
 if [ "$reply" = "1" ]; then
     echo "Activation du pare-feu"
     sudo ufw --force enable >/dev/null 2>&1
-    echo "Pare-feu activé"
+    echo -e "${GREEN}Pare-feu activé${NC}"
     sudo ufw status verbose
 else
     echo "Désactivation du pare-feu"
     sudo ufw disable >/dev/null 2>&1
-    echo "Pare-feu désactivé => WARNING OPEN-BAR"
+    echo -e "${RED}Pare-feu désactivé => WARNING OPEN-BAR${NC}"
     sudo ufw status verbose
 fi
 exit 0

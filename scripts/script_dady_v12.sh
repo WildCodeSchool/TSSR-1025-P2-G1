@@ -47,7 +47,7 @@ os_type=""
 display_machine() {
     local machine="$1"
     
-    clear
+    
     echo -e "${GREEN}"
     echo "╔══════════════════════════════════════════════════════════════════════════════╗"
     echo "║                                                                              ║"
@@ -124,7 +124,7 @@ execution_script_information()
                                 scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
-                                        echo "Les fichiers info ont été importés dans $local_info_dir"
+                                        echo -e "${GREEN}Les fichiers info ont été importés dans $local_info_dir${NC}"
                                         echo ""
                                     else
                                         echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
@@ -140,7 +140,7 @@ execution_script_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo "Le fichier $script_name a bien été effacé de $target_computer"
+                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -174,7 +174,7 @@ execution_script_sudo_information()
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
-                            if [ $? -eq 0${GREEN} ]
+                            if [ $? -eq 0$ ]
                             then
                                 echo "Le $script_name a été exécuté avec succès"
                                 echo ""
@@ -189,7 +189,7 @@ execution_script_sudo_information()
                                 scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
-                                        echo "Les fichiers info ont été importés dans $local_info_dir"
+                                        echo -e "${GREEN}Les fichiers info ont été importés dans $local_info_dir${NC}"
                                         echo ""
                                     else
                                         echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
@@ -205,7 +205,7 @@ execution_script_sudo_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo "Le fichier $script_name a bien été effacé de $target_computer"
+                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -253,7 +253,7 @@ execution_script_sudo_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo "Le fichier $script_name a bien été effacé de $target_computer"
+                                    echo -e "${GREEN} Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -289,7 +289,7 @@ execution_script_sudo_information()
                             ssh "$target_user"@"$target_computer" "rm /tmp/"$script_name""
                                 if [ $? -eq 0 ]
                                 then
-                                    echo "Le fichier $script_name a bien été effacé de $target_computer"
+                                    echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -347,10 +347,12 @@ menu_user()
         while true; do
             display_machine "$target_computer"
             echo -e "${TITLE}Menu utilisateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Action"
             echo -e "${GREEN}2)${NC} Information"
             echo -e "${GREEN}3)${NC} Retour"
             echo -e "${GREEN}4)${NC} Exit"
+            echo ""
             read -p "Votre choix :" choice2
 
             case $choice2 in
@@ -547,9 +549,9 @@ menu_computer_action()
     {
         clear
         while true; do
-            display_machine "$target_computer"
-            echo ""
+            display_machine "$target_computer"       
             echo -e "${TITLE}Menu action ordinateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Verrouillage"
             echo -e "${GREEN}2)${NC} Redémarrage"
             echo -e "${GREEN}3)${NC} Activation du pare-feu"
@@ -645,8 +647,8 @@ menu_computer_information()
         clear
         while true; do
             display_machine "$target_computer"
-            echo ""
             echo -e "${TITLE}Menu action ordinateur:${NC}"
+            echo ""
             echo -e "${GREEN}1)${NC} Adresse IP, masque, passerelle"
             echo -e "${GREEN}2)${NC} Version de l'OS"
             echo -e "${GREEN}3)${NC} Carte graphique"
@@ -654,7 +656,7 @@ menu_computer_information()
             echo -e "${GREEN}5)${NC} Uptime"
             echo -e "${GREEN}6)${NC} Température CPU"
             echo -e "${GREEN}7)${NC} Nombre de disque"
-            echo -e "8${GREEN})${NC} Partition (nombre, nom, FS, taille) par disque"
+            echo -e "${GREEN}8)${NC} Partition (nombre, nom, FS, taille) par disque"
             echo -e "${GREEN}9)${NC} Espace disque restant par partition/volume"
             echo -e "${GREEN}10)${NC} Liste des utilisateurs locaux"
             echo -e "${GREEN}11)${NC} 5 derniers logins"
@@ -733,9 +735,9 @@ menu_computer_information()
                         log_event_information "InformationPartitionDisque"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_info_partition.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_info_partition.ps1"
                         fi
                     ;;
                 9)  clear
@@ -828,7 +830,7 @@ execution_script_windows_information()
                                 scp "$target_user"@"$target_computer":C:/Users/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
                                     if [ $? -eq 0 ]
                                     then
-                                        echo "Les fichiers info ont été importés dans $local_info_dir"
+                                        echo -e "${GREEN}Les fichiers info ont été importés dans $local_info_dir${NC}"
                                         echo ""
                                     else
                                         echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
@@ -844,7 +846,7 @@ execution_script_windows_information()
                             ssh "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if [ $? -eq 0 ]
                                 then
-                                    echo "Le fichier $script_name a bien été effacé de $target_computer"
+                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
                                     echo ""
                                 else
                                     echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
@@ -867,7 +869,7 @@ execution_script_windows_information()
                             echo -e "${RED} WARNING !!! ${NC} La connexion SSH où le chemin d'accès du script n'a pas fonctionné"
                              log_event_connexion "ERREURConnexionSSHouCheminScript"
                             return 1
-                        fi  
+                        fi 
     }
 
 #execution script PowerShell action
@@ -891,6 +893,17 @@ execution_script_windows_action()
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             fi
+                            ssh "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                                if [ $? -eq 0 ]
+                                then
+                                    echo -e "${TITLE}Le fichier $script_name a bien été effacé de $target_computer${NC}"
+                                    echo ""
+                                else
+                                    echo -e "${RED} WARNING !!! ${NC} Le fichier $script_name n'a pas été supprimé de $target_computer"
+                                    echo ""
+                                    log_event_connexion "ERREURFichierNonSupprimeSortieSSH"
+                                    return 1
+                                fi
                             #ssh "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                             #    if [ $? -eq 0 ]
                             #    then
@@ -934,6 +947,7 @@ do
     do
         clear
         echo -e "${TITLE}Sur quel Poste Client voulez-vous vous connecter ?${NC}"
+        echo ""
         echo -e "${LABEL}Format accepté : Nom complet ou adresse IP${NC}"
         echo ""
         # ask target and save un variable
@@ -954,7 +968,7 @@ do
     done
     #detection version pc
     clear
-    echo "Détection du système d'exploitation en cours..."
+    echo -e "${RED}Détection du système d'exploitation en cours...${NC}"
     echo ""
 
     if ssh "$target_user"@"$target_computer" "[ -d /etc ]" &> /dev/null

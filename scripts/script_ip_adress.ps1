@@ -1,5 +1,5 @@
 #########################################################################
-# Template show ip adress, masque and gateway
+# Script show ip adress, mask and gateway
 # Chicaud Matthias
 # 10/12/2025
 #########################################################################
