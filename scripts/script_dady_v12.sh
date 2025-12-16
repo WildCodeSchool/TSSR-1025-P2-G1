@@ -614,9 +614,9 @@ menu_computer_action()
                         log_event_action "ActionPriseEnMainDistance"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_action "script_.sh"
+                            execution_script_action "script_remote_control.sh"
                         else
-                            execution_script_windows_action "script_.ps1"
+                            execution_script_windows_action "script_remote_control.ps1"
                         fi
                     ;;
                 7)  clear
@@ -771,9 +771,9 @@ menu_computer_information()
                         log_event_information "Information10EvenementCritique"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_information "script_.sh"
+                            execution_script_sudo_information "script_critical_event.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_critical_event.ps1"
                         fi
                     ;;
                 13) clear 

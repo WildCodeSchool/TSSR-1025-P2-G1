@@ -258,7 +258,7 @@ function execution_script_sudo_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
@@ -661,11 +661,11 @@ function menu_desktop_action {
                         log_event_information "ActionPriseEnMainDistance"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_action "script_.sh"
+                            execution_script_action "script_remote_control.sh"
                         }    
                         else
                         {
-                            execution_script_windows_action "script_.ps1"
+                            execution_script_windows_action "script_remote_control.ps1"
                         }
             }
             7 { 
@@ -754,7 +754,7 @@ function menu_desktop_information {
                         log_event_information "InformationCarteGraphique"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_sudo_information "script_graphic_card.sh"
+                            execution_script_information "script_graphic_card.sh"
                         }    
                         else
                         {
@@ -811,18 +811,6 @@ function menu_desktop_information {
                  }
                 8 { 
                     Clear-Host
-                        log_event_information "InformationPartitionDisk"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_information "script_.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_information "script_.ps1"
-                        }
-                }
-                9 { 
-                    Clear-Host
                         log_event_information "InformationEspaceDisk"
                         if ($os_type -eq "linux")
                         {
@@ -831,6 +819,18 @@ function menu_desktop_information {
                         else
                         {
                             execution_script_windows_information "script_space_disk.ps1"
+                        }
+                }
+                9 { 
+                    Clear-Host
+                        log_event_information "InformationPartitionDisk"
+                        if ($os_type -eq "linux")
+                        {
+                            execution_script_information "script_info_partition.sh"
+                        }    
+                        else
+                        {
+                            execution_script_windows_information "script_info_partition.ps1"
                         }
                 }
                 10 { 
@@ -862,11 +862,11 @@ function menu_desktop_information {
                         log_event_information "Information10EvenementCritique"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_sudo_information "script_.sh"
+                            execution_script_sudo_information "script_critical_event.sh"
                         }    
                         else
                         {
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_critical_event.ps1"
                         }
                  }
                 13 { 
