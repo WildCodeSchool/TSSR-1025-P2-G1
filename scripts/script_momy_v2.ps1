@@ -932,7 +932,7 @@ function execution_script_windows_information{
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "${target_user}@${target_computer}:C:\Users\$target_user\Documents\info\*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:C:\Users\$target_user\Documents\info\*" "$local_info_dir" | Out-Null
                                     if ($LASTEXITCODE -eq 0) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
