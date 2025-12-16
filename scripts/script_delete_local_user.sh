@@ -37,34 +37,36 @@ NC='\033[0m'
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Création d'utilisateur local${NC}"
+    clear
+    echo -e "${TITLE}Suppression d'utilisateur local${NC}"
     echo ""
 
 #boucle
 while true
 do
 	#username request created
-	read -p " quel est le nom du compte utilisateur a créé ? : " name
+	read -p "Quel est le nom du compte utilisateur à supprimer ? : " name
 
 	#verification and creation of the user account if it exists
-	if id "$name" &>/dev/null
+	if ( ! id "$name" ) &>/dev/null
 	then
-		echo -e "${RED}WARNING !${NC} le compte utilisateur existe déjà "
+		echo -e "${RED}WARNING !${NC} le compte utilisateur n'existe pas. "
 		echo ""
-	
+        continue
 	else
-		useradd "$name"
+		userdel "$name"
+        if [ $? -eq 0 ]
+        then
+            echo -e "${GREEN}le compte utilisateur $name est bien supprimé!${NC}"
+            echo ""
+        else
+            echo -e "${RED}WARNING ! ${NC}le compte utilisateur $name n'a pas été supprimé."
+            echo ""
+        fi
 		break
 	fi
 done
 # verification creation user
-if [ $? -eq 0 ]
-then
-	echo "${GREEN}le compte utilisateur $name est bien créé!${NC}"
-	echo ""
-else
-	echo -e "${RED}WARNING ! ${NC}le compte utilisateur $name n'a pas été créé !!!"
-	echo ""
-fi
+
 exit 0
 ############################################################################
