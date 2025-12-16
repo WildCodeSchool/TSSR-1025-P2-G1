@@ -85,7 +85,7 @@ function execution_script_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "bash /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -118,7 +118,7 @@ function execution_script_information{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "rm /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -150,7 +150,7 @@ function execution_script_sudo_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "sudo bash /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -183,7 +183,7 @@ function execution_script_sudo_information{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "rm /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -215,7 +215,7 @@ function execution_script_action{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "bash /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -229,7 +229,7 @@ function execution_script_action{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "rm /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -261,7 +261,7 @@ function execution_script_sudo_action{
                     scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "sudo bash /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -275,7 +275,7 @@ function execution_script_sudo_action{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "rm /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -322,17 +322,17 @@ function menu {
             }
             3 { 
                 log_event_navigation "ChangementMachine"
-                    return
+                return
             }
             4 {
                 Write-Host "Exit - FIN DE SCRIPT"
-                    log_event_navigation "EndScript"
-                    exit 0
+                log_event_navigation "EndScript"
+                exit 0
             }
             default 
             { 
                 Write-Host "Erreur"
-                    log_event_navigation "ErreurNavigation"
+                log_event_navigation "ErreurNavigation"
             }
         }
     }
@@ -362,18 +362,18 @@ function menu_user {
             }
             3 { 
                 Clear-Host
-                        log_event_navigation "RetourMenuPrincipal"
-                        return
+                log_event_navigation "RetourMenuPrincipal"
+                return
             }
             4 { 
-                 Write-Host "Exit - FIN DE SCRIPT"
-                    log_event_navigation "EndScript"
-                    exit 0
+                Write-Host "Exit - FIN DE SCRIPT"
+                log_event_navigation "EndScript"
+                exit 0
             }
             default 
             { 
-               Write-Host "Erreur"
-                    log_event_navigation "ErreurNavigation" 
+                Write-Host "Erreur"
+                log_event_navigation "ErreurNavigation" 
              }
         }
     }
@@ -403,18 +403,18 @@ function menu_desktop {
             }
             3 { 
                 Clear-Host
-                        log_event_navigation "RetourMenuPrincipal"
-                        return
+                log_event_navigation "RetourMenuPrincipal"
+                return
             }
             4 { 
                 Write-Host "Exit - FIN DE SCRIPT"
-                    log_event_navigation "EndScript"
-                    exit 0
+                log_event_navigation "EndScript"
+                exit 0
             }
             default 
             { 
                 Write-Host "Erreur"
-                    log_event_navigation "ErreurNavigation"
+                log_event_navigation "ErreurNavigation"
             }
         }
     }
@@ -440,79 +440,79 @@ function menu_user_action {
         switch ($choice3) {
             1 { 
                 Clear-Host
-                        log_event_information "ActionCreationCompteUtilisateur"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_creating_local_user.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_creating_local_user.ps1"
-                        }
+                log_event_information "ActionCreationCompteUtilisateur"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_creating_local_user.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_creating_local_user.ps1"
+                }
              }
             2 { 
                 Clear-Host
-                        log_event_information "ActionChangementMDP"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_change_password.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_change_password.ps1"
-                        }
+                log_event_information "ActionChangementMDP"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_change_password.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_change_password.ps1"
+                }
              }
             3 { 
                 Clear-Host
-                        log_event_information "ActionSuppressionCompteUtilisateur"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_delete_local_user.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_delete_local_user.ps1"
-                        }
+                log_event_information "ActionSuppressionCompteUtilisateur"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_delete_local_user.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_delete_local_user.ps1"
+                }
              }
             4 { 
                 Clear-Host
-                        log_event_information "ActionAjoutGroupeAdministration"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_add_group_administration.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_add_group_administration.ps1"
-                        }
+                log_event_information "ActionAjoutGroupeAdministration"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_add_group_administration.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_add_group_administration.ps1"
+                }
             }
             5 { 
-              Clear-Host
-                        log_event_information "ActionAjoutGroupe"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_add_usergroup.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_add_usergroup.ps1"
-                        }  
+                Clear-Host
+                log_event_information "ActionAjoutGroupe"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_add_usergroup.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_add_usergroup.ps1"
+                }  
             }
             6 { 
                 Clear-Host
-                    log_event_navigation "RetourMenuOrdinateur"
-                    return
+                log_event_navigation "RetourMenuOrdinateur"
+                return
             }
             7 { 
                 Clear-Host
-                     Write-Host "Exit - FIN DE SCRIPT"
-                        log_event_navigation "EndScript"
-                    exit 0
+                Write-Host "Exit - FIN DE SCRIPT"
+                log_event_navigation "EndScript"
+                exit 0
             }
             default 
             { 
-               Write-Host "Erreur"
-                    log_event_navigation "ErreurNavigation"
+                Write-Host "Erreur"
+                log_event_navigation "ErreurNavigation"
             }
         }
     } 
@@ -535,43 +535,43 @@ function menu_user_information {
         switch ($choice3) {
             1 { 
                 Clear-Host
-                        log_event_information "InformationDroitPermissionDossier"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_add_permissions.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_add_permissions.ps1"
-                        }
+                log_event_information "InformationDroitPermissionDossier"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_add_permissions.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_add_permissions.ps1"
+                }
              }
             2 { 
                 Clear-Host
-                        log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_sudo_action "script_event_search_by_user.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_event_search_by_user.ps1"
-                        }
+                log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_event_search_by_user.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_event_search_by_user.ps1"
+                }
             }
             3 { 
                 Clear-Host
-                    log_event_navigation "RetourMenuOrdinateur"
-                    return
+                log_event_navigation "RetourMenuOrdinateur"
+                return
             }
             4 { 
                 Clear-Host
-                     Write-Host "Exit - FIN DE SCRIPT"
-                        log_event_navigation "EndScript"
-                    exit 0
+                Write-Host "Exit - FIN DE SCRIPT"
+                log_event_navigation "EndScript"
+                exit 0
             }
             default 
             { 
                  Write-Host "Erreur"
-                    log_event_navigation "ErreurNavigation"
+                log_event_navigation "ErreurNavigation"
             }
         }
     }
@@ -687,8 +687,8 @@ function menu_desktop_action {
             }
             9 { 
                 Clear-Host
-                     Write-Host "Exit - FIN DE SCRIPT"
-                        log_event_navigation "EndScript"
+                    Write-Host "Exit - FIN DE SCRIPT"
+                    log_event_navigation "EndScript"
                     exit 0
             }
             default 
@@ -888,8 +888,8 @@ function menu_desktop_information {
                 }
                 15 { 
                     Clear-Host
-                     Write-Host "Exit - FIN DE SCRIPT"
-                        log_event_navigation "EndScript"
+                    Write-Host "Exit - FIN DE SCRIPT"
+                    log_event_navigation "EndScript"
                     exit 0
                 }
                 default 
@@ -919,7 +919,7 @@ function execution_script_windows_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -952,7 +952,7 @@ function execution_script_windows_information{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                            ssh "${target_user}@${target_computer}" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -984,7 +984,7 @@ function execution_script_windows_action{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "$target_user@$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès"
@@ -997,7 +997,7 @@ function execution_script_windows_action{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "$target_user@$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                            ssh "${target_user}@${target_computer}" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -1068,7 +1068,7 @@ while ($true)
     Write-Host "Détection du système d'exploitation en cours..."
     Write-Host ""
 
-    ssh "$target_user@$target_computer" "[ -d /etc ]" *>$null
+    ssh "${target_user}@${target_computer}" "[ -d /etc ]" *>$null
 
     if ($? -eq $true)
     {    
