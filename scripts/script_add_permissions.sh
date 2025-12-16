@@ -58,8 +58,12 @@ do
     else
         echo -e "${RED}Erreur : l'utilisateur $username n'existe pas sur ce système.${NC}"
         read -p "Voulez-vous réessayer ? (o/n) : " retry
-        [ "$retry" != "o" ] &&
-        exit 1
+        echo ""
+        if [ "$retry" != "o" ]
+        then
+            echo -e "${RED}Operation annulée.${NC}"
+            exit 1
+        fi
     fi
 done
 
@@ -78,8 +82,11 @@ do
     else
         echo -e "${RED}Erreur : le dossier $folder n'existe pas.${NC}"
         read -p "Voulez-vous réessayer ? (o/n) : " retry
-        [ "$retry" != "o" ]
-        exit 1
+        if [ "$retry" != "o" ]
+        then
+            echo -e "${RED}Operation annulée.${NC}"
+            exit 1
+        fi
     fi
 done
 
@@ -100,18 +107,19 @@ do
         case $choice in
             1)  permissions="u+r,u-wx,g+r,g-wx,o+r,o-wx"
                 break;;
-            2)  permissions="u+rwx,g+rw,o+rw"
+            2)  permissions="u+rw,g+rw,o+rw"
                 break;;
             3)  permissions="u+rwx,g+rwx,o+rwx"
                 break;;
             *)  echo -e "Erreur"
+                echo ""
         esac
     done
 
     echo ""
 
 # Ask for confirmation
-read -p "Vouslez-vous vraiment autoriser ces permissions ? (o/n) : " confirm
+read -p "Voulez-vous vraiment autoriser ces permissions ? (o/n) : " confirm
 
 if [[ "$confirm" != "o" && "$confirm" != "O" ]]
 then
@@ -131,6 +139,9 @@ then
     
     echo -e "${TITLE}Vérification des droits actuels :${NC}"
     ls -ld "$folder"
+else
+    echo -e "${RED}Erreur lors de l'application des droits${NC}"
+    exit 1
 fi
 
 # Countdown 5 seconds before exit
