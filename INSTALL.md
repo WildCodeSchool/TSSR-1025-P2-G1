@@ -18,7 +18,9 @@
    - [3.2 Création d'une paire de clés Windows-Serveur](#32-création-dune-paire-de-clés-windows-serveur)
    - [3.3 Copie de la clé publique sur CLIWIN01](#33-copie-de-la-clé-publique-sur-cliwin01)
    - [3.4 Copie de la clé publique sur CLILIN01](#34-copie-de-la-clé-publique-sur-clilin01)
-   - [3.5 Installation de keychain](#35-installation-de-keychain)
+   - [3.5 Installation et activation de AGENT-SSH](#35-installation-et-activation-de-agentssh)
+   - [3.6 Configuration automatique au démarrage](#36-configuration-automatique-au-demarrage)
+
 
 4. [Installation sur le client Windows (Windows 11)](#4-installation-sur-le-client-windows--windows-11-)
    - [4.1 Installation OpenSSH en CLI](#41-installation-open-ssh-en-cli-pour-la-connexion-avec-debian)
@@ -221,12 +223,85 @@ Remplir impérativement la **passphrase** ,cela seras le seul mot de passe à re
 
 ##### 3.3 Copie de la clé Publique sur *CLIWIN01*
 
+Pour copié la clé Publique sur *CLIWIN01* veuillez tapé cette commande :
 
+```bash
+ssh wilder@CLIWIN01 "echo $(Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub) >> .ssh/authorized_keys"
+```
 
 ##### 3.4 Copie de la clé Publique sur *CLILIN01*
 
+Pour copié la clé Publique sur *CLILIN01* veuillez taper cette commande :
 
-##### 3.5 Installation de keychain
+```bash
+ssh wilder@CLILIN01 "echo $(Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub) >> .ssh/authorized_keys"
+```
+
+##### 3.5 Installation et activation de AGENT-SSH
+
+Pour éviter de saisir la passphrase à chaque connexion SSH , il faut activer et configurer le ce service .
+	- Ouvrir **PowerShell** en mode **Administrateur** et taper ses commandes :
+
+```bash
+Set-Service ssh-agent -StartupType Automatic
+Start-Service ssh-agent
+```
+
+Nous allons vérifier que le service est démarré avec cette commande :
+
+```bash
+Get-Service ssh-agent
+```
+
+Voici le résultat attendu :
+
+![Screenshots](ressources/images/SRVWIN01/status_agentSHH.png)
+
+Maintenant il faut ajouter la Clé Privé à l'agent :
+	- Ouvrir **PowerShell** en mode normal et taper cette commande :
+
+```bash
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+```
+
+La Passphrase sera demander une seule fois,puis sera mémorisée.
+
+Dernière étape on va vérifier que la clé est bien chargée avec cette commande :
+
+```bash
+ssh-add -l
+```
+
+Voici le résultat attendu :
+
+![Screenshots](ressources/images/SRVWIN01/Key_private_SVRWIN01.png)
+
+##### 3.6 Configuration automatique au démarrage de PowerShell
+
+Cette étape va servir à chargé automatiquement la clé Privé dans le SSH-Agent à chaque ouverture de PowerShell.
+
+On va créé le fichier Profile avec cette commande :
+
+```bash
+New-Item -Path $PROFILE -ItemType File -Force
+```
+
+Voici le résultat attendu :
+
+![Screenshots](ressources/images/SRVWIN01/Creation_file_profil_SVRWIN01.png)
+
+Nous allons maintenant ouvrir ce fichier avec le Bloc note et ajouter cette ligne dans ce fichier :
+
+		ssh-add $env:USERPROFILE\.ssh\id_ed25519
+
+![Screenshots](ressources/images/SRVWIN01/Files_profile_SVRWIN01.png)
+
+Maintenant à chaque redémarrage du serveur et à la 1ère ouverture de Powershell il va nous demander d'entrer notre Passphrase :
+
+Une fois la Passphrase validé elle ne vous seras plus demandé jusqu'au prochain démarrage du serveur.
+
+![Screenshot](ressources/images/SRVWIN01/Passphrase_SVRWIN01.png)
+
 
 
 ## 4. Installation sur le client Windows ( Windows 11 )
