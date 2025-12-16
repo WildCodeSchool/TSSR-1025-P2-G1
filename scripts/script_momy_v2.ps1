@@ -82,7 +82,7 @@ function execution_script_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
@@ -98,7 +98,7 @@ function execution_script_information{
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir"  | Out-Null
                                     if ($? -eq $true) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
@@ -118,7 +118,7 @@ function execution_script_information{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name"
+                            ssh "${target_user}@${target_computer}" "rm /tmp/$script_name" | Out-Null
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -147,7 +147,7 @@ function execution_script_sudo_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
@@ -163,7 +163,7 @@ function execution_script_sudo_information{
                                 # Create the local /info directory if it does not exist
                                 New-Item -ItemType Directory -Path $local_info_dir -Force | Out-Null
                                 # Check if the retrieval was successful
-                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir"/  *>$null
+                                scp "${target_user}@${target_computer}:~/Documents/info/*" "$local_info_dir" | Out-Null
                                     if ($? -eq $true) 
                                     {
                                         Write-Host "Les fichiers info ont été importés dans $local_info_dir"
@@ -212,7 +212,7 @@ function execution_script_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
@@ -258,7 +258,7 @@ function execution_script_sudo_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" *>$null
+                    scp (Join-Path $ScriptsRoot $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
@@ -916,7 +916,7 @@ function execution_script_windows_information{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
@@ -981,7 +981,7 @@ function execution_script_windows_action{
     )
         
     Write-Host "Connexion à $target_computer et éxécution du $script_name"
-                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" *>$null
+                    scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
                             ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
@@ -997,7 +997,7 @@ function execution_script_windows_action{
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             }
-                            ssh "${target_user}@${target_computer}" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                            ssh "${target_user}@${target_computer}" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force" | Out-Null
                                 if ($? -eq $true)
                                 {
                                     Write-Host "Le fichier $script_name a bien été effacé de $target_computer"
@@ -1068,7 +1068,7 @@ while ($true)
     Write-Host "Détection du système d'exploitation en cours..."
     Write-Host ""
 
-    ssh "${target_user}@${target_computer}" "[ -d /etc ]" *>$null
+    ssh "${target_user}@${target_computer}" "[ -d /etc ]" | Out-Null
 
     if ($? -eq $true)
     {    
