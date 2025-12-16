@@ -10,15 +10,18 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[4;33m'
+TITLE='\033[1;33m'
 # Used for labels: purple
-LABEL='\033[0;35m'
+LABEL='\033[1;94m'
 # Used for FALSE: red
-RED='\033[0;31m'
+RED='\033[0;91m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+# white
+WHITE='\033[1;97m'
+
 #########################################################################
 
 #########################################################################

@@ -12,15 +12,18 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[4;33m'
+TITLE='\033[1;33m'
 # Used for labels: purple
-LABEL='\033[0;35m'
+LABEL='\033[1;94m'
 # Used for FALSE: red
-RED='\033[0;31m'
+RED='\033[0;91m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+# white
+WHITE='\033[1;97m'
+
 #########################################################################
 
 #########################################################################
@@ -46,16 +49,16 @@ do
             if [ "$choix" = "o" ]
             then
                 rm -r "$repertory"
-                echo -e " le $repertory a été ${RED}supprimé avec succès!!${NC}"
+                echo -e "${RED}Le $repertory a été supprimé avec succès!!${NC}"
                 echo ""
                 break
             elif [ "$choix" = "n" ]
             then
-                echo-e " WARNING le $repertory ${RED}n'a pas été supprimé !!!${NC}"
+                echo -e "${RED}WARNING le $repertory n'a pas été supprimé !!!${NC}"
                 echo""
                 break
             else
-                echo "Choix invalide"
+                echo -e "${RED}Choix invalide${NC}"
                 continue
             fi    
     else 

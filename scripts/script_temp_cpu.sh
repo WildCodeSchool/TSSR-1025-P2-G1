@@ -10,15 +10,18 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[4;33m'
+TITLE='\033[1;33m'
 # Used for labels: purple
-LABEL='\033[0;35m'
+LABEL='\033[1;94m'
 # Used for FALSE: red
-RED='\033[0;31m'
+RED='\033[0;91m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+# White
+WHITE='\033[1;97m'
+
 #########################################################################
 
 #########################################################################
@@ -44,7 +47,7 @@ then
             echo -e "${GREEN}Capteurs détectés : Affichage des températures :${NC}"
             echo ""
         else
-            echo "${RED}Aucun capteur CPU fonctionnel n'a été trouvé.${NC}"
+            echo -e "${RED}Aucun capteur CPU fonctionnel n'a été trouvé.${NC}"
             echo ""
         fi    
 else
