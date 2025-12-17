@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script info partition
 # Paisant Franck
 # 16/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -26,11 +30,11 @@ while ($true)
     Write-Host "Exemple: C:\Temp\MonDossier" -ForegroundColor DarkMagenta
     Write-Host ""
 
-    $directory = Read-Host "Quel est le chemin et le nom du repertoire à supprimer"
+    $directory = Read-Host "Quel est le chemin et le nom du repertoire à supprimé"
 
     # verification empty captation
     if ([string]::IsNullOrWhiteSpace($directory)) {
-    Write-Host "WARNING : chemin vide, recommence." -ForegroundColor Red
+    Write-Host "WARNING : chemin vide, recommencé." -ForegroundColor Red
     continue
     }
     # verification of the directory to be deleted.
@@ -40,12 +44,12 @@ while ($true)
         try
         {
             Remove-Item -Path $directory -Recurse -Force -ErrorAction Stop | Out-Null
-            Write-Host "le dossier '$directory' a ete supprimer" -ForegroundColor Green
+            Write-Host "le dossier '$directory' a été supprimé" -ForegroundColor Green
             break
         }
         catch
         {
-            Write-Host "WARNING : le dossier '$directory' n'a pas ete supprimer !!!" -ForegroundColor Red
+            Write-Host "WARNING : le dossier '$directory' n'a pas été supprimé!!!" -ForegroundColor Red
             Write-Host $_
             break
         }

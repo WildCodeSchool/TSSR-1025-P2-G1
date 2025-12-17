@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script info partition
 # Paisant Franck
 # 16/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################

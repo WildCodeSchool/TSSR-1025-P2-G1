@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script temp cpu
 # Jouveaux Nicolas
 # 15/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -42,10 +46,10 @@ function save_info {
 #########################################################################
 
 # Title
-    Write-Host "Temperature CPU" -ForegroundColor Yellow
+    Write-Host "Température CPU" -ForegroundColor Yellow
     Write-Host ""
 
-    Write-Host " Verification des capteurs de temperature CPU" -ForegroundColor Yellow
+    Write-Host " Vérification des capteurs de température CPU" -ForegroundColor Yellow
     Write-Host ""
 
 # Utilisation de la classe MSAcpi_ThermalZoneTemperature (souvent utilisée pour la température)
@@ -56,21 +60,21 @@ function save_info {
             # La température est retournée en Kelvin * 10. Conversion en Celsius.
             $tempCelsius = [math]::Round(($wmiTempKelvin / 10) - 273.15, 2)
             
-            Write-Output "Temperature CPU (WMI) detectee :"
+            Write-Output "Température CPU (WMI) détectée :"
             Write-Output ""
-            Write-Output "Temperature des zones thermiques : $($tempCelsius) °C"
+            Write-Output "Température des zones thermiques : $($tempCelsius) °C"
         }
         else {
-            Write-Host "WMI/CIM n'a pas pu détecter de temperature fiable." -ForegroundColor Red
+            Write-Host "WMI/CIM n'a pas pu détecté de température fiable." -ForegroundColor Red
         }
     }
     catch {
-        Write-Host "Erreur WMI/CIM : Impossible de se connecter a la classe de temperature." -ForegroundColor Red
+        Write-Host "Erreur WMI/CIM : Impossible de se connecté à la classe de temperature." -ForegroundColor Red
     }
 
 Write-Host ""
 
 # Save information
-    save_info -label "Temperature CPU (WMI)" -value $tempCelsius
+    save_info -label "Température CPU (WMI)" -value $tempCelsius
 exit 0
 #########################################################################

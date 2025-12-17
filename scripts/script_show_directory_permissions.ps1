@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script version os
 # Chicaud Matthias
 # 17/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -88,9 +92,9 @@ if ($permissions) {
     save_info -label "Droits/Permissions de $username sur $dir" -value $value
     
 } else {
-    Write-Host "Aucune permission trouvee pour: $username" -ForegroundColor Red
+    Write-Host "Aucune permission trouvée pour: $username" -ForegroundColor Red
     # Save information
-    save_info -label "Droits/Permissions de $username sur $dir" -value "Aucune permission trouvee"
+    save_info -label "Droits/Permissions de $username sur $dir" -value "Aucune permission trouvée"
 }
 
 exit 0

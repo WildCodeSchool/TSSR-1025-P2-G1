@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script create user
 # Paisant Franck
 # 16/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -18,28 +22,28 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 #########################################################################
 
 # Title
-Write-Host "Creation compte utilisateur local:" -ForegroundColor Yellow
+Write-Host "Création compte utilisateur local:" -ForegroundColor Yellow
 Write-Host ""
 
 # request for the name of the directory to be creating.
-    $user = Read-Host "Quel est l'utilisateur à creer"
+    $user = Read-Host "Quel est l'utilisateur à créé"
 
     # verification of the directory to be creating.
     $exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
     if ( $exists )
     {
-        Write-Host "WARNING : L'utilisateur '$user' existe deja." -Foregroundcolor Red
+        Write-Host "WARNING : L'utilisateur '$user' existe déjà." -Foregroundcolor Red
         exit 1
     }
     try
     {
         New-LocalUser -Name $user -NoPassword -ErrorAction Stop | Out-Null
-        Write-Host "L'utilisateur '$user' a ete cree" -ForegroundColor Green
+        Write-Host "L'utilisateur '$user' a été créé" -ForegroundColor Green
         
     }
     catch
     {
-        Write-Host "WARNING : L'utilisateur '$user' n'a pas ete cree !!!" -ForegroundColor Red
+        Write-Host "WARNING : L'utilisateur '$user' n'a pas été créé !!!" -ForegroundColor Red
         Write-Host ""
         exit 1
     }
