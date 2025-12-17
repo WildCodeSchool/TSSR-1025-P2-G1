@@ -17,12 +17,12 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 # Script
 #########################################################################
 # Title
-Write-Host "Ajout à un groupe d'administration:" -ForegroundColor Yellow
+Write-Host "Ajout a un groupe d'administration:" -ForegroundColor Yellow
 Write-Host ""
 while ($true)
 {
     # user to add group
-    $user = Read-Host "Quel est le nom de l'utilisateur à ajouter"
+    $user = Read-Host "Quel est le nom de l'utilisateur a ajouter"
     
     # verify if user exists
     $userExists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
@@ -49,7 +49,7 @@ while ($true)
     $members = Get-LocalGroupMember -Group $group -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
     if ($members -contains "$env:COMPUTERNAME\$user")
     {
-        Write-Host "WARNING !!! '$user' fait déjà partie du groupe '$group'" -ForegroundColor Red
+        Write-Host "WARNING !!! '$user' fait deja partie du groupe '$group'" -ForegroundColor Red
         Write-Host ""
         continue
     }
@@ -72,12 +72,12 @@ while ($true)
 $members = Get-LocalGroupMember -Group $group -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
 if ($members -contains "$env:COMPUTERNAME\$user")
 {
-    Write-Host "'$user' a bien été ajouté au groupe d'administration '$group'" -ForegroundColor Green
+    Write-Host "'$user' a bien ete ajouté au groupe d'administration '$group'" -ForegroundColor Green
     Write-Host ""
 }
 else
 {
-    Write-Host "WARNING !!! '$user' n'a pas été ajouté au groupe d'administration '$group'" -ForegroundColor Red
+    Write-Host "WARNING !!! '$user' n'a pas ete ajouté au groupe d'administration '$group'" -ForegroundColor Red
     Write-Host ""
 }
 exit 0

@@ -17,7 +17,7 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 # Script
 #########################################################################
 # Title
-Write-Host "Suppression de répertoire:" -ForegroundColor Yellow
+Write-Host "Suppression de repertoire:" -ForegroundColor Yellow
 Write-Host ""
 
 while ($true)
@@ -26,7 +26,7 @@ while ($true)
     Write-Host "Exemple: C:\Temp\MonDossier" -ForegroundColor DarkMagenta
     Write-Host ""
 
-    $directory = Read-Host "Quel est le chemin et le nom du répertoire à supprimer"
+    $directory = Read-Host "Quel est le chemin et le nom du repertoire à supprimer"
 
     # verification empty captation
     if ([string]::IsNullOrWhiteSpace($directory)) {
@@ -40,12 +40,12 @@ while ($true)
         try
         {
             Remove-Item -Path $directory -Recurse -Force -ErrorAction Stop | Out-Null
-            Write-Host "le dossier '$directory' a été supprimé" -ForegroundColor Green
+            Write-Host "le dossier '$directory' a ete supprimer" -ForegroundColor Green
             break
         }
         catch
         {
-            Write-Host "WARNING : le dossier '$directory' n'a pas été supprimé !!!" -ForegroundColor Red
+            Write-Host "WARNING : le dossier '$directory' n'a pas ete supprimer !!!" -ForegroundColor Red
             Write-Host $_
             break
         }

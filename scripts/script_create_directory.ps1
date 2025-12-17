@@ -18,7 +18,7 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 #########################################################################
 
 # Title
-Write-Host "Création de répertoire:" -ForegroundColor Yellow
+Write-Host "Creation de repertoire:" -ForegroundColor Yellow
 Write-Host ""
 
 while ($true)
@@ -27,7 +27,7 @@ while ($true)
     Write-Host "Exemple: C:\Temp\MonDossier" -ForegroundColor DarkMagenta
     Write-Host ""
 
-    $directory = Read-Host "Quel est le chemin et le nom du répertoire à créer"
+    $directory = Read-Host "Quel est le chemin et le nom du repertoire à creer"
 
     # verification empty captation
     if ([string]::IsNullOrWhiteSpace($directory)) {
@@ -41,19 +41,19 @@ while ($true)
         try
         {
             New-Item -ItemType Directory -Path $directory -ErrorAction Stop | Out-Null
-            Write-Host "le dossier '$directory' à été créé" -ForegroundColor Green
+            Write-Host "le dossier '$directory' à ete cree" -ForegroundColor Green
             break
         }
         catch
         {
-            Write-Host "WARNING : le dossier '$directory' n'a pas été créé !!!" -ForegroundColor Red
+            Write-Host "WARNING : le dossier '$directory' n'a pas ete cree !!!" -ForegroundColor Red
             Write-Host $_
             break
         }
     }
     else
     { 
-        Write-Host "WARNING : le dossier '$directory' existe déjà, veuillez proposez un autre chemin avec un nom valide :" -Foregroundcolor Red
+        Write-Host "WARNING : le dossier '$directory' existe deja, veuillez proposez un autre chemin avec un nom valide :" -Foregroundcolor Red
         continue
     }
 }     

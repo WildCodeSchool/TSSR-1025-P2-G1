@@ -45,7 +45,7 @@ function save_info {
 #########################################################################
 
 # Title
-Write-Host "Recherche d'événement par utilisateur :" -ForegroundColor Yellow
+Write-Host "Recherche d'evenement par utilisateur :" -ForegroundColor Yellow
 Write-Host ""
 
 # Recherche par utilisateur (3ᵉ champ)
@@ -76,19 +76,19 @@ else
 
     if ( -not $value )
     {
-        Write-Host "WARNING ! Aucun événement trouvé pour l'utilisateur : $user" -ForegroundColor Red
+        Write-Host "WARNING ! Aucun evenement trouver pour l'utilisateur : $user" -ForegroundColor Red
         Write-Host ""
     }
     else
     {
-        Write-Host "Événements trouvés !" -ForegroundColor Green
-        Write-Host "Les événements ont été sauvegardés dans \info_evenements_user.log" -ForegroundColor Green
+        Write-Host "Evenements trouver !" -ForegroundColor Green
+        Write-Host "Les événements ont ete sauvegarder dans \info_evenements_user.log" -ForegroundColor Green
         Write-Host ""
     }
 }    
 
 
 # save info 
-save_info -label "Recherche d'événement par utilisateur" -value $value
+save_info -label "Recherche d'evenement par utilisateur" -value $value
 
 #########################################################################
