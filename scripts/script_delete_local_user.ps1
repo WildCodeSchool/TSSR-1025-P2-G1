@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script delete user
 # Chicaud Matthias
 # 15/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -22,7 +26,7 @@ Write-Host "Suppression d'utilisateur:" -ForegroundColor Yellow
 Write-Host ""
 
 # request for the name of the directory to be deleted.
-    $user = Read-Host "Quel est l'utilisateur a supprimer"
+    $user = Read-Host "Quel est l'utilisateur à supprimé"
 
     # verification of the directory to be deleted.
     $exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
@@ -34,12 +38,12 @@ Write-Host ""
     try
     {
         Remove-LocalUser -Name $user -ErrorAction Stop
-        Write-Host "l'utilisateur $user a ete supprimer" -ForegroundColor Green
+        Write-Host "l'utilisateur $user a été supprimé" -ForegroundColor Green
         exit 0
     }
     catch
     {
-        Write-Host "WARNING : l'utilisateur "$user" n'a pas ete supprimer !!!" -ForegroundColor Red
+        Write-Host "WARNING : l'utilisateur "$user" n'a pas été supprimé !!!" -ForegroundColor Red
         Write-Host $_
         exit 1
     }

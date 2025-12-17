@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script create directory
 # Chicaud Matthias
 # 15/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -18,7 +22,7 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 #########################################################################
 
 # Title
-Write-Host "Creation de repertoire:" -ForegroundColor Yellow
+Write-Host "Création de repertoire:" -ForegroundColor Yellow
 Write-Host ""
 
 while ($true)
@@ -27,7 +31,7 @@ while ($true)
     Write-Host "Exemple: C:\Temp\MonDossier" -ForegroundColor DarkMagenta
     Write-Host ""
 
-    $directory = Read-Host "Quel est le chemin et le nom du repertoire à creer"
+    $directory = Read-Host "Quel est le chemin et le nom du répertoire à créé"
 
     # verification empty captation
     if ([string]::IsNullOrWhiteSpace($directory)) {
@@ -41,19 +45,19 @@ while ($true)
         try
         {
             New-Item -ItemType Directory -Path $directory -ErrorAction Stop | Out-Null
-            Write-Host "le dossier '$directory' à ete cree" -ForegroundColor Green
+            Write-Host "le dossier '$directory' à été créé" -ForegroundColor Green
             break
         }
         catch
         {
-            Write-Host "WARNING : le dossier '$directory' n'a pas ete cree !!!" -ForegroundColor Red
+            Write-Host "WARNING : le dossier '$directory' n'a pas été créé !!!" -ForegroundColor Red
             Write-Host $_
             break
         }
     }
     else
     { 
-        Write-Host "WARNING : le dossier '$directory' existe deja, veuillez proposez un autre chemin avec un nom valide :" -Foregroundcolor Red
+        Write-Host "WARNING : le dossier '$directory' existe déjà, veuillez proposez un autre chemin avec un nom valide :" -Foregroundcolor Red
         continue
     }
 }     

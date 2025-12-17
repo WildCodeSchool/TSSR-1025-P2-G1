@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script Momy V.2                                                       #
 # Jouveaux Nicolas/Paisant Franck/Chicaud Matthias                      #
 # 10/12/2025                                                            #
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 #                              Variable                                 #
 #########################################################################
@@ -84,7 +88,7 @@ function execution_script_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -149,7 +153,7 @@ function execution_script_sudo_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh -t "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -214,7 +218,7 @@ function execution_script_action{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "${target_user}@${target_computer}" "bash /tmp/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -260,7 +264,7 @@ function execution_script_sudo_action{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:/tmp/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh -t "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "sudo bash /tmp/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -432,11 +436,11 @@ function menu_user_action {
         Display-Machine "$target_computer"
         Write-Host "Menu action utilisateur :" -ForegroundColor Yellow
         Write-Host ""
-        Write-Host "1) Creation de compte utilisateur local"
+        Write-Host "1) Création de compte utilisateur local"
         Write-Host "2) Changement de mot de passe"
         Write-Host "3) Suppression de compte utilisateur local"
-        Write-Host "4) Ajout a un groupe d'administration"
-        Write-Host "5) Ajout a un groupe"
+        Write-Host "4) Ajout à un groupe d'administration"
+        Write-Host "5) Ajout à un groupe"
         Write-Host "6) Retour"
         Write-Host "7) Exit"
         Write-Host ""
@@ -533,7 +537,7 @@ function menu_user_information {
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
-        Write-Host "2) Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
+        Write-Host "2) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
         Write-Host "3) Retour"
         Write-Host "4) Exit"
         Write-Host ""
@@ -594,10 +598,10 @@ function menu_desktop_action {
         Write-Host "Menu action ordinateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Verrouillage"
-        Write-Host "2) Redemarrage"
+        Write-Host "2) Redémarrage"
         Write-Host "3) Activation du pare-feu"
-        Write-Host "4) Creation de repertoire"
-        Write-Host "5) Suppression de repertoire"
+        Write-Host "4) Création de répertoire"
+        Write-Host "5) Suppression de répertoire"
         Write-Host "6) Prise en main à distance (CLI)"
         Write-Host "7) Exécution de script sur la machine distante"
         Write-Host "8) Retour"
@@ -718,19 +722,19 @@ function menu_desktop_information {
             Display-Machine "$target_computer"
             Write-Host "Menu information ordinateur :" -ForegroundColor Yellow
             Write-Host ""
-            Write-Host "1) Adresse IP, masque de sous-reseau et passerelle"
+            Write-Host "1) Adresse IP, masque de sous-réseau et passerelle"
             Write-Host "2) Version de l'OS"
             Write-Host "3) Carte graphique"
             Write-Host "4) CPU % d'utilisation"
-            Write-Host "5) Temperature du CPU"
+            Write-Host "5) Température du CPU"
             Write-Host "6) Uptime"
             Write-Host "7) Nombre de disques"
             Write-Host "8) Espace disque restant par partition/volume"
             Write-Host "9) Partitions (nombre, nom, FS, taille par disque)"
             Write-Host "10) Liste des utilisateurs locaux"
-            Write-Host "11) 5 dernierse logins"
-            Write-Host "12) 10 derniers evenements critiques"
-            Write-Host "13) Recherche des évenements dans le fichier log_evt.log pour un ordinateur"
+            Write-Host "11) 5 derniers logins"
+            Write-Host "12) 10 derniers évènements critiques"
+            Write-Host "13) Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
             Write-Host "14) Retour"
             Write-Host "15) Exit"
             Write-Host ""
@@ -922,7 +926,7 @@ function menu_desktop_information {
 $GREEN = [System.ConsoleColor]::Green
 $WHITE = [System.ConsoleColor]::White
 $RED = [System.ConsoleColor]::Red
-$LABEL = [System.ConsoleColor]::Cyan
+$LABEL = [System.ConsoleColor]::Blue
 $NC = [System.ConsoleColor]::Gray
 $TITLE = [System.ConsoleColor]::Yellow
 
@@ -935,7 +939,7 @@ function Display-Serveur {
     Write-Host "                             ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                                    " -NoNewline -ForegroundColor $GREEN
-    Write-Host "by" -NoNewline -ForegroundColor $NC
+    Write-Host "by " -NoNewline -ForegroundColor $NC
     Write-Host "                                      ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                        " -NoNewline -ForegroundColor $GREEN
@@ -943,7 +947,7 @@ function Display-Serveur {
     Write-Host " / " -NoNewline -ForegroundColor $NC
     Write-Host "Matthias" -NoNewline -ForegroundColor $WHITE
     Write-Host " / " -NoNewline -ForegroundColor $NC
-    Write-Host "Franck" -NoNewline -ForegroundColor $RED
+    Write-Host "Franck  " -NoNewline -ForegroundColor $RED
     Write-Host "                          ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                             " -NoNewline -ForegroundColor $GREEN
@@ -963,7 +967,7 @@ function Display-Machine {
     Write-Host "╔══════════════════════════════════════════════════════════════════════════════╗" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                         " -NoNewline -ForegroundColor $GREEN
-    Write-Host "M A C H I N E" -NoNewline -ForegroundColor $TITLE
+    Write-Host "M A C H I N E " -NoNewline -ForegroundColor $TITLE
     Write-Host " : " -NoNewline -ForegroundColor $NC
     Write-Host "$machine" -NoNewline -ForegroundColor $GREEN
     Write-Host "                            ║" -ForegroundColor $GREEN
@@ -985,7 +989,7 @@ function execution_script_windows_information{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -1050,7 +1054,7 @@ function execution_script_windows_action{
                     scp (Join-Path $script_root $script_name) "${target_user}@${target_computer}:C:/Users/$target_user/Documents/" | Out-Null
                         if ( $? -eq $true ) 
                         {        
-                            ssh "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh -tt "${target_user}@${target_computer}" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             if ( $? -eq $true )
                                 {
                                 Write-Host "Le $script_name a été exécuté avec succès" -ForegroundColor Blue
@@ -1112,14 +1116,14 @@ while ($true)
         Write-Host "Format accepté : Nom complet ou adresse IP" -ForegroundColor Green
         Write-Host ""
         # ask target and save un variable
-        $target_computer = Read-Host "Le Poste Client demander"
+        $target_computer = Read-Host "Le Poste Client demandé"
 
         # Check if the requested computer exists in the SSH connection software
         Clear-Host
         # show hosts et check if user is on
         if (-Not (Get-Content "C:\Windows\System32\drivers\etc\hosts" | Select-String "$target_computer"))
         {
-            Write-Host "Le Poste client demandé n'existe pas sur notre réseaux veuillez mentionner un PC existant dans notre réseau." -ForegroundColor Red
+            Write-Host "Le Poste client demandé n'éxiste pas sur notre réseaux veuillez mentionner un PC existant dans notre réseau." -ForegroundColor Red
             Write-Host ""
             log_event_connexion "ERREURPosteClientInconnu"
             Read-Host " Appuyer sur Entréé pour réessayer..."
@@ -1135,7 +1139,7 @@ while ($true)
     Write-Host "Détection du système d'exploitation en cours..." -ForegroundColor Blue 
     Write-Host ""
 
-    ssh "${target_user}@${target_computer}" "[ -d /etc ]" | Out-Null
+    ssh "${target_user}@${target_computer}" "[ -d /etc ]" | 2>$null
 
     if ($? -eq $true)
     {    

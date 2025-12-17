@@ -687,8 +687,8 @@ menu_computer_information()
             echo -e "${GREEN}9)${NC} Espace disque restant par partition/volume"
             echo -e "${GREEN}10)${NC} Liste des utilisateurs locaux"
             echo -e "${GREEN}11)${NC} 5 derniers logins"
-            echo -e "${GREEN}12)${NC} 10 derniers événements critiques"
-            echo -e "${GREEN}13)${NC} Recherche des evenements dans le fichier log_evt.log pour un ordinateur"
+            echo -e "${GREEN}12)${NC} 10 derniers évènements critiques"
+            echo -e "${GREEN}13)${NC} Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
             echo -e "${GREEN}14)${NC} Retour"
             echo -e "${GREEN}15)${NC} Exit"
             echo ""
@@ -979,14 +979,14 @@ do
         echo -e "${GREEN}Format accepté : Nom complet ou adresse IP${NC}"
         echo ""
         # ask target and save un variable
-        read -p "Le Poste Client demander :" target_computer
+        read -p "Le Poste Client demandé :" target_computer
 
         # Check if the requested computer exists in the SSH connection software
         clear
         # show hosts et check if user is on
         if ! cat /etc/hosts | grep "$target_computer"
         then
-            echo -e "${RED}Le Poste client demandé n'existe pas sur notre réseaux ${NC} veuillez mentionner un PC existant dans notre réseau."
+            echo -e "${RED}Le Poste client demandé n'éxiste pas sur notre réseaux ${NC} veuillez mentionner un PC existant dans notre réseau."
             echo ""
             log_event_connexion "ERREURPosteClientInconnu"
             read -p " Appuyer sur Entréé pour réessayer..."

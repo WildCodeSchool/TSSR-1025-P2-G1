@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script firewall
 # Jouveaux Nicolas
 # 16/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -47,7 +51,7 @@ function save_info {
 
 # Display options to enable or disable firewall
     Write-Output "1 - Activer le parefeu"
-    Write-Output "2 - Desactiver le parefeu"
+    Write-Output "2 - Désactiver le parefeu"
     Write-Host ""
     $firewall_choice = Read-Host "Que voulez-vous faire ?"
 
@@ -60,7 +64,7 @@ function save_info {
             $firewall_status = "Activé"
         }
         "2" {
-            Write-Host "Desactivation du parefeu"
+            Write-Host "Désactivation du parefeu"
             Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
             Write-Host "Parefeu désactivé" 
             $firewall_status = "Désactivé"

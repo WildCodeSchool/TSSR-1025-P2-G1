@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script graphic card
 # Jouveaux Nicolas
 # 16/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -45,7 +49,7 @@ function save_info {
     Write-Host "Carte graphique" -ForegroundColor Yellow
     Write-Host ""
 
-    Write-Host "Details de la carte graphique"
+    Write-Host "Détails de la carte graphique"
     Write-Host ""
 
 # Command to get graphic card information

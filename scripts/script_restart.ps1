@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script for restart computer
 # Paisant Franck
 # 04/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -29,7 +33,7 @@ $machine=$info_target
     Write-Host "restart $info_target" -ForegroundColor Yellow
     Write-Host ""
 
-    Write-Host "Compte a rebours avant redemarrage de $machine" -ForegroundColor Yellow
+    Write-Host "Compte à rebours avant redémarrage de $machine" -ForegroundColor Yellow
     Write-Host ""
 
 while ( $countdown -ne 0 ) {
@@ -38,7 +42,7 @@ while ( $countdown -ne 0 ) {
     Start-Sleep -Seconds 1
 }
 
-Write-Host "Redemarrage de la $machine en cours  !!" -ForegroundColor Yellow
+Write-Host "Redémarrage de la $machine en cours  !!" -ForegroundColor Yellow
 Start-Sleep -Seconds 1
 
 shutdown /r /f /t 0

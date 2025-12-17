@@ -1,9 +1,13 @@
-#########################################################################
+﻿#########################################################################
 # Script event search by user
 # Chicaud Matthias
 # 15/12/2025
 #########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -45,7 +49,7 @@ function save_info {
 #########################################################################
 
 # Title
-Write-Host "Recherche d'evenement par utilisateur :" -ForegroundColor Yellow
+Write-Host "Recherche d'évènement par utilisateur :" -ForegroundColor Yellow
 Write-Host ""
 
 # Recherche par utilisateur (3ᵉ champ)
@@ -76,19 +80,19 @@ else
 
     if ( -not $value )
     {
-        Write-Host "WARNING ! Aucun evenement trouver pour l'utilisateur : $user" -ForegroundColor Red
+        Write-Host "WARNING ! Aucun évènement trouvé pour l'utilisateur : $user" -ForegroundColor Red
         Write-Host ""
     }
     else
     {
-        Write-Host "Evenements trouver !" -ForegroundColor Green
-        Write-Host "Les événements ont ete sauvegarder dans \info_evenements_user.log" -ForegroundColor Green
+        Write-Host "Evènements trouvés !" -ForegroundColor Green
+        Write-Host "Les événements ont été sauvegardé dans \info_evenements_user.log" -ForegroundColor Green
         Write-Host ""
     }
 }    
 
 
 # save info 
-save_info -label "Recherche d'evenement par utilisateur" -value $value
+save_info -label "Recherche d'évènement par utilisateur" -value $value
 
 #########################################################################
