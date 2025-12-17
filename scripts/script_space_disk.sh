@@ -61,7 +61,8 @@ echo "Mes disques et partitions"
 echo ""
 
 # Affichage des disques et partition
-lsblk -f
+lsblk -f | grep -v loop
+value=${lsblk -f | grep -v loop}
 
 # Save information
 save_info "Espace disque restant par partition/volume" "$value"
