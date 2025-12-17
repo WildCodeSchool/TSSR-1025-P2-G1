@@ -341,8 +341,9 @@ menu()
         echo ""
         echo -e "${GREEN}1)${NC} Utilisateur (Action/Information)"
         echo -e "${GREEN}2)${NC} Ordinateur  (Action/Information)"
-        echo -e "${GREEN}3)${NC} Changer de machine"
-        echo -e "${GREEN}4)${NC} Sortie"
+        echo -e "${GREEN}3)${NC} Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
+        echo -e "${GREEN}4)${NC} Changer de machine"
+        echo -e "${GREEN}5)${NC} Sortie"
         echo ""
         read -p "Votre choix :" choice
 
@@ -353,10 +354,14 @@ menu()
             2)  log_event_navigation "MenuOrdinateur"
                     menu_computer
                 ;;
-            3)  log_event_navigation "ChangementMachine"
-                    return;; 
-            
-            4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+            3)  log_event_navigation "RechercheDesEvenements"
+                    bash script_event_search_by_user.sh
+                    menu
+                ;;
+            4)  log_event_navigation "ChangementMachine"
+                    return
+                ;; 
+            5)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                     log_event_navigation "EndScript"
                     exit 0
                 ;;
@@ -418,8 +423,9 @@ menu_user_action()
             echo -e "${GREEN}3)${NC} Suppression de compte utilisateur local"
             echo -e "${GREEN}4)${NC} Ajout à un groupe d'administration"
             echo -e "${GREEN}5)${NC} Ajout à un groupe"
-            echo -e "${GREEN}6)${NC} Retour"
-            echo -e "${GREEN}7)${NC} Exit"
+            echo -e "${GREEN}6)${NC} Modification de permission sur un répertoire"                
+            echo -e "${GREEN}7)${NC} Retour"
+            echo -e "${GREEN}8)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -470,10 +476,19 @@ menu_user_action()
                         fi
                     ;;
                 6)  clear
+                        log_event_action "ActionModificationPermission"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_add_permissions.sh"
+                        else
+                            execution_script_windows_action "script_add_permissions.ps1"
+                        fi
+                    ;;
+                7)  clear
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                7)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+                8)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
@@ -494,9 +509,8 @@ menu_user_information()
             echo -e "${TITLE}Menu information utilisateur:${NC}"
             echo ""
             echo -e "${GREEN}1)${NC} Droits/permissions de l’utilisateur sur un dossier"
-            echo -e "${GREEN}2)${NC} Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
-            echo -e "${GREEN}3)${NC} Retour"
-            echo -e "${GREEN}4)${NC} Exit"
+            echo -e "${GREEN}2)${NC} Retour"
+            echo -e "${GREEN}3)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -505,25 +519,16 @@ menu_user_information()
                         log_event_information "InformationDroitPermissionDossier"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_add_permissions.sh"
+                            execution_script_sudo_action "script_show_directory_permissions.sh"
                         else
-                            execution_script_windows_action "script_add_permissions.ps1"
+                            execution_script_windows_action "script_show_directory_permissions.ps1"
                         fi
                     ;;
                 2)  clear
-                        log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
-                        if [ "$os_type" = "linux" ]
-                        then
-                            execution_script_sudo_action "script_event_search_by_user.sh"
-                        else
-                            execution_script_windows_action "script_event_search_by_user.ps1"
-                        fi
-                    ;;
-                3)  clear
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+                3)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
