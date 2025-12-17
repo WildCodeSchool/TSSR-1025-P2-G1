@@ -1,10 +1,9 @@
 #!/bin/bash
 
 #########################################################################
-# Script add critical events
-# Jouveaux Nicolas
-# Execution SUDO
-# 11/12/2025
+# Script 5 last login
+# Chicaud Matthias
+# 17/12/2025
 #########################################################################
 
 #########################################################################
@@ -12,15 +11,17 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[4;33m'
+TITLE='\033[1;33m'
 # Used for labels: purple
-LABEL='\033[0;35m'
+LABEL='\033[1;94m'
 # Used for FALSE: red
-RED='\033[0;31m'
+RED='\033[0;91m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
+# White
+WHITE='\033[1;97m'
 
 #########################################################################
 
@@ -29,7 +30,6 @@ NC='\033[0m'
 #########################################################################
 
 # Variable for save_info function
-
 info_target="$(hostname)"
 info_date="$(date +%Y%m%d)"
 info_dir="/home/$(whoami)/Documents/info"
@@ -39,7 +39,7 @@ info_file="$info_dir/info_${info_target}_${info_date}.txt"
 # Function
 #########################################################################
 
-# Function for save information in file
+# function for save information in file
 save_info()
 {
     local label="$1"
@@ -53,28 +53,16 @@ save_info()
 # Script
 #########################################################################
 
-# Title
-echo -e "${TITLE}10 derniers événements critiques${NC}"
-echo ""
-
-# Filtering events display
-echo -e "${YELLOW}Filtrage des événements critiques en cours${NC}"
-echo ""
-
-# Use journalctl to display the last 10 critical events (0 = Emergency, 1 = Alert, 2 = Critical)
-journalctl -p 0..2 -n 10 --no-pager
-value=$(journalctl -p 0..2 -n 10 --no-pager)
-
-# Result verification
-if [ $? -eq 0 ]; then
+# menu name display
+    echo -e "${TITLE}Les 5 derniers login${NC}"
     echo ""
-    echo -e "${GREEN}Affichage des 10 derniers événements critiques terminé${NC}"
-else
-    echo ""
-    echo -e "${RED}Erreur lors de la récupération des événements critiques${NC}"
-    exit 1
-fi
 
-# Save information
-save_info "10 derniers événements critiques" "$value"
+#show the last 5 login
+last -n 5
+value="$(last -n 5)"
+
+# Save informations
+save_info "Les 5 derniers login" "$value"
 exit 0
+
+#########################################################################
