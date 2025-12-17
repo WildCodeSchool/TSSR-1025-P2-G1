@@ -1,9 +1,13 @@
+﻿#########################################################################
+# Script add user to group
+# Jouveaux Nicolas
+# 17/12/2025
 #########################################################################
-# Script create directory
-# Paisant Franck
-# 16/12/2025
-#########################################################################
-
+# --- Fix encodage console/SSH ---
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
@@ -18,13 +22,13 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 #########################################################################
 
 # Title
-Write-Host "Ajout d'un utilisateur a un groupe:" -ForegroundColor Yellow
+Write-Host "Ajout d'un utilisateur à un groupe:" -ForegroundColor Yellow
 Write-Host ""
 
 while ($true)
 {
     # User to add to group
-    $user = Read-Host "Quel est le nom de l'utilisateur a ajouter ?"
+    $user = Read-Host "Quel est le nom de l'utilisateur à ajouter ?"
     Write-Host ""
     
     # Verify if user exists
@@ -47,19 +51,19 @@ while ($true)
     {
         Write-Host "Le groupe $group n'existe pas." -ForegroundColor Yellow
         Write-Host ""
-        $createGroup = Read-Host "Voulez-vous creer ce groupe ? (O/N)"
+        $createGroup = Read-Host "Voulez-vous créer ce groupe ? (O/N)"
         
         if ($createGroup -eq "O" -or $createGroup -eq "o")
         {
             try
             {
                 New-LocalGroup -Name $group -ErrorAction Stop
-                Write-Host "Le groupe $group a ete cree avec succes" -ForegroundColor Green
+                Write-Host "Le groupe $group a été créé avec succès" -ForegroundColor Green
                 Write-Host ""
             }
             catch
             {
-                Write-Host "WARNING !!! Erreur lors de la creation du groupe $group : $($_.Exception.Message)" -ForegroundColor Red
+                Write-Host "WARNING !!! Erreur lors de la création du groupe $group : $($_.Exception.Message)" -ForegroundColor Red
                 Write-Host ""
                 continue
             }
@@ -75,7 +79,7 @@ while ($true)
     $members = Get-LocalGroupMember -Group $group -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
     if ($members -contains "$env:COMPUTERNAME\$user")
     {
-        Write-Host "WARNING !!! $user fait deja partie du groupe $group" -ForegroundColor Red
+        Write-Host "WARNING !!! $user fait déjà partie du groupe $group" -ForegroundColor Red
         Write-Host ""
         continue
     }
@@ -98,12 +102,12 @@ while ($true)
 $members = Get-LocalGroupMember -Group $group -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
 if ($members -contains "$env:COMPUTERNAME\$user")
 {
-    Write-Host "$user a bien ete ajoute au groupe $group" -ForegroundColor Green
+    Write-Host "$user a bien été ajouté au groupe $group" -ForegroundColor Green
     Write-Host ""
 }
 else
 {
-    Write-Host "WARNING !!! $user n'a pas ete ajoute au groupe $group" -ForegroundColor Red
+    Write-Host "WARNING !!! $user n'a pas été ajouté au groupe $group" -ForegroundColor Red
     Write-Host ""
     exit 1
 }
