@@ -310,8 +310,9 @@ function menu {
         Write-Host ""
         Write-Host "1) Utilisateur"
         Write-Host "2) Ordinateur"
-        Write-Host "3) Changer de machine"
-        Write-Host "4) Sortie"
+        Write-Host "3) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
+        Write-Host "4) Changer de machine"
+        Write-Host "5) Sortie"
         Write-Host ""
         $choice = Read-Host "Votre choix"
     
@@ -326,10 +327,15 @@ function menu {
                 menu_desktop 
             }
             3 { 
+                log_event_navigation "RechercheEvenement"
+                    powershell.exe script_event_search_by_user.ps1
+                menu 
+            }
+            4 { 
                 log_event_navigation "ChangementMachine"
                 return
             }
-            4 {
+            5 {
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
                 exit 0
@@ -441,8 +447,9 @@ function menu_user_action {
         Write-Host "3) Suppression de compte utilisateur local"
         Write-Host "4) Ajout à un groupe d'administration"
         Write-Host "5) Ajout à un groupe"
-        Write-Host "6) Retour"
-        Write-Host "7) Exit"
+        Write-Host "6) Modification de permission sur un répertoire"
+        Write-Host "7) Retour"
+        Write-Host "8) Exit"
         Write-Host ""
         $choice3 = Read-Host "Votre choix"
 
@@ -496,7 +503,7 @@ function menu_user_action {
                 {
                     execution_script_windows_action "script_add_group_administration.ps1"
                 }
-            }
+             }
             5 { 
                 Clear-Host
                 log_event_information "ActionAjoutGroupe"
@@ -508,13 +515,25 @@ function menu_user_action {
                 {
                     execution_script_windows_action "script_add_usergroup.ps1"
                 }  
-            }
+             }
             6 { 
+                Clear-Host
+                log_event_information "ActionModificationPermission"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_add_permissions.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_add_permissions.ps1"
+                }  
+            }
+            7 { 
                 Clear-Host
                 log_event_navigation "RetourMenuOrdinateur"
                 return
             }
-            7 { 
+            8 { 
                 Clear-Host
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
@@ -537,9 +556,8 @@ function menu_user_information {
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
-        Write-Host "2) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
-        Write-Host "3) Retour"
-        Write-Host "4) Exit"
+        Write-Host "2) Retour"
+        Write-Host "3) Exit"
         Write-Host ""
         $choice3 = Read-Host "Votre choix"
 
@@ -551,31 +569,19 @@ function menu_user_information {
                 log_event_information "InformationDroitPermissionDossier"
                 if ($os_type -eq "linux")
                 {
-                    execution_script_sudo_action "script_add_permissions.sh"
+                    execution_script_sudo_action "show_directory_permissions.sh"
                 }    
                 else
                 {
-                    execution_script_windows_action "script_add_permissions.ps1"
+                    execution_script_windows_action "show_directory_permissions.ps1"
                 }
              }
             2 { 
                 Clear-Host
-                log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
-                if ($os_type -eq "linux")
-                {
-                    execution_script_sudo_action "script_event_search_by_user.sh"
-                }    
-                else
-                {
-                    execution_script_windows_action "script_event_search_by_user.ps1"
-                }
-            }
-            3 { 
-                Clear-Host
                 log_event_navigation "RetourMenuOrdinateur"
                 return
             }
-            4 { 
+            3 { 
                 Clear-Host
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
@@ -792,6 +798,18 @@ function menu_desktop_information {
                 }
                 5 {
                     Clear-Host
+                        log_event_information "InformationTempératureCpu"
+                        if ($os_type -eq "linux")
+                        {
+                            execution_script_information "script_temp_cpu.sh"
+                        }    
+                        else
+                        {
+                            execution_script_windows_information "script_temp_cpu.ps1"
+                        }
+                 }
+                6 { 
+                    Clear-Host
                         log_event_information "InformationTempsUtilisateurOrdinateur"
                         if ($os_type -eq "linux")
                         {
@@ -800,18 +818,6 @@ function menu_desktop_information {
                         else
                         {
                             execution_script_windows_information "script_uptime.ps1"
-                        }
-                 }
-                6 { 
-                    Clear-Host
-                        log_event_information "InformationTempsCpu"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_information "script_temp_cpu.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_information "script_temp_cpu.ps1"
                         }
                  }
                 7 { 
@@ -939,7 +945,7 @@ function Display-Serveur {
     Write-Host "                             ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                                    " -NoNewline -ForegroundColor $GREEN
-    Write-Host "by " -NoNewline -ForegroundColor $NC
+    Write-Host "by  " -NoNewline -ForegroundColor $NC
     Write-Host "                                      ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                        " -NoNewline -ForegroundColor $GREEN
@@ -947,7 +953,7 @@ function Display-Serveur {
     Write-Host " / " -NoNewline -ForegroundColor $NC
     Write-Host "Matthias" -NoNewline -ForegroundColor $WHITE
     Write-Host " / " -NoNewline -ForegroundColor $NC
-    Write-Host "Franck  " -NoNewline -ForegroundColor $RED
+    Write-Host "Franck " -NoNewline -ForegroundColor $RED
     Write-Host "                          ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                             " -NoNewline -ForegroundColor $GREEN
