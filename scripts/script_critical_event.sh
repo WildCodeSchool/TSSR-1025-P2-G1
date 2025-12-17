@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #########################################################################
-# Script change password
+# Script add critical events
 # Jouveaux Nicolas
 # Execution SUDO
-# 09/12/2025
+# 11/12/2025
 #########################################################################
 
 #########################################################################
@@ -12,17 +12,15 @@
 #########################################################################
 
 # For menu titles: Underlined and yellow
-TITLE='\033[1;33m'
+TITLE='\033[4;33m'
 # Used for labels: purple
-LABEL='\033[1;94m'
+LABEL='\033[0;35m'
 # Used for FALSE: red
-RED='\033[0;91m'
+RED='\033[0;31m'
 # Used for TRUE: green
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
-# white
-WHITE='\033[1;97m'
 
 #########################################################################
 
@@ -30,55 +28,52 @@ WHITE='\033[1;97m'
 # Variable
 #########################################################################
 
+# Variable for save_info function
+
+info_target="$(hostname)"
+info_date="$(date +%Y%m%d)"
+info_dir="/home/$(whoami)/Documents/info"
+info_file="$info_dir/info_${info_target}_${info_date}.txt"
+
 #########################################################################
 # Function
 #########################################################################
+
+# Function for save information in file
+save_info()
+{
+    local label="$1"
+    local value="$2"
+    local time_save_info="$(date +%H:%M:%S)"
+    mkdir -p "$info_dir"
+    echo "[$time_save_info] $label : $value" >> "$info_file"
+}
 
 #########################################################################
 # Script
 #########################################################################
 
-# menu name display
-echo -e "${TITLE}Changement du mot de passe d'un utilisateur${NC}"
+# Title
+echo -e "${TITLE}10 derniers événements critiques${NC}"
 echo ""
 
-while true
-do
-    # Verification and input of the user name
-    read -p "Nom de l'utilisateur dont vous voulez changer le mot de passe : " user
-
-    if id "$user" &>/dev/null
-    then
-        echo -e "Utilisateur trouvé : ${GREEN}$user${NC}"
-        echo ""
-        break
-    else
-        echo -e "${RED}Erreur : l'utilisateur $user n'existe pas.${NC}"
-    fi
-done
-
-# Confirmation before proceeding
-echo -e "Voulez-vous vraiment changer le mot de passe de ${GREEN}$user${NC}"
-read -r -p "Confirmez-vous cette action ? (o/N) : " confirm
-if [[ ! "$confirm" =~ ^[oO]$ ]]
-then
-    echo -e "${RED}Opération annulée.${NC}"
-    exit 0
-fi
-
+# Filtering events display
+echo -e "${YELLOW}Filtrage des événements critiques en cours${NC}"
 echo ""
 
-# Change password
-if passwd "$user"; then
+# Use journalctl to display the last 10 critical events (0 = Emergency, 1 = Alert, 2 = Critical)
+journalctl -p 0..2 -n 10 --no-pager
+
+# Result verification
+if [ $? -eq 0 ]; then
     echo ""
-    echo -e "${GREEN}Le mot de passe de $user a été modifié avec succès !${NC}"
-    echo ""
-    exit 0
+    echo -e "${GREEN}Affichage des 10 derniers événements critiques terminé${NC}"
 else
     echo ""
-    echo -e "${RED}ÉCHEC : Une erreur est survenue lors du changement de mot de passe.${NC}"
-    echo ""
+    echo -e "${RED}Erreur lors de la récupération des événements critiques${NC}"
     exit 1
 fi
+
+# Save information
+save_info "10 derniers événements critiques" "$value"
 exit 0
-############################################################################

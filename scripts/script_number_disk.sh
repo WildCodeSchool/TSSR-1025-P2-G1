@@ -58,7 +58,7 @@ save_info()
 echo -e "${TITLE}Nombre de disque${NC}"
 echo ""
 # Nombre de disque
-number_disk="$(lsblk | wc -l)"
+number_disk="$(lsblk | grep -v loop | wc -l)"
 echo -e "${GREEN}Le nombre de disque sur la machine : $number_disk${NC}"
 echo ""
 
