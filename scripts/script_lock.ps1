@@ -25,7 +25,7 @@ Write-Host ""
 
 while ( $countdown -gt 0 )
 {
-    Write-Host "$countdown"
+    Write-Host "$countdown" -ForegroundColor Yellow
     Start-Sleep 1
     $countdown--
 }
@@ -33,7 +33,7 @@ while ( $countdown -gt 0 )
 Write-Host "Verrouillage de l'ordinateur !!"
 Start-Sleep 1
 
-rundll32.exe user32.dll,LockWorkStation
+tsdiscon 1
 
 exit 0
 

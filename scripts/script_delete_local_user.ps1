@@ -22,7 +22,7 @@ Write-Host "Suppression d'utilisateur:" -ForegroundColor Yellow
 Write-Host ""
 
 # request for the name of the directory to be deleted.
-    $user = Read-Host "Quel est l'utilisateur à supprimer"
+    $user = Read-Host "Quel est l'utilisateur a supprimer"
 
     # verification of the directory to be deleted.
     $exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
@@ -34,12 +34,12 @@ Write-Host ""
     try
     {
         Remove-LocalUser -Name $user -ErrorAction Stop
-        Write-Host "l'utilisateur $user à été supprimé" -ForegroundColor Green
+        Write-Host "l'utilisateur $user a ete supprimer" -ForegroundColor Green
         exit 0
     }
     catch
     {
-        Write-Host "WARNING : l'utilisateur "$user" n'a pas été supprimé !!!" -ForegroundColor Red
+        Write-Host "WARNING : l'utilisateur "$user" n'a pas ete supprimer !!!" -ForegroundColor Red
         Write-Host $_
         exit 1
     }

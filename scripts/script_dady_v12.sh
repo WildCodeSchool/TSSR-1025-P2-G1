@@ -840,7 +840,7 @@ execution_script_windows_information()
                     echo ""
                         if [ $? -eq 0 ]
                         then
-                            ssh -t "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh  "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             echo ""
                             if [ $? -eq 0 ]
                             then
@@ -870,7 +870,7 @@ execution_script_windows_information()
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             fi
-                            ssh -t "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                            ssh  "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if [ $? -eq 0 ]
                                 then
                                     echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"
@@ -908,7 +908,7 @@ execution_script_windows_action()
                     echo ""
                         if [ $? -eq 0 ]
                         then
-                            ssh -t "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh  "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             echo ""
                             if [ $? -eq 0 ]
                             then
@@ -920,7 +920,7 @@ execution_script_windows_action()
                                 log_event_connexion "ERREURScriptNonExecuterSortieSSH"
                                 return 1
                             fi
-                            ssh -t "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
+                            ssh  "$target_user"@"$target_computer" "powershell.exe -Command Remove-Item C:/Users/$target_user/Documents/$script_name -Force"
                                 if [ $? -eq 0 ]
                                 then
                                     echo -e "${GREEN}Le fichier $script_name a bien été effacé de $target_computer${NC}"

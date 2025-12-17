@@ -49,6 +49,6 @@ $value = [math]::Round($cpu.Average, 2)
 Write-Host "Utilisation du CPU : $value %"
 
 # save info 
-save_info -label "CPU %" -value "$value %"
+save_info -label "CPU %" -value "$value %"s
 
 #########################################################################
