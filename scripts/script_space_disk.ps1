@@ -54,6 +54,7 @@ function save_info {
 
 # Display disks and partitions
     Get-Volume | Format-Table -Property DriveLetter, FileSystemLabel, FileSystem, SizeRemaining, Size -AutoSize
+    $value = Get-Volume | Format-Table -Property DriveLetter, FileSystemLabel, FileSystem, SizeRemaining, Size -AutoSize
     Write-Host ""
     
 # Save information
