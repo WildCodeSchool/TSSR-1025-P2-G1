@@ -1,7 +1,7 @@
 ﻿#########################################################################
-# Script create user
-# Paisant Franck
-# 16/12/2025
+# Script change password
+# Chicaud Matthias
+# 17/12/2025
 #########################################################################
 # --- Fix encodage console/SSH ---
 chcp 65001 > $null
@@ -12,24 +12,20 @@ $OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 # Variable
 #########################################################################
 
-# Variable for save_info function
-
-# $info_target = "wilder" # Uncomment for user script
-$info_target = $env:COMPUTERNAME # Uncomment for computer script
+#########################################################################
+# Function
+#########################################################################
 
 #########################################################################
 # Script
 #########################################################################
+# menu name display
+    Write-Host "Changement du mot de passe d'un utilisateur" -ForegroundColor Yellow
+    Write-Host ""
 
-# Title
-Write-Host "Création compte utilisateur local:" -ForegroundColor Yellow
-Write-Host ""
-
-# request for the name .
-    $user = Read-Host "Quel est l'utilisateur à créé"
-
-    # verification of .
-    $exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
+    $user = Read-Host "Modifier le mot de pass sur quel utilisateur"
+    
+$exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
     if ( $exists )
     {
         Write-Host "WARNING : L'utilisateur '$user' existe déjà." -Foregroundcolor Red
@@ -49,4 +45,5 @@ Write-Host ""
     }
 exit 0
 
-#########################################################################
+
+#############################################################################
