@@ -20,6 +20,12 @@ Write-Host ""
 Write-Host "Connexion à $user@$remoteHost sur le port $port" -ForegroundColor Green
 Write-Host ""
 
+if ([string]::IsNullOrEmpty($portInput)) {
+    $port = 22
+} else {
+    $port = [int]$portInput
+}
+
 # Se connecter
 if ($port -eq 22) {
     ssh "$user@$remoteHost"
