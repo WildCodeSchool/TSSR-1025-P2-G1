@@ -305,7 +305,7 @@ log_event_information "InformationRechercheEvenementLog_Event.LogOrdinateur"
 function menu {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Utilisateur"
@@ -374,7 +374,7 @@ function menu {
 function menu_user {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Action"
@@ -418,7 +418,7 @@ function menu_user {
 function menu_desktop {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu ordinateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Action"
@@ -461,7 +461,7 @@ function menu_desktop {
 function menu_user_action {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu action utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Création de compte utilisateur local"
@@ -574,7 +574,7 @@ function menu_user_action {
 function menu_user_information {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
@@ -591,11 +591,11 @@ function menu_user_information {
                 log_event_information "InformationDroitPermissionDossier"
                 if ($os_type -eq "linux")
                 {
-                    execution_script_sudo_action "show_directory_permissions.sh"
+                    execution_script_sudo_action "script_show_directory_permissions.sh"
                 }    
                 else
                 {
-                    execution_script_windows_action "show_directory_permissions.ps1"
+                    execution_script_windows_action "script_show_directory_permissions.ps1"
                 }
              }
             2 { 
@@ -622,7 +622,7 @@ function menu_user_information {
 function menu_desktop_action {
     Clear-Host
         while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu action ordinateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Verrouillage"
@@ -721,7 +721,7 @@ function menu_desktop_action {
 function menu_desktop_information {
     Clear-Host
         while ($true) {
-            Display-Machine "$target_computer"
+            Show-Machine "$target_computer"
             Write-Host "Menu information ordinateur :" -ForegroundColor Yellow
             Write-Host ""
             Write-Host "1) Adresse IP, masque de sous-réseau et passerelle"
@@ -868,11 +868,11 @@ function menu_desktop_information {
                         log_event_information "Information5DernierLogin"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_five_last_login.sh"
                         }    
                         else
                         {
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_five_last_login.ps1"
                         }
                 }
                 12 { 
@@ -948,7 +948,7 @@ function Display-Serveur {
 }
 
 # Fonction title machine
-function Display-Machine {
+function Show-Machine {
     param (
         [string]$machine
     )
