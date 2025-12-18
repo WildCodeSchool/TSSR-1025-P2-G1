@@ -305,7 +305,7 @@ function execution_script_sudo_action{
 function menu {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Utilisateur"
@@ -346,7 +346,7 @@ function menu {
 function menu_user {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Action"
@@ -390,7 +390,7 @@ function menu_user {
 function menu_desktop {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu ordinateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Action"
@@ -433,7 +433,7 @@ function menu_desktop {
 function menu_user_action {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu action utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Création de compte utilisateur local"
@@ -533,7 +533,7 @@ function menu_user_action {
 function menu_user_information {
     Clear-Host
     while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
@@ -594,7 +594,7 @@ function menu_user_information {
 function menu_desktop_action {
     Clear-Host
         while ($true) {
-        Display-Machine "$target_computer"
+        Show-Machine "$target_computer"
         Write-Host "Menu action ordinateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Verrouillage"
@@ -719,7 +719,7 @@ function menu_desktop_action {
 function menu_desktop_information {
     Clear-Host
         while ($true) {
-            Display-Machine "$target_computer"
+            Show-Machine "$target_computer"
             Write-Host "Menu information ordinateur :" -ForegroundColor Yellow
             Write-Host ""
             Write-Host "1) Adresse IP, masque de sous-réseau et passerelle"
@@ -959,7 +959,7 @@ function Display-Serveur {
 }
 
 # Fonction title machine
-function Display-Machine {
+function Show-Machine {
     param (
         [string]$machine
     )
