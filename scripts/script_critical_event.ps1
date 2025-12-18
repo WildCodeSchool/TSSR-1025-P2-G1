@@ -1,7 +1,7 @@
 ﻿#########################################################################
-# Script graphic card
-# Jouveaux Nicolas
-# 16/12/2025
+# Script 10 last critical errors
+# Chicaud Matthias
+# 17/12/2025
 #########################################################################
 # --- Fix encodage console/SSH ---
 chcp 65001 > $null
@@ -11,14 +11,13 @@ $OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
-
 # Variable for save_info function
 
-# $info_target = "wilder" # Uncomment for user script
+# info_target="wilder" # Uncomment for user script
 $info_target = $env:COMPUTERNAME # Uncomment for computer script
 $info_date = Get-Date -Format "yyyyMMdd"
-$info_dir = "C:\Users\$env:USERNAME\Documents\info"
-$info_file = "$info_dir\info_${info_target}_${info_date}.txt"
+$info_dir="C:\Users\$env:USERNAME\Documents\info"
+$info_file="$info_dir\info_${info_target}_${info_date}.txt"
 
 #########################################################################
 # Function
@@ -44,19 +43,36 @@ function save_info {
 #########################################################################
 # Script
 #########################################################################
-
-# Title
-    Write-Host "Carte graphique" -ForegroundColor Yellow
+# menu name display
+    Write-Host "10 derniers événements critiques" -ForegroundColor Yellow
     Write-Host ""
 
-    Write-Host "Détails de la carte graphique"
+# Command to the critical errors
+
+
+# Result verification
+Try
+{
+    $events = Get-WinEvent -FilterHashtable @{
+        LogName='System','Application'
+        Level=1
+    } -MaxEvents 10 -ErrorAction Stop
+
+    $value = $events | Select-Object TimeCreated, LogName, LevelDisplayName, ProviderName, Message | Out-String
+    
     Write-Host ""
+    Write-Host "Affichage des 10 derniers événements critiques terminé" -ForegroundColor Green
 
-# Command to get graphic card information
-    Get-PhysicalDisk | Format-Table
-    $value = Get-PhysicalDisk | Format-Table
+    # save info 
+    save_info -label "10 derniers événements critiques" -value $value
+}
+catch
+{    
+    Write-Host ""
+    Write-Host "Erreur lors de la récupération des événements critiques" -ForegroundColor Red
+    exit 1
+}
 
-# Save information
-save_info "Carte graphique" "$value"
 exit 0
-############################################################################
+
+#############################################################################

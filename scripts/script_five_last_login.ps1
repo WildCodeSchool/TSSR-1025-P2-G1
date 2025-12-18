@@ -1,7 +1,7 @@
 ﻿#########################################################################
-# Script graphic card
-# Jouveaux Nicolas
-# 16/12/2025
+# Script 5 last login
+# Chicaud Matthias
+# 17/12/2025
 #########################################################################
 # --- Fix encodage console/SSH ---
 chcp 65001 > $null
@@ -11,14 +11,13 @@ $OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
 #########################################################################
 # Variable
 #########################################################################
-
 # Variable for save_info function
 
-# $info_target = "wilder" # Uncomment for user script
+# info_target="wilder" # Uncomment for user script
 $info_target = $env:COMPUTERNAME # Uncomment for computer script
 $info_date = Get-Date -Format "yyyyMMdd"
-$info_dir = "C:\Users\$env:USERNAME\Documents\info"
-$info_file = "$info_dir\info_${info_target}_${info_date}.txt"
+$info_dir="C:\Users\$env:USERNAME\Documents\info"
+$info_file="$info_dir\info_${info_target}_${info_date}.txt"
 
 #########################################################################
 # Function
@@ -44,19 +43,19 @@ function save_info {
 #########################################################################
 # Script
 #########################################################################
-
-# Title
-    Write-Host "Carte graphique" -ForegroundColor Yellow
+# menu name display
+    Write-Host "Les 5 derniers login" -ForegroundColor Yellow
     Write-Host ""
 
-    Write-Host "Détails de la carte graphique"
-    Write-Host ""
+#command to the five last logins
 
-# Command to get graphic card information
-    Get-PhysicalDisk | Format-Table
-    $value = Get-PhysicalDisk | Format-Table
+$logins = Get-EventLog -LogName Security -InstanceId 4624 -Newest 5
+$logins | Select-Object TimeGenerated, UserName, MachineName | Format-Table -AutoSize
+$value = $logins | Select-Object TimeGenerated, UserName, MachineName | Format-Table -AutoSize
 
-# Save information
-save_info "Carte graphique" "$value"
+# save info 
+save_info -label "Les 5 derniers login" -value $value
+
 exit 0
-############################################################################
+
+#############################################################################

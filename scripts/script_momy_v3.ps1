@@ -300,7 +300,7 @@ function execution_script_sudo_action{
                         }
     }
 
-
+log_event_information "InformationRechercheEvenementLog_Event.LogOrdinateur"
 # Display the main menu
 function menu {
     Clear-Host
@@ -310,8 +310,12 @@ function menu {
         Write-Host ""
         Write-Host "1) Utilisateur"
         Write-Host "2) Ordinateur"
-        Write-Host "3) Changer de machine"
-        Write-Host "4) Sortie"
+        Write-Host "3) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
+        Write-Host "4) Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
+        Write-Host "5) Prise en main à distance (CLI)"
+        Write-Host "6) Exécution de script sur la machine distante"
+        Write-Host "7) Changer de machine"
+        Write-Host "8) Sortie"
         Write-Host ""
         $choice = Read-Host "Votre choix"
     
@@ -326,10 +330,34 @@ function menu {
                 menu_desktop 
             }
             3 { 
+                log_event_navigation "RechercheEvenement"
+                    & ".\script-event_search_by_user.ps1"
+                    Read-Host "Appuyer sur ENTER pour revenir au menu"
+                menu 
+            }
+            4 { 
+                log_event_navigation "RechercheEvenement"
+                    & ".\script-event_search_by_computer.ps1"
+                    Read-Host "Appuyer sur ENTER pour revenir au menu"
+                menu 
+            }
+            5 { 
+                log_event_navigation "ActionPriseenMainaDistance"
+                    & ".\script_remote_control.ps1"
+                    Read-Host "Appuyer sur ENTER pour revenir au menu"
+                menu 
+            }
+            6 { 
+                log_event_navigation "ActionExecutionScriptaDistance"
+                    & ".\script_remote_script_execution.ps1"
+                    Read-Host "Appuyer sur ENTER pour revenir au menu"
+                menu 
+            }
+            7 { 
                 log_event_navigation "ChangementMachine"
                 return
             }
-            4 {
+            8 {
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
                 exit 0
@@ -441,8 +469,9 @@ function menu_user_action {
         Write-Host "3) Suppression de compte utilisateur local"
         Write-Host "4) Ajout à un groupe d'administration"
         Write-Host "5) Ajout à un groupe"
-        Write-Host "6) Retour"
-        Write-Host "7) Exit"
+        Write-Host "6) Modification de permission sur un répertoire"
+        Write-Host "7) Retour"
+        Write-Host "8) Exit"
         Write-Host ""
         $choice3 = Read-Host "Votre choix"
 
@@ -496,7 +525,7 @@ function menu_user_action {
                 {
                     execution_script_windows_action "script_add_group_administration.ps1"
                 }
-            }
+             }
             5 { 
                 Clear-Host
                 log_event_information "ActionAjoutGroupe"
@@ -508,13 +537,25 @@ function menu_user_action {
                 {
                     execution_script_windows_action "script_add_usergroup.ps1"
                 }  
-            }
+             }
             6 { 
+                Clear-Host
+                log_event_information "ActionModificationPermission"
+                if ($os_type -eq "linux")
+                {
+                    execution_script_sudo_action "script_add_permissions.sh"
+                }    
+                else
+                {
+                    execution_script_windows_action "script_add_permissions.ps1"
+                }  
+            }
+            7 { 
                 Clear-Host
                 log_event_navigation "RetourMenuOrdinateur"
                 return
             }
-            7 { 
+            8 { 
                 Clear-Host
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
@@ -537,9 +578,8 @@ function menu_user_information {
         Write-Host "Menu information utilisateur :" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "1) Droits/permissions de l'utilisateur sur un dossier"
-        Write-Host "2) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
-        Write-Host "3) Retour"
-        Write-Host "4) Exit"
+        Write-Host "2) Retour"
+        Write-Host "3) Exit"
         Write-Host ""
         $choice3 = Read-Host "Votre choix"
 
@@ -551,31 +591,19 @@ function menu_user_information {
                 log_event_information "InformationDroitPermissionDossier"
                 if ($os_type -eq "linux")
                 {
-                    execution_script_sudo_action "script_add_permissions.sh"
+                    execution_script_sudo_action "show_directory_permissions.sh"
                 }    
                 else
                 {
-                    execution_script_windows_action "script_add_permissions.ps1"
+                    execution_script_windows_action "show_directory_permissions.ps1"
                 }
              }
             2 { 
                 Clear-Host
-                log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
-                if ($os_type -eq "linux")
-                {
-                    execution_script_sudo_action "script_event_search_by_user.sh"
-                }    
-                else
-                {
-                    execution_script_windows_action "script_event_search_by_user.ps1"
-                }
-            }
-            3 { 
-                Clear-Host
                 log_event_navigation "RetourMenuOrdinateur"
                 return
             }
-            4 { 
+            3 { 
                 Clear-Host
                 Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                 log_event_navigation "EndScript"
@@ -602,10 +630,8 @@ function menu_desktop_action {
         Write-Host "3) Activation du pare-feu"
         Write-Host "4) Création de répertoire"
         Write-Host "5) Suppression de répertoire"
-        Write-Host "6) Prise en main à distance (CLI)"
-        Write-Host "7) Exécution de script sur la machine distante"
-        Write-Host "8) Retour"
-        Write-Host "9) Exit"
+        Write-Host "6) Retour"
+        Write-Host "7) Exit"
         Write-Host ""
         $choice3 = Read-Host "Votre choix"
 
@@ -672,35 +698,11 @@ function menu_desktop_action {
                         }
             }
             6 { 
-                Clear-Host
-                        log_event_information "ActionPriseEnMainDistance"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_action "script_remote_control.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_remote_control.ps1"
-                        }
-            }
-            7 { 
-                Clear-Host
-                        log_event_information "ActionExécutionScriptSurMachineDistante"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_action "script_remote_script_execution.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_action "script_remote_script_execution.ps1"
-                        }
-            }
-            8 { 
                  Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
                     return
             }
-            9 { 
+            7 { 
                 Clear-Host
                     Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                     log_event_navigation "EndScript"
@@ -733,10 +735,9 @@ function menu_desktop_information {
             Write-Host "9) Partitions (nombre, nom, FS, taille par disque)"
             Write-Host "10) Liste des utilisateurs locaux"
             Write-Host "11) 5 derniers logins"
-            Write-Host "12) 10 derniers évènements critiques"
-            Write-Host "13) Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
-            Write-Host "14) Retour"
-            Write-Host "15) Exit"
+            Write-Host "12) 10 derniers évènements critiques" 
+            Write-Host "13) Retour"
+            Write-Host "14) Exit"
             Write-Host ""
             $choice3 = Read-Host "Votre choix"
 
@@ -792,6 +793,18 @@ function menu_desktop_information {
                 }
                 5 {
                     Clear-Host
+                        log_event_information "InformationTempératureCpu"
+                        if ($os_type -eq "linux")
+                        {
+                            execution_script_information "script_temp_cpu.sh"
+                        }    
+                        else
+                        {
+                            execution_script_windows_information "script_temp_cpu.ps1"
+                        }
+                 }
+                6 { 
+                    Clear-Host
                         log_event_information "InformationTempsUtilisateurOrdinateur"
                         if ($os_type -eq "linux")
                         {
@@ -800,18 +813,6 @@ function menu_desktop_information {
                         else
                         {
                             execution_script_windows_information "script_uptime.ps1"
-                        }
-                 }
-                6 { 
-                    Clear-Host
-                        log_event_information "InformationTempsCpu"
-                        if ($os_type -eq "linux")
-                        {
-                            execution_script_information "script_temp_cpu.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_information "script_temp_cpu.ps1"
                         }
                  }
                 7 { 
@@ -888,22 +889,10 @@ function menu_desktop_information {
                  }
                 13 { 
                     Clear-Host
-                        log_event_information "InformationRechercheEvenementLog_Event.LogOrdinateur"
-                        if ($os_type -eq "linux")
-                        {
-                              execution_script_sudo_information "script_.sh"
-                        }    
-                        else
-                        {
-                            execution_script_windows_information "script_.ps1"
-                        }
-                }
-                14 { 
-                    Clear-Host
                     log_event_navigation "RetourMenuOrdinateur"
                     return
                 }
-                15 { 
+                14 { 
                     Clear-Host
                     Write-Host "Exit - FIN DE SCRIPT" -ForegroundColor Red
                     log_event_navigation "EndScript"
@@ -939,7 +928,7 @@ function Display-Serveur {
     Write-Host "                             ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                                    " -NoNewline -ForegroundColor $GREEN
-    Write-Host "by " -NoNewline -ForegroundColor $NC
+    Write-Host "by  " -NoNewline -ForegroundColor $NC
     Write-Host "                                      ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                        " -NoNewline -ForegroundColor $GREEN
@@ -947,7 +936,7 @@ function Display-Serveur {
     Write-Host " / " -NoNewline -ForegroundColor $NC
     Write-Host "Matthias" -NoNewline -ForegroundColor $WHITE
     Write-Host " / " -NoNewline -ForegroundColor $NC
-    Write-Host "Franck  " -NoNewline -ForegroundColor $RED
+    Write-Host "Franck " -NoNewline -ForegroundColor $RED
     Write-Host "                          ║" -ForegroundColor $GREEN
     Write-Host "║                                                                              ║" -ForegroundColor $GREEN
     Write-Host "║                             " -NoNewline -ForegroundColor $GREEN
@@ -1139,7 +1128,7 @@ while ($true)
     Write-Host "Détection du système d'exploitation en cours..." -ForegroundColor Blue 
     Write-Host ""
 
-    ssh "${target_user}@${target_computer}" "[ -d /etc ]" | 2>$null
+    ssh "${target_user}@${target_computer}" "[ -d /etc ]" | Out-Null
 
     if ($? -eq $true)
     {    

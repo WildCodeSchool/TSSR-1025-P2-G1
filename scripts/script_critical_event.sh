@@ -46,7 +46,7 @@ save_info()
     local value="$2"
     local time_save_info="$(date +%H:%M:%S)"
     mkdir -p "$info_dir"
-    echo "[$time_save_info] $label : $value" >> "$info_file"
+    echo "[$time_save_info] $label : $value" >> $info_file
 }
 
 #########################################################################
@@ -63,6 +63,7 @@ echo ""
 
 # Use journalctl to display the last 10 critical events (0 = Emergency, 1 = Alert, 2 = Critical)
 journalctl -p 0..2 -n 10 --no-pager
+value=$(journalctl -p 0..2 -n 10 --no-pager)
 
 # Result verification
 if [ $? -eq 0 ]; then

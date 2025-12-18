@@ -1,11 +1,11 @@
 #!/bin/bash
-#############################
-# Script graphic card
-# Jouveaux Nicolas
-# 29/11/2025
-##############################
 
 #########################################################################
+# Script 5 last login
+# Chicaud Matthias
+# 17/12/2025
+#########################################################################
+
 #########################################################################
 #                     Define colors with variables                      #
 #########################################################################
@@ -20,7 +20,7 @@ RED='\033[0;91m'
 GREEN='\033[0;32m'
 # Reset color at end of line
 NC='\033[0m'
-# white
+# White
 WHITE='\033[1;97m'
 
 #########################################################################
@@ -54,26 +54,15 @@ save_info()
 #########################################################################
 
 # menu name display
-    echo -e "${TITLE}Carte graphique${NC}"
+    echo -e "${TITLE}Les 5 derniers login${NC}"
     echo ""
 
-echo -e "${TITLE}Détails de la carte graphique${NC}"
-echo ""
+#show the last 5 login
+last -n 5
+value="$(last -n 5)"
 
-# Checked if 'lshw' is installed
-if command -v lshw &> /dev/null
-then
-    echo -e "${GREEN}Recherche de la carte graphique${NC}"
-# Command execution
-    lshw -C display 
-    value=$(lshw -C display) 
-    echo ""   
-else
-# Command isn't installed : error message
-    echo -e "${RED}ATTENTION : La commande 'lshw' n'est pas installée.${NC}"
-    echo ""
-fi
-# Save information
-save_info "Carte graphique" "$value"
+# Save informations
+save_info "Les 5 derniers login" "$value"
 exit 0
-############################################################################
+
+#########################################################################

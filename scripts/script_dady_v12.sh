@@ -341,8 +341,12 @@ menu()
         echo ""
         echo -e "${GREEN}1)${NC} Utilisateur (Action/Information)"
         echo -e "${GREEN}2)${NC} Ordinateur  (Action/Information)"
-        echo -e "${GREEN}3)${NC} Changer de machine"
-        echo -e "${GREEN}4)${NC} Sortie"
+        echo -e "${GREEN}3)${NC} Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
+        echo -e "${GREEN}4)${NC} Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
+        echo -e "${GREEN}5)${NC} Prise en main à distance (CLI)"
+        echo -e "${GREEN}6)${NC} Exécution de script sur la machine distante"
+        echo -e "${GREEN}7)${NC} Changer de machine"
+        echo -e "${GREEN}8)${NC} Sortie"
         echo ""
         read -p "Votre choix :" choice
 
@@ -353,10 +357,30 @@ menu()
             2)  log_event_navigation "MenuOrdinateur"
                     menu_computer
                 ;;
-            3)  log_event_navigation "ChangementMachine"
-                    return;; 
-            
-            4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+            3)  log_event_navigation "RechercheDesEvenements"
+                    bash script_event_search_by_user.sh
+                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    menu
+                ;;
+            4)  log_event_navigation "InformationRechercheEvenementLog_Event.logOrdinateur"
+                    bash script_event_search_by_computer.sh
+                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    menu
+                ;;
+            5)  log_event_navigation "ActionPriseaDistance"
+                    bash script_remote_control.sh
+                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    menu
+                ;;
+            6)  log_event_navigation "ActionExecutionScript"
+                    bash script_remote_script_execution.sh
+                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    menu
+                ;;
+            7)  log_event_navigation "ChangementMachine"
+                    return
+                ;; 
+            8)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                     log_event_navigation "EndScript"
                     exit 0
                 ;;
@@ -418,8 +442,9 @@ menu_user_action()
             echo -e "${GREEN}3)${NC} Suppression de compte utilisateur local"
             echo -e "${GREEN}4)${NC} Ajout à un groupe d'administration"
             echo -e "${GREEN}5)${NC} Ajout à un groupe"
-            echo -e "${GREEN}6)${NC} Retour"
-            echo -e "${GREEN}7)${NC} Exit"
+            echo -e "${GREEN}6)${NC} Modification de permission sur un répertoire"                
+            echo -e "${GREEN}7)${NC} Retour"
+            echo -e "${GREEN}8)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -470,10 +495,19 @@ menu_user_action()
                         fi
                     ;;
                 6)  clear
+                        log_event_action "ActionModificationPermission"
+                        if [ "$os_type" = "linux" ]
+                        then
+                            execution_script_sudo_action "script_add_permissions.sh"
+                        else
+                            execution_script_windows_action "script_add_permissions.ps1"
+                        fi
+                    ;;
+                7)  clear
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                7)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+                8)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
@@ -494,9 +528,8 @@ menu_user_information()
             echo -e "${TITLE}Menu information utilisateur:${NC}"
             echo ""
             echo -e "${GREEN}1)${NC} Droits/permissions de l’utilisateur sur un dossier"
-            echo -e "${GREEN}2)${NC} Recherche des evenements dans le fichier log_evt.log pour un utilisateur"
-            echo -e "${GREEN}3)${NC} Retour"
-            echo -e "${GREEN}4)${NC} Exit"
+            echo -e "${GREEN}2)${NC} Retour"
+            echo -e "${GREEN}3)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -505,25 +538,16 @@ menu_user_information()
                         log_event_information "InformationDroitPermissionDossier"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_sudo_action "script_add_permissions.sh"
+                            execution_script_sudo_action "script_show_directory_permissions.sh"
                         else
-                            execution_script_windows_action "script_add_permissions.ps1"
+                            execution_script_windows_action "script_show_directory_permissions.ps1"
                         fi
                     ;;
                 2)  clear
-                        log_event_information "InformationRechercheEvenementLog_Evt.logUtilisateur"
-                        if [ "$os_type" = "linux" ]
-                        then
-                            execution_script_sudo_action "script_event_search_by_user.sh"
-                        else
-                            execution_script_windows_action "script_event_search_by_user.ps1"
-                        fi
-                    ;;
-                3)  clear
                         log_event_navigation "RetourMenuUtilisateur"
                         break
                     ;;
-                4)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+                3)  echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;
@@ -584,10 +608,8 @@ menu_computer_action()
             echo -e "${GREEN}3)${NC} Activation du pare-feu"
             echo -e "${GREEN}4)${NC} Création de répertoire"
             echo -e "${GREEN}5)${NC} Suppression de répertoire"
-            echo -e "${GREEN}6)${NC} Prise de main à distance (CLI)"
-            echo -e "${GREEN}7)${NC} Exécution de script sur la machine distante"
-            echo -e "${GREEN}8)${NC} Retour"
-            echo -e "${GREEN}9)${NC} Exit"
+            echo -e "${GREEN}6)${NC} Retour"
+            echo -e "${GREEN}7)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -638,27 +660,9 @@ menu_computer_action()
                         fi
                     ;;
                 6)  clear
-                        log_event_action "ActionPriseEnMainDistance"
-                        if [ "$os_type" = "linux" ]
-                        then
-                            execution_script_action "script_remote_control.sh"
-                        else
-                            execution_script_windows_action "script_remote_control.ps1"
-                        fi
-                    ;;
-                7)  clear
-                        log_event_action "ActionExécutionScriptSurMachineDistante"
-                        if [ "$os_type" = "linux" ]
-                        then
-                            execution_script_action "script_remote_script_execution.sh"
-                        else
-                            execution_script_windows_action "script_remote_script_execution.ps1"
-                        fi
-                    ;;
-                8)  clear
                         log_event_navigation "RetourMenuOrdinateur"
                         break;;
-                9)  clear
+                7)  clear
                         log_event_navigation "EndScript"
                         echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         exit 0;;
@@ -688,9 +692,8 @@ menu_computer_information()
             echo -e "${GREEN}10)${NC} Liste des utilisateurs locaux"
             echo -e "${GREEN}11)${NC} 5 derniers logins"
             echo -e "${GREEN}12)${NC} 10 derniers évènements critiques"
-            echo -e "${GREEN}13)${NC} Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
-            echo -e "${GREEN}14)${NC} Retour"
-            echo -e "${GREEN}15)${NC} Exit"
+            echo -e "${GREEN}13)${NC} Retour"
+            echo -e "${GREEN}14)${NC} Exit"
             echo ""
             read -p "Votre choix :" choice3
 
@@ -803,19 +806,10 @@ menu_computer_information()
                             execution_script_windows_information "script_critical_event.ps1"
                         fi
                     ;;
-                13) clear 
-                        log_event_information "InformationRechercheEvenementLog_Event.logOrdinateur"
-                         if [ "$os_type" = "linux" ]
-                        then
-                            execution_script_sudo_information "script_.sh"
-                        else
-                            execution_script_windows_information "script_.ps1"
-                        fi
-                    ;;
-                14) clear
+                13) clear
                         log_event_navigation "RetourMenuOrdinateur"
                     break;;
-                15) echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
+                14) echo -e "${RED}Exit - FIN DE SCRIPT${NC}"
                         log_event_navigation "EndScript"
                         exit 0
                     ;;

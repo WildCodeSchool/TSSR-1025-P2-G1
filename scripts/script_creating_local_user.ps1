@@ -25,10 +25,10 @@ $info_target = $env:COMPUTERNAME # Uncomment for computer script
 Write-Host "Création compte utilisateur local:" -ForegroundColor Yellow
 Write-Host ""
 
-# request for the name of the directory to be creating.
+# request for the name .
     $user = Read-Host "Quel est l'utilisateur à créé"
 
-    # verification of the directory to be creating.
+    # verification of .
     $exists = Get-LocalUser -Name $user -ErrorAction SilentlyContinue
     if ( $exists )
     {
