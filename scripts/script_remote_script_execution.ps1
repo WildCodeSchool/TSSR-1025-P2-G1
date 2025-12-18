@@ -31,7 +31,7 @@ function execution_script_sudo {
     Write-Host "Connexion à $target_user sur la machine $target_computer et exécution de $script_name" -ForegroundColor Yellow
 
     # 1) Copie du script sur la machine distante
-    scp $script_path "$target_user@$target_computer:$remote_path"
+    scp $script_path "${target_user}@${target_computer}:$remote_path"
     if (-not $?) {
         Write-Host "WARNING !!! La copie SCP a échoué" -ForegroundColor Red
         exit 1
