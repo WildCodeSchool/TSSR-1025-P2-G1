@@ -46,9 +46,9 @@ L'objectif principal est de fournir une interface facilitant l'exécution de tâ
 
 | Membre      | Rôle       | Missions                                                                                                          |
 | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
-| Franck        |    |  |
-| Nicolas     |       |  |
-| Matthias     |  |  |
+| Franck        | PO   | Test-Debug Scripts Parents / Amélioration visuel des Scripts Parents |
+| Nicolas     |   SM    |  Scripting PowerShell / Test-Debug Scripts Parents |
+| Matthias     | Technicien | Scripting Bash / Scripting PowerShell / Test-Debug Scripts Enfants / Documentation finale |
 
 # 4. Choix techniques
     
