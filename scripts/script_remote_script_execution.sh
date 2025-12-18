@@ -31,8 +31,8 @@ WHITE='\033[1;97m'
 #########################################################################
 
 # Variable to argument in papa_script
-target_computer="$1"
-target_user="$2"
+target_computer=""
+target_user=""
 
 #########################################################################
 # Function

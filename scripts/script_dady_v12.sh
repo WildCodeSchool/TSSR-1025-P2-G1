@@ -359,17 +359,17 @@ menu()
                 ;;
             3)  log_event_navigation "RechercheDesEvenements"
                     bash script_event_search_by_user.sh
-                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
                     menu
                 ;;
             4)  log_event_navigation "InformationRechercheEvenementLog_Event.logOrdinateur"
                     bash script_event_search_by_computer.sh
-                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
                     menu
                 ;;
             5)  log_event_navigation "ActionPriseaDistance"
                     bash script_remote_control.sh
-                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
                     menu
                 ;;
             6)  log_event_navigation "ActionExecutionScript"
@@ -792,9 +792,9 @@ menu_computer_information()
                         log_event_information "Information5DernierLogin"
                         if [ "$os_type" = "linux" ]
                         then
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_five_last_login.sh"
                         else
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_five_last_login.ps1"
                         fi
                     ;;
                 12) clear 
