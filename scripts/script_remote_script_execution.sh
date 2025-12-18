@@ -41,7 +41,7 @@ execution_script_sudo()
     {
      local script_name="$1"   
      echo -e "${TITLE}Connexion à $target_user sur la machine $target_computer et éxécution du $script_name${NC}"
-                    scp "$chemin""$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
+                    scp "$chemin"/"$script_name" "$target_user"@"$target_computer":/tmp/ &> /dev/null
                         if [ $? -eq 0 ]
                         then
                             ssh -t "$target_user"@"$target_computer" "sudo bash /tmp/"$script_name""
@@ -49,24 +49,6 @@ execution_script_sudo()
                             then
                                 echo -e "${GREEN}Le $script_name a été exécuter avec succès${NC}"
                                 echo ""
-                                ###########################################################################
-                                # Retrieve directory 
-
-                                # Define local directory for storing downloaded info files
-                                local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/ressources/scripts/info"
-                                # Create the local /info directory if it does not exist
-                                mkdir -p "$local_info_dir"
-                                # Check if the retrieval was successful
-                                scp "$target_user"@"$target_computer":/tmp/info/* "$local_info_dir"/  &> /dev/null
-                                    if [ $? -eq 0 ]
-                                    then
-                                        echo "Les fichiers info ont été rapatriés dans $local_info_dir"
-                                        echo ""
-                                    else
-                                        echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
-                                        echo ""
-                                    fi
-                                ###########################################################################
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
                                 echo ""
@@ -96,7 +78,7 @@ execution_script_windows()
     {
      local script_name="$1"   
      echo -e "${TITLE}Connexion à $target_computer et éxécution du $script_name${NC}"
-                    scp "$chemin""$script_name" "$target_user"@"$target_computer":C:/Users/$target_user/Documents/ &> /dev/null
+                    scp "$chemin"/"$script_name" "$target_user"@"$target_computer":C:/Users/$target_user/Documents/ &> /dev/null
                     echo ""
                         if [ $? -eq 0 ]
                         then
@@ -137,7 +119,6 @@ execution_script_windows()
     while true
     do
         clear
-        display_serveur
         echo -e "${TITLE}Sur quel Poste Client voulez-vous vous connecter ?${NC}"
         echo ""
         echo -e "${GREEN}Format accepté : Nom complet ou adresse IP${NC}"
@@ -199,12 +180,13 @@ do
         break
     fi
 done
-        if [ "$os_type" = "linux" ]
-            then
-                execution_script_sudo "$script_name"
-            else
-                execution_script_windows "$script_name"
-            fi
+
+if [ "$os_type" = "linux" ]
+    then
+        execution_script_sudo "$script_name"
+    else
+        execution_script_windows "$script_name"
+    fi
    
-exit 0
+return 0
 #########################################################################

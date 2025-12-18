@@ -373,8 +373,8 @@ menu()
                     menu
                 ;;
             6)  log_event_navigation "ActionExecutionScript"
-                    bash script_remote_script_execution.sh
-                    echo -e "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    source script_remote_script_execution.sh
+                    read -p "Appuyer sur ENTER pour revenir au menu$"
                     menu
                 ;;
             7)  log_event_navigation "ChangementMachine"
@@ -834,7 +834,7 @@ execution_script_windows_information()
                     echo ""
                         if [ $? -eq 0 ]
                         then
-                            ssh  "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh -t  "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             echo ""
                             if [ $? -eq 0 ]
                             then
@@ -902,7 +902,7 @@ execution_script_windows_action()
                     echo ""
                         if [ $? -eq 0 ]
                         then
-                            ssh  "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
+                            ssh -t "$target_user"@"$target_computer" "powershell.exe -ExecutionPolicy Bypass -File C:/Users/$target_user/Documents/$script_name"
                             echo ""
                             if [ $? -eq 0 ]
                             then
