@@ -331,13 +331,13 @@ function menu {
             }
             3 { 
                 log_event_navigation "RechercheEvenement"
-                    & ".\script-event_search_by_user.ps1"
+                    & ".\script_event_search_by_user.ps1"
                     Read-Host "Appuyer sur ENTER pour revenir au menu"
                 menu 
             }
             4 { 
                 log_event_navigation "RechercheEvenement"
-                    & ".\script-event_search_by_computer.ps1"
+                    & ".\script_event_search_by_computer.ps1"
                     Read-Host "Appuyer sur ENTER pour revenir au menu"
                 menu 
             }
@@ -591,11 +591,11 @@ function menu_user_information {
                 log_event_information "InformationDroitPermissionDossier"
                 if ($os_type -eq "linux")
                 {
-                    execution_script_sudo_action "show_directory_permissions.sh"
+                    execution_script_sudo_action "script_show_directory_permissions.sh"
                 }    
                 else
                 {
-                    execution_script_windows_action "show_directory_permissions.ps1"
+                    execution_script_windows_action "script_show_directory_permissions.ps1"
                 }
              }
             2 { 
@@ -868,11 +868,11 @@ function menu_desktop_information {
                         log_event_information "Information5DernierLogin"
                         if ($os_type -eq "linux")
                         {
-                            execution_script_information "script_.sh"
+                            execution_script_information "script_five_last_login.sh"
                         }    
                         else
                         {
-                            execution_script_windows_information "script_.ps1"
+                            execution_script_windows_information "script_five_last_login.ps1"
                         }
                 }
                 12 { 
