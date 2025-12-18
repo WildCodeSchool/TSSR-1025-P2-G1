@@ -175,14 +175,14 @@ Menu Principal → Ordinateur → Action → [Choix 1-9] → Exécution → Reto
 
 Le script permet d'effectuer les actions suivantes sur les comptes utilisateurs :
 
-| Action | Description | Droits requis |
-|--------|-------------|---------------|
-| **1) Création de compte utilisateur local** | Crée un nouveau compte utilisateur sur la machine cible | Sudo/Admin |
-| **2) Changement de mot de passe** | Modifie le mot de passe d'un utilisateur existant | Sudo/Admin |
-| **3) Suppression de compte utilisateur local** | Supprime un compte utilisateur de la machine cible | Sudo/Admin |
-| **4) Ajout à un groupe d'administration** | Ajoute un utilisateur au groupe sudo (Linux) ou Administrators (Windows) | Sudo/Admin |
-| **5) Ajout à un groupe** | Ajoute un utilisateur à un groupe personnalisé | Sudo/Admin |
-| **6) Modification de permission sur un répertoire** | Change les permissions d'accès d'un utilisateur sur un dossier spécifique | Sudo/Admin |
+| Action | Description |
+|--------|-------------|
+| **1) Création de compte utilisateur local** | Crée un nouveau compte utilisateur sur la machine cible |
+| **2) Changement de mot de passe** | Modifie le mot de passe d'un utilisateur existant |
+| **3) Suppression de compte utilisateur local** | Supprime un compte utilisateur de la machine cible |
+| **4) Ajout à un groupe d'administration** | Ajoute un utilisateur au groupe sudo (Linux) ou Administrators (Windows) |
+| **5) Ajout à un groupe** | Ajoute un utilisateur à un groupe personnalisé |
+| **6) Modification de permission sur un répertoire** | Change les permissions d'accès d'un utilisateur sur un dossier spécifique |
 
 **Notes importantes :**
 - Toutes ces actions nécessitent des droits administrateur sur la machine cible
@@ -193,9 +193,9 @@ Le script permet d'effectuer les actions suivantes sur les comptes utilisateurs 
 
 Le script permet de consulter les informations suivantes concernant un utilisateur :
 
-| Information | Description | Format de sortie |
-|-------------|-------------|------------------|
-| **Droits/permissions sur un dossier** | Affiche les permissions d'un utilisateur sur un répertoire spécifique | Fichier texte `info_<user>_<date>.txt` |
+| Information | Description |
+|-------------|-------------|
+| **Droits/permissions sur un dossier** | Affiche les permissions d'un utilisateur sur un répertoire spécifique |
 
 **Exemple de contenu du fichier d'information :**
 ```
@@ -212,15 +212,15 @@ Date de récupération : 20241218_143022
 
 Le script permet d'effectuer les actions suivantes sur les machines clientes :
 
-| Action | Description | Droits requis |
-|--------|-------------|---------------|
-| **1) Verrouillage** | Verrouille la session de l'utilisateur distant | Standard |
-| **2) Redémarrage** | Redémarre la machine distante | Sudo/Admin |
-| **3) Activation du pare-feu** | Active le pare-feu système (ufw sur Linux, Windows Firewall sur Windows) | Sudo/Admin |
-| **4) Création de répertoire** | Crée un nouveau dossier sur la machine distante | Sudo/Admin |
-| **5) Suppression de répertoire** | Supprime un dossier existant sur la machine distante | Sudo/Admin |
-| **6) Prise de main à distance (CLI)** | Ouvre une session SSH interactive vers la machine cible | Standard |
-| **7) Exécution de script sur la machine distante** | Permet d'exécuter un script personnalisé sur la machine cible | Standard |
+| Action | Description |
+|--------|-------------|
+| **1) Verrouillage** | Verrouille la session de l'utilisateur distant |
+| **2) Redémarrage** | Redémarre la machine distante |
+| **3) Activation du pare-feu** | Active le pare-feu système (ufw sur Linux, Windows Firewall sur Windows) |
+| **4) Création de répertoire** | Crée un nouveau dossier sur la machine distante |
+| **5) Suppression de répertoire** | Supprime un dossier existant sur la machine distante |
+| **6) Prise de main à distance (CLI)** | Ouvre une session SSH interactive vers la machine cible |
+| **7) Exécution de script sur la machine distante** | Permet d'exécuter un script personnalisé sur la machine cible |
 
 **Notes importantes :**
 - Les actions 2, 3, 4 et 5 nécessitent des droits administrateur
@@ -232,21 +232,21 @@ Le script permet d'effectuer les actions suivantes sur les machines clientes :
 
 Le script peut récupérer les informations système suivantes :
 
-| Information | Description | Exemple de résultat |
-|-------------|-------------|---------------------|
-| **1) Adresse IP, masque, passerelle** | Configuration réseau de la machine | IP: 172.16.10.30, Masque: 255.255.255.0, Passerelle: 172.16.10.254 |
-| **2) Version de l'OS** | Système d'exploitation et version | Ubuntu 24.04 LTS / Windows 11 Pro |
-| **3) Carte graphique** | Modèle de GPU installé | NVIDIA GeForce RTX 3060 |
-| **4) CPU %** | Utilisation actuelle du processeur | CPU: 23.5% |
-| **5) Uptime** | Temps depuis le dernier démarrage | Uptime: 3 days, 14:23:45 |
-| **6) Température CPU** | Température du processeur | Temp: 52°C |
-| **7) Nombre de disque** | Nombre de disques physiques | Disques: 2 |
-| **8) Partition (nombre, nom, FS, taille) par disque** | Détails des partitions | /dev/sda1: ext4, 250GB |
-| **9) Espace disque restant par partition/volume** | Espace disponible sur chaque partition | /dev/sda1: 127GB libre / 250GB (51%) |
-| **10) Liste des utilisateurs locaux** | Liste de tous les comptes utilisateurs | wilder, admin, guest |
-| **11) 5 derniers logins** | Historique des 5 dernières connexions | wilder: 2024-12-18 14:30 |
-| **12) 10 derniers événements critiques** | Événements système critiques récents | Error: Service failed to start |
-| **13) Recherche des événements dans log_evt.log** | Recherche d'événements spécifiques dans les logs du script | Résultats de recherche filtrés |
+| Information | Description |
+|-------------|-------------|
+| **1) Adresse IP, masque, passerelle** | Configuration réseau de la machine |
+| **2) Version de l'OS** | Système d'exploitation et version |
+| **3) Carte graphique** | Modèle de GPU installé |
+| **4) CPU %** | Utilisation actuelle du processeur |
+| **5) Uptime** | Temps depuis le dernier démarrage |
+| **6) Température CPU** | Température du processeur |
+| **7) Nombre de disque** | Nombre de disques physiques |
+| **8) Partition (nombre, nom, FS, taille) par disque** | Détails des partitions |
+| **9) Espace disque restant par partition/volume** | Espace disponible sur chaque partition |
+| **10) Liste des utilisateurs locaux** | Liste de tous les comptes utilisateurs |
+| **11) 5 derniers logins** | Historique des 5 dernières connexions |
+| **12) 10 derniers événements critiques** | Événements système critiques récents |
+| **13) Recherche des événements dans log_evt.log** | Recherche d'événements spécifiques dans les logs du script |
 
 **Notes importantes :**
 - Toutes les informations sont sauvegardées dans des fichiers `info_<machine>_<date>.txt`
