@@ -54,6 +54,7 @@ function save_info {
 
 # Command to get graphic card information
     Get-PhysicalDisk | Format-Table
+    $value = Get-PhysicalDisk | Format-Table
 
 # Save information
 save_info "Carte graphique" "$value"

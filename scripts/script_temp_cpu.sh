@@ -40,6 +40,7 @@ if command -v sensors &> /dev/null
 then
 # Filtering and executing the 'sensors' command to get CPU temperature
     sensors 2>/dev/null | grep -E 'Core |Package id'
+    value=$(sensors 2>/dev/null | grep -E 'Core |Package id')
     
 # Verification if sensors command returned a value
         if [ $? -eq 0 ];

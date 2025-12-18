@@ -66,6 +66,7 @@ then
     echo -e "${GREEN}Recherche de la carte graphique${NC}"
 # Command execution
     lshw -C display 
+    value=$(lshw -C display) 
     echo ""   
 else
 # Command isn't installed : error message
