@@ -331,13 +331,13 @@ function menu {
             }
             3 { 
                 log_event_navigation "RechercheEvenement"
-                    & ".\script-event_search_by_user.ps1"
+                    & ".\script_event_search_by_user.ps1"
                     Read-Host "Appuyer sur ENTER pour revenir au menu"
                 menu 
             }
             4 { 
                 log_event_navigation "RechercheEvenement"
-                    & ".\script-event_search_by_computer.ps1"
+                    & ".\script_event_search_by_computer.ps1"
                     Read-Host "Appuyer sur ENTER pour revenir au menu"
                 menu 
             }
