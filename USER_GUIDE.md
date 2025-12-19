@@ -138,10 +138,10 @@ Chaque choix ouvre un sous-menu dédié aux actions possibles.
 **Options disponibles :**
 - **1) Utilisateur** : Accès aux actions et informations concernant les comptes utilisateurs
 - **2) Ordinateur** : Accès aux actions et informations concernant les machines clientes
-- **2) Recherche des événements utilisateur** : Recherche dans le fichier log_evt.log des événements par utilisateur
-- **2) Recherche des événements ordinateur** : Recherche dans le fichier log_evt.log des événements par ordinateur
-- **2) Prise en main à distance** : Prise en main à distance d'un ordinateurs du parc
-- **2) Exécution de script machine distante** : Envoie d'un script sur une machine distante du parc
+- **3) Recherche des événements utilisateur** : Recherche dans le fichier log_evt.log des événements par utilisateur
+- **4) Recherche des événements ordinateur** : Recherche dans le fichier log_evt.log des événements par ordinateur
+- **5) Prise en main à distance** : Prise en main à distance d'un ordinateurs du parc
+- **6) Exécution de script machine distante** : Envoie d'un script sur une machine distante du parc
 - **3) Exit** : Fermeture du script
 
 ## 4.2. Sélection de la cible
