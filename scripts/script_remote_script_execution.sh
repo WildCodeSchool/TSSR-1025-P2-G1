@@ -49,6 +49,24 @@ execution_script_sudo()
                             then
                                 echo -e "${GREEN}Le $script_name a été exécuter avec succès${NC}"
                                 echo ""
+                                 ###########################################################################
+                                # Retrieve directory 
+
+                                # Define local directory for storing downloaded info files
+                                local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/scripts/info"
+                                # Create the local /info directory if it does not exist
+                                mkdir -p "$local_info_dir"
+                                # Check if the retrieval was successful
+                                scp "$target_user"@"$target_computer":~/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                    if [ $? -eq 0 ]
+                                    then
+                                        echo -e "${GREEN}Les fichiers info ont été importés dans $local_info_dir${NC}"
+                                        echo ""
+                                    else
+                                        echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
+                                        echo ""
+                                    fi
+                                ###########################################################################
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
                                 echo ""
@@ -88,6 +106,24 @@ execution_script_windows()
                             then
                                 echo -e "${LABEL}Le $script_name a été exécuté avec succès${NC}"
                                 echo ""
+                                 ###########################################################################
+                                # Retrieve directory 
+
+                                # Define local directory for storing downloaded info files
+                                local_info_dir="$HOME/Documents/TSSR-1025-P2-G1/scripts/info"
+                                # Create the local /info directory if it does not exist
+                                mkdir -p "$local_info_dir"
+                                # Check if the retrieval was successful
+                                scp "$target_user"@"$target_computer":C:/Users/$target_user/Documents/info/* "$local_info_dir"/  &> /dev/null
+                                    if [ $? -eq 0 ]
+                                    then
+                                        echo -e "${GREEN}Les fichiers info ont été importés dans $local_info_dir${NC}"
+                                        echo ""
+                                    else
+                                        echo -e "${RED}WARNING !!!${NC} Aucun fichier info récupéré ou dossier vide."
+                                        echo ""
+                                    fi
+                                 ###########################################################################
                             else
                                 echo -e "${RED} WARNING !!! ${NC} Le $script_name ne s'est pas éxécuté !!!"
                                 echo ""

@@ -359,17 +359,17 @@ menu()
                 ;;
             3)  log_event_navigation "RechercheDesEvenements"
                     bash script_event_search_by_user.sh
-                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "Appuyer sur ENTER pour revenir au menu"
                     menu
                 ;;
             4)  log_event_navigation "InformationRechercheEvenementLog_Event.logOrdinateur"
                     bash script_event_search_by_computer.sh
-                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "Appuyer sur ENTER pour revenir au menu"
                     menu
                 ;;
             5)  log_event_navigation "ActionPriseaDistance"
                     bash script_remote_control.sh
-                    read -p "${LABEL}Appuyer sur ENTER pour revenir au menu${NC}"
+                    read -p "Appuyer sur ENTER pour revenir au menu"
                     menu
                 ;;
             6)  log_event_navigation "ActionExecutionScript"
