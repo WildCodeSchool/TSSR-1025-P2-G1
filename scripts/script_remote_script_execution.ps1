@@ -82,10 +82,11 @@ function execution_script_sudo {
 #########################################################################
 
 Clear-Host
-Write-Host "Utilisation de script à distance" -ForegroundColor Yellow
-Write-Host ""
-Write-Host "Quel script voulez-vous utiliser à distance ?" -ForegroundColor Yellow
+Write-Host "NON ACCESSIBLE," -ForegroundColor Blue -NoNewline
+Write-Host "TECHNICIENS " -ForegroundColor White -NoNewline
+Write-Host "EN VACANCES !" -ForegroundColor Red -NoNewline
 
+$script_path = Read-Host
 $script_path = Read-Host "Chemin local vers votre script (.ps1)"
 
 # Vérification que le script existe

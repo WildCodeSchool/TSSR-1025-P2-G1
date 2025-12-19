@@ -313,8 +313,8 @@ function menu {
         Write-Host "3) Recherche des évènements dans le fichier log_evt.log pour un utilisateur"
         Write-Host "4) Recherche des évènements dans le fichier log_evt.log pour un ordinateur"
         Write-Host "5) Prise en main à distance (CLI)"
-        Write-Host "6) Exécution de script sur la machine distante"
-        Write-Host "7) Changer de machine"
+        Write-Host "6) Exécution de script sur la machine distante : " -NoNewline
+        Write-Host "En TRAVAUX" -ForegroundColor Red
         Write-Host "8) Sortie"
         Write-Host ""
         $choice = Read-Host "Votre choix"
