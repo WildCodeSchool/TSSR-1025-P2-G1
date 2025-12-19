@@ -138,6 +138,10 @@ Chaque choix ouvre un sous-menu dédié aux actions possibles.
 **Options disponibles :**
 - **1) Utilisateur** : Accès aux actions et informations concernant les comptes utilisateurs
 - **2) Ordinateur** : Accès aux actions et informations concernant les machines clientes
+- **2) Recherche des événements utilisateur** : Recherche dans le fichier log_evt.log des événements par utilisateur
+- **2) Recherche des événements ordinateur** : Recherche dans le fichier log_evt.log des événements par ordinateur
+- **2) Prise en main à distance** : Prise en main à distance d'un ordinateurs du parc
+- **2) Exécution de script machine distante** : Envoie d'un script sur une machine distante du parc
 - **3) Exit** : Fermeture du script
 
 ## 4.2. Sélection de la cible
@@ -219,8 +223,6 @@ Le script permet d'effectuer les actions suivantes sur les machines clientes :
 | **3) Activation du pare-feu** | Active le pare-feu système (ufw sur Linux, Windows Firewall sur Windows) |
 | **4) Création de répertoire** | Crée un nouveau dossier sur la machine distante |
 | **5) Suppression de répertoire** | Supprime un dossier existant sur la machine distante |
-| **6) Prise de main à distance (CLI)** | Ouvre une session SSH interactive vers la machine cible |
-| **7) Exécution de script sur la machine distante** | Permet d'exécuter un script personnalisé sur la machine cible |
 
 **Notes importantes :**
 - Les actions 2, 3, 4 et 5 nécessitent des droits administrateur
@@ -246,7 +248,6 @@ Le script peut récupérer les informations système suivantes :
 | **10) Liste des utilisateurs locaux** | Liste de tous les comptes utilisateurs |
 | **11) 5 derniers logins** | Historique des 5 dernières connexions |
 | **12) 10 derniers événements critiques** | Événements système critiques récents |
-| **13) Recherche des événements dans log_evt.log** | Recherche d'événements spécifiques dans les logs du script |
 
 **Notes importantes :**
 - Toutes les informations sont sauvegardées dans des fichiers `info_<machine>_<date>.txt`
