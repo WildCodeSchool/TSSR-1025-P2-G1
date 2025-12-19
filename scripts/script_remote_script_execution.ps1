@@ -86,14 +86,14 @@ Write-Host "NON ACCESSIBLE," -ForegroundColor Blue -NoNewline
 Write-Host "TECHNICIENS " -ForegroundColor White -NoNewline
 Write-Host "EN VACANCES !" -ForegroundColor Red -NoNewline
 
-$script_path = Read-Host
-$script_path = Read-Host "Chemin local vers votre script (.ps1)"
+# $script_path = Read-Host
+# $script_path = Read-Host "Chemin local vers votre script (.ps1)"
 
 # Vérification que le script existe
-if (-not (Test-Path $script_path)) {
-    Write-Host "WARNING ! Le script n'existe pas" -ForegroundColor Red
+# if (-not (Test-Path $script_path)) {
+  #  Write-Host "WARNING ! Le script n'existe pas" -ForegroundColor Red
     exit 1
-}
+# }
 
 Write-Host "Le script existe bien." -ForegroundColor Green
 Write-Host ""
